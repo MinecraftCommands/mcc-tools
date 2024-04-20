@@ -16,6 +16,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
+        robotoMono: ["var(--font-roboto_mono)"],
       },
       colors: {
         border: "hsl(var(--border))",

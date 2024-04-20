@@ -9,6 +9,14 @@ import {
   NavigationMenuList,
 } from "~/components/ui/navigation-menu";
 import { Logo } from "~/components/logo";
+import { cn } from "~/lib/utils";
+
+import { Roboto_Mono } from "next/font/google";
+
+const robotoMono = Roboto_Mono({
+  subsets: ["latin"],
+  variable: "--font-roboto_mono",
+});
 
 export function SiteHeader() {
   return (
@@ -18,12 +26,14 @@ export function SiteHeader() {
           <NavigationMenuList>
             <NavigationMenuItem>
               <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink className="flex items-center gap-2">
+                <NavigationMenuLink
+                  className={cn(
+                    "font-robotoMono flex items-center gap-2 font-[250]",
+                    robotoMono.variable,
+                  )}
+                >
                   <Logo />
-                  <div>
-                    MCC
-                    <br /> Gadgets
-                  </div>
+                  <div>MCC Gadgets</div>
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
