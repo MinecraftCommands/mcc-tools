@@ -1,5 +1,3 @@
-"use client";
-
 import LogoCircle from "public/logo_circle.svg";
 
 import { cn } from "~/lib/utils";
