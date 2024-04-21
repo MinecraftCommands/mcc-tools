@@ -9,6 +9,7 @@ import {
   NavigationMenuList,
 } from "~/components/ui/navigation-menu";
 import { Logo } from "~/components/logo";
+import { ModeToggle } from "~/components/mode-toggle";
 import { cn } from "~/lib/utils";
 
 import { Roboto_Mono } from "next/font/google";
@@ -21,7 +22,7 @@ const robotoMono = Roboto_Mono({
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 py-2 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container">
+      <div className="container flex items-center">
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
@@ -39,6 +40,9 @@ export function SiteHeader() {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
+        <div className="ml-auto">
+          <ModeToggle />
+        </div>
       </div>
     </header>
   );
