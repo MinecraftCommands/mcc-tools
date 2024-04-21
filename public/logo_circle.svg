@@ -4,10 +4,72 @@
    height="64"
    viewBox="0 0 16.933333 16.933334"
    version="1.1"
-   id="svg30"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <path
-     style="fill:currentColor;fill-opacity:1;stroke-width:0.600373"
-     d="M 8.4666667,0 C 3.7928998,0 0,3.7925105 0,8.4662771 c 0,4.6737669 3.7928998,8.4667919 8.4666667,8.4667919 4.6737673,0 8.4666663,-3.793025 8.4666663,-8.4667919 C 16.933333,3.7925105 13.140434,0 8.4666667,0 Z m 0,0.30209134 c 4.5108953,0 8.1648953,3.65329116 8.1648953,8.16418576 0,4.5108949 -3.654,8.1646999 -8.1648953,8.1646999 -4.5108951,0 -8.16437803,-3.653805 -8.16437803,-8.1646999 0,-4.5108946 3.65348293,-8.16418576 8.16437803,-8.16418576 z M 10.618859,2.2021276 a 0.48927942,0.48927947 0 0 0 -0.489346,0.4889041 0.48927942,0.48927947 0 0 0 0.03256,0.1749763 L 8.3684875,4.0074708 V 6.4097914 H 5.6282537 V 5.4314685 H 3.6713865 V 7.3881147 H 4.6495618 V 14.042358 H 12.282738 V 7.3881147 h 0.978176 V 5.4314685 H 11.304046 V 6.4097914 H 8.5638126 V 4.1150295 L 10.267481,3.0312063 A 0.48927942,0.48927947 0 0 0 10.618859,3.1804505 0.48927942,0.48927947 0 0 0 11.108205,2.6910317 0.48927942,0.48927947 0 0 0 10.618859,2.2021276 Z M 5.0412452,6.8014297 H 11.891055 V 13.651235 H 5.0412452 Z m 1.3698587,1.369961 V 9.1497138 H 7.3897958 V 8.1713907 Z m 1.5657003,0 V 9.1497138 H 8.9554959 V 8.1713907 Z m 1.5657002,0 V 9.1497138 H 10.521196 V 8.1713907 Z M 6.4111039,9.7369137 V 10.715237 H 7.3897958 V 9.7369137 Z m 1.5657003,0 V 10.715237 H 8.9554959 V 9.7369137 Z m 1.5657002,0 V 10.715237 H 10.521196 V 9.7369137 Z M 6.4111039,11.302436 v 0.978838 h 0.9786919 v -0.978838 z m 1.5657003,0 v 0.978838 h 0.9786917 v -0.978838 z m 1.5657002,0 v 0.978838 h 0.9786916 v -0.978838 z" />
+     d="m 10.292374,3.1524502 c -0.229127,-3.14e-5 -0.4149372,0.1856109 -0.4151136,0.4147379 5.51e-5,0.050754 0.00942,0.1010598 0.027621,0.1484323 L 8.3833809,4.6839249 V 6.721816 H 6.058837 V 5.8919042 H 4.3988247 V 7.5517295 H 5.2286118 V 13.196532 H 11.703844 V 7.5517295 h 0.829788 V 5.8919042 H 10.873618 V 6.721816 H 8.5490754 V 4.7751665 L 9.9942997,3.8557581 c 0.07812,0.080818 0.1856723,0.1265046 0.2980743,0.1266039 0.229298,3.14e-5 0.415177,-0.1858764 0.415113,-0.4151739 -1.76e-4,-0.229127 -0.185986,-0.4147693 -0.415113,-0.4147379 z M 5.5608778,7.0540438 H 11.37158 V 12.864742 H 5.5608778 Z"
+     style="fill:currentColor;fill-opacity:1;stroke:currentColor;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  <g
+     transform="matrix(0.84830125,0,0,0.84830125,1.2843827,1.2843827)"
+     style="stroke-width:1.17883">
+    <rect
+       style="fill:currentColor;fill-opacity:1;stroke:currentColor;stroke-width:0;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       width="0.97869205"
+       height="0.97832346"
+       x="6.4111042"
+       y="8.1713905" />
+    <rect
+       style="fill:currentColor;fill-opacity:1;stroke:currentColor;stroke-width:0;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       width="0.97869205"
+       height="0.97832346"
+       x="7.9768052"
+       y="8.1713905" />
+    <rect
+       style="fill:currentColor;fill-opacity:1;stroke:currentColor;stroke-width:0;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       width="0.97869205"
+       height="0.97832346"
+       x="9.5425053"
+       y="8.1713905" />
+    <rect
+       style="fill:currentColor;fill-opacity:1;stroke:currentColor;stroke-width:0;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       width="0.97869205"
+       height="0.97832346"
+       x="6.4111032"
+       y="9.7369137" />
+    <rect
+       style="fill:currentColor;fill-opacity:1;stroke:currentColor;stroke-width:0;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       width="0.97869205"
+       height="0.97832346"
+       x="7.9768043"
+       y="9.7369137" />
+    <rect
+       style="fill:currentColor;fill-opacity:1;stroke:currentColor;stroke-width:0;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       width="0.97869205"
+       height="0.97832346"
+       x="9.5425043"
+       y="9.7369137" />
+    <rect
+       style="fill:currentColor;fill-opacity:1;stroke:currentColor;stroke-width:0;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       width="0.97869205"
+       height="0.97832346"
+       x="6.4111042"
+       y="11.302436" />
+    <rect
+       style="fill:currentColor;fill-opacity:1;stroke:currentColor;stroke-width:0;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       width="0.97869205"
+       height="0.97832346"
+       x="7.9768052"
+       y="11.302436" />
+    <rect
+       style="fill:currentColor;fill-opacity:1;stroke:currentColor;stroke-width:0;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       width="0.97869205"
+       height="0.97832346"
+       x="9.5425062"
+       y="11.302436" />
+  </g>
+  <circle
+     style="fill:none;fill-opacity:1;stroke:currentColor;stroke-width:0.4;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+     cx="8.4666662"
+     cy="8.4666662"
+     r="7.0550385" />
 </svg>

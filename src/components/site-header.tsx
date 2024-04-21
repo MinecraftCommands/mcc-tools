@@ -28,7 +28,7 @@ export function SiteHeader() {
               <Link href="/" legacyBehavior passHref>
                 <NavigationMenuLink
                   className={cn(
-                    "font-robotoMono flex items-center gap-2 font-[250]",
+                    "flex items-center gap-2 font-robotoMono font-[300] dark:font-[250]",
                     robotoMono.variable,
                   )}
                 >
