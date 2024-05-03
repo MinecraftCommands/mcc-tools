@@ -9,10 +9,23 @@ import parseHtml, {
   type HTMLReactParserOptions,
 } from "html-react-parser";
 import { ElementType } from "domelementtype";
-import type { JSX } from "react";
+import { Suspense, type JSX } from "react";
 import type { DOMNode } from "html-dom-parser";
+import { Skeleton } from "../ui/skeleton";
 
-export default async function PatchNotes({
+export default function PatchNotes({
+  version = { latest: true },
+}: {
+  version?: PatchNotesQuery;
+}) {
+  return (
+    <Suspense fallback={<Skeleton className="h-page" />}>
+      <PatchNotesImpl version={version} />
+    </Suspense>
+  );
+}
+
+async function PatchNotesImpl({
   version = { latest: true },
 }: {
   version?: PatchNotesQuery;
@@ -65,7 +78,7 @@ export default async function PatchNotes({
   const dom = parseHtml(cleanPatchNotesHTML, options);
 
   return (
-    <div className="container prose dark:prose-invert lg:prose-xl">
+    <div className="prose mx-auto dark:prose-invert lg:prose-xl">
       <h1>{patchNotes.title}</h1>
       {dom}
     </div>

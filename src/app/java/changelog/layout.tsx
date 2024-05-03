@@ -30,7 +30,7 @@ export default async function ChangelogLayout({
   return (
     <div className="grid grid-cols-[max-content_1fr] items-start gap-3 p-2">
       <div className="sticky top-[calc(theme(height.header)+theme(padding.2))]">
-        <ScrollArea className="h-[calc(100vh-theme(height.header)-theme(padding.2)*2)] rounded-md border px-2 py-1">
+        <ScrollArea className="h-page rounded-md border px-2 py-1">
           <ul>
             <li key="latest">
               <VersionLink

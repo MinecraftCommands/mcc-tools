@@ -14,8 +14,12 @@ export default {
       },
     },
     extend: {
-      height: {
-        header: "52px",
+      height: ({ theme }) => {
+        const headerHeight = "52px";
+        return {
+          header: headerHeight,
+          page: `calc(100vh - ${headerHeight} - ${theme("padding.2")}*2)`,
+        };
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
