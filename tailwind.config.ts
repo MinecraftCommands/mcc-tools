@@ -14,6 +14,9 @@ export default {
       },
     },
     extend: {
+      height: {
+        header: "52px",
+      },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
         robotoMono: ["var(--font-roboto_mono)"],
