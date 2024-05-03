@@ -18,7 +18,7 @@ export default async function Home() {
   // const session = await getServerAuthSession();
 
   return (
-    <main className="prose lg:prose-xl dark:prose-invert container pt-8">
+    <main className="container prose pt-8 dark:prose-invert lg:prose-xl">
       <h1>Welcome to MCC Gadgets!</h1>
       <h2>Tools for the Minecraft Commands community</h2>
       <p>
