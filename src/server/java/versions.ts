@@ -26,19 +26,35 @@ export type VersionManifestEntry = z.infer<
 >;
 
 const VERSIONS_MANIFEST_SCHEMA = z.object({
-  entries: z.array(VERSION_MANIFEST_ENTRY_SCHEMA),
+  entries: z
+    .array(VERSION_MANIFEST_ENTRY_SCHEMA)
+    .nonempty({ message: "Must have at least 1 version" }),
 });
 
 export type VersionManifest = z.infer<typeof VERSIONS_MANIFEST_SCHEMA>;
+export type VersionManifestZodError = ZodError<
+  z.input<typeof VERSIONS_MANIFEST_SCHEMA>
+>;
 
 const BASE_URL = "https://launchercontent.mojang.com/v2/";
 
-// TODO: Return errors nicely
 export const getVersionManifest = unstable_cache(
-  async () => {
+  async (): Promise<
+    | { success: true; data: VersionManifest }
+    | {
+        success: false;
+        error: VersionManifestZodError;
+      }
+  > => {
     const versionsRes = await fetch(BASE_URL + "javaPatchNotes.json");
-    const versions = VERSIONS_MANIFEST_SCHEMA.parse(await versionsRes.json());
-    versions.entries.sort((a, b) => (a.date < b.date ? 1 : -1));
+    const versions = VERSIONS_MANIFEST_SCHEMA.safeParse(
+      await versionsRes.json(),
+    );
+
+    if (versions.success) {
+      versions.data.entries.sort((a, b) => (a.date < b.date ? 1 : -1));
+    }
+
     return versions;
   },
   ["java", "version_manifest"],
@@ -50,6 +66,7 @@ const PATCH_NOTE_SCHEMA = VERSION_COMMON_SCHEMA.extend({
 });
 
 export type PatchNote = z.infer<typeof PATCH_NOTE_SCHEMA>;
+export type PatchNoteZodError = ZodError<z.input<typeof PATCH_NOTE_SCHEMA>>;
 
 export enum PatchNotesError {
   VersionNotFound = "Version not found",
@@ -64,20 +81,24 @@ export const getPatchNotes = unstable_cache(
     | { success: true; data: PatchNote }
     | {
         success: false;
-        error: PatchNotesError | ZodError<z.input<typeof PATCH_NOTE_SCHEMA>>;
+        error: PatchNotesError | PatchNoteZodError | VersionManifestZodError;
       }
   > => {
     const versions = await getVersionManifest();
+    if (!versions.success) return versions;
+
     let partialVersion;
     if (typeof version === "string") {
-      partialVersion = versions.entries.find((v) => v.version === version);
+      partialVersion = versions.data.entries.find((v) => v.version === version);
     } else if (version.latest === true) {
-      partialVersion = versions.entries[0];
+      partialVersion = versions.data.entries[0];
     } else if (typeof version.latest === "string") {
-      partialVersion = versions.entries.find((v) => v.type === version.latest);
+      partialVersion = versions.data.entries.find(
+        (v) => v.type === version.latest,
+      );
     } else {
       const includes = version.latest.includes.bind(version.latest);
-      partialVersion = versions.entries.find((v) => includes(v.type));
+      partialVersion = versions.data.entries.find((v) => includes(v.type));
     }
 
     if (!partialVersion)
