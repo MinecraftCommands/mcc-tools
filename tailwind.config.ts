@@ -18,7 +18,7 @@ export default {
         const headerHeight = "52px";
         return {
           header: headerHeight,
-          page: `calc(100vh - ${headerHeight} - ${theme("padding.2")}*2)`,
+          page: `calc(var(--viewport-height) - ${headerHeight} - ${theme("padding.2")}*2)`,
         };
       },
       fontFamily: {

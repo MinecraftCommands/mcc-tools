@@ -6,6 +6,7 @@ import { TRPCReactProvider } from "~/trpc/react";
 import { cn } from "~/lib/utils";
 import { ThemeProvider } from "~/components/theme-provider";
 import { SiteHeader } from "~/components/site-header";
+import CssVars from "~/components/css-vars";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,10 +32,12 @@ export default function RootLayout({
           inter.variable,
         )}
       >
-        <ThemeProvider attribute="class" disableTransitionOnChange>
-          <SiteHeader />
-          <TRPCReactProvider>{children}</TRPCReactProvider>
-        </ThemeProvider>
+        <CssVars>
+          <ThemeProvider attribute="class" disableTransitionOnChange>
+            <SiteHeader />
+            <TRPCReactProvider>{children}</TRPCReactProvider>
+          </ThemeProvider>
+        </CssVars>
       </body>
     </html>
   );
