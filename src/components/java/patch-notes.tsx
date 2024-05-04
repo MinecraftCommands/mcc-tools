@@ -85,11 +85,17 @@ async function PatchNotesImpl({
   };
 
   const dom = parseHtml(cleanPatchNotesHTML, options);
+  const baseAssetURL = "https://launchercontent.mojang.com"
 
   return (
-    <div className="prose mx-auto dark:prose-invert lg:prose-xl">
-      <h1>{patchNotes.title}</h1>
-      {dom}
+    <div>
+      <div
+        className="after:bg-gradient-to-t after:from-background after:w-full after:h-full after:block after:absolute after:top-0 relative h-[60vh] bg-cover bg-center"
+        style={{backgroundImage: `url(${baseAssetURL + patchNotes.image.url})`}}></div>
+      <div className="prose mx-auto dark:prose-invert lg:prose-xl -translate-y-[30vh]">
+        <h1>{patchNotes.title}</h1>
+        {dom}
+      </div>
     </div>
   );
 }
