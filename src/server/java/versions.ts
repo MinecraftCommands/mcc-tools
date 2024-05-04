@@ -107,4 +107,6 @@ export const getPatchNotes = unstable_cache(
     const patchRes = await fetch(BASE_URL + partialVersion.contentPath);
     return PATCH_NOTE_SCHEMA.safeParse(await patchRes.json());
   },
+  ["java", "patch_note"],
+  { revalidate: 2 /* m */ * 60 /* s/m */ },
 );
