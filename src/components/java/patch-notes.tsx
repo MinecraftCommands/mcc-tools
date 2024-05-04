@@ -12,6 +12,7 @@ import { ElementType } from "domelementtype";
 import { Suspense, type JSX } from "react";
 import type { DOMNode } from "html-dom-parser";
 import { Skeleton } from "../ui/skeleton";
+import { toKebabCase } from "~/lib/utils";
 
 export default function PatchNotes({
   version = { latest: true },
@@ -51,8 +52,14 @@ async function PatchNotesImpl({
 
   const patchNotes = maybePatchNotes.data;
 
+  const allowedAttributes = { ...sanitizeHtml.defaults.allowedAttributes };
+  if (!("*" in allowedAttributes)) {
+    allowedAttributes["*"] = [];
+  }
+  allowedAttributes["*"].push("id");
   const cleanPatchNotesHTML = sanitizeHtml(patchNotes.body, {
     allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+    allowedAttributes,
   });
 
   const options: HTMLReactParserOptions = {
@@ -67,11 +74,13 @@ async function PatchNotesImpl({
 
       if (!HElem) return;
 
-      return (
-        <HElem {...domNode.attribs}>
-          {domToReact(domNode.children as DOMNode[], options)}
-        </HElem>
-      );
+      const children = domNode.children as DOMNode[];
+      const attribs = { ...domNode.attribs };
+      if (!attribs.id && children[0]?.type === ElementType.Text) {
+        attribs.id = toKebabCase(children[0].data);
+      }
+
+      return <HElem {...attribs}>{domToReact(children, options)}</HElem>;
     },
   };
 
