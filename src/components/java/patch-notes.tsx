@@ -85,14 +85,16 @@ async function PatchNotesImpl({
   };
 
   const dom = parseHtml(cleanPatchNotesHTML, options);
-  const baseAssetURL = "https://launchercontent.mojang.com"
+  const baseAssetURL = "https://launchercontent.mojang.com";
+  const dateFormat: Intl.DateTimeFormatOptions = {day: "numeric", weekday: "long", month: "long", year: "numeric"};
 
   return (
     <div>
       <div
         className="after:bg-gradient-to-t after:from-background after:w-full after:h-full after:block after:absolute after:top-0 relative h-[60vh] bg-cover bg-center"
         style={{backgroundImage: `url(${baseAssetURL + patchNotes.image.url})`}}></div>
-      <div className="prose mx-auto dark:prose-invert lg:prose-xl -translate-y-[30vh]">
+      <div className="prose mx-auto dark:prose-invert lg:prose-xl prose-sm -translate-y-[30vh] p-2">
+        <span className="dark:text-gray-500 text-sm font-semibold text-gray-700">{new Date(patchNotes.date).toLocaleDateString(undefined, dateFormat)}</span>
         <h1>{patchNotes.title}</h1>
         {dom}
       </div>
