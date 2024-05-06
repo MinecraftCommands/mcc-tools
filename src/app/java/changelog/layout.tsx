@@ -28,10 +28,13 @@ export default async function ChangelogLayout({
   const versions = maybeVersions.data.entries;
 
   return (
-    <div className="grid grid-cols-[max-content_1fr] items-start gap-3 p-2">
-      <div className="sticky top-[calc(theme(height.header)+theme(padding.2))]">
-        <ScrollArea className="h-page rounded-md border px-2 py-1">
+    <div className="grid md:grid-cols-[10vw_1fr] grid-cols-[1fr] items-start gap-3">
+      <div className="sticky top-[calc(theme(height.header)+theme(padding.2))] hidden md:block">
+        <ScrollArea className="h-page rounded-md border">
           <ul>
+            <li key="header" className="p-2">
+              <h2 className="font-semibold">Versions:</h2>
+            </li>
             <li key="latest">
               <VersionLink
                 versionName="Latest"
