@@ -90,9 +90,9 @@ async function PatchNotesImpl({
 
   return (
     <div>
-      <div
-        className="after:bg-gradient-to-t after:from-background after:w-full after:h-full after:block after:absolute after:top-0 relative h-[60vh] bg-cover bg-center"
-        style={{backgroundImage: `url(${baseAssetURL + patchNotes.image.url})`}}></div>
+      <div className="relative h-[60vh] bg-cover bg-center" style={{backgroundImage: `url(${baseAssetURL + patchNotes.image.url})`}}>
+        <div className="bg-gradient-to-t from-background w-full h-full block absolute top-0"></div>
+      </div>
       <div className="prose mx-auto dark:prose-invert lg:prose-xl prose-sm -translate-y-[30vh] p-2">
         <span className="dark:text-gray-500 text-sm font-semibold text-gray-700">{new Date(patchNotes.date).toLocaleDateString(undefined, dateFormat)}</span>
         <h1>{patchNotes.title}</h1>
