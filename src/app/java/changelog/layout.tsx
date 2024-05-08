@@ -29,7 +29,7 @@ export default async function ChangelogLayout({
 
   return (
     <div className="grid md:grid-cols-[10vw_1fr] grid-cols-[1fr] items-start gap-3">
-      <div className="sticky top-[calc(theme(height.header)+theme(padding.2))] hidden md:block">
+      <div className="sticky top-[calc(theme(height.header)+theme(padding.2))] hidden md:block ml-2">
         <ScrollArea className="h-page rounded-md border">
           <ul>
             <li key="header" className="p-2">
