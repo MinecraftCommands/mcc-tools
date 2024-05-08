@@ -13,6 +13,7 @@ import { Suspense, type JSX } from "react";
 import type { DOMNode } from "html-dom-parser";
 import { Skeleton } from "../ui/skeleton";
 import { toKebabCase } from "~/lib/utils";
+import { BASE_ASSET_URL } from "~/server/java/versions";
 
 export default function PatchNotes({
   version = { latest: true },
@@ -85,12 +86,11 @@ async function PatchNotesImpl({
   };
 
   const dom = parseHtml(cleanPatchNotesHTML, options);
-  const baseAssetURL = "https://launchercontent.mojang.com";
   const dateFormat: Intl.DateTimeFormatOptions = {day: "numeric", weekday: "long", month: "long", year: "numeric"};
 
   return (
     <div>
-      <div className="relative h-[60vh] bg-cover bg-center" style={{backgroundImage: `url(${baseAssetURL + patchNotes.image.url})`}}>
+      <div className="relative h-[60vh] bg-cover bg-center" style={{backgroundImage: `url(${BASE_ASSET_URL + patchNotes.image.url})`}}>
         <div className="bg-gradient-to-t from-background w-full h-full block absolute top-0"></div>
       </div>
       <div className="prose mx-auto dark:prose-invert lg:prose-xl prose-sm -translate-y-[30vh] p-2">
