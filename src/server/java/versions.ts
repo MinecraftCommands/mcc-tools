@@ -36,7 +36,8 @@ export type VersionManifestZodError = ZodError<
   z.input<typeof VERSIONS_MANIFEST_SCHEMA>
 >;
 
-const BASE_URL = "https://launchercontent.mojang.com/v2/";
+export const BASE_ASSET_URL = "https://launchercontent.mojang.com";
+const BASE_URL = BASE_ASSET_URL + "/v2/";
 
 export const getVersionManifest = unstable_cache(
   async (): Promise<
