@@ -27,6 +27,12 @@ export default function PatchNotes({
   );
 }
 
+type ArticleHeader = {
+  text?: string,
+  id?: string,
+  level: number,
+}
+
 async function PatchNotesImpl({
   version = { latest: true },
 }: {
@@ -63,6 +69,8 @@ async function PatchNotesImpl({
     allowedAttributes,
   });
 
+  const tableOfContents: ArticleHeader[] = [];
+
   const options: HTMLReactParserOptions = {
     replace(
       domNode: DOMNode,
@@ -75,10 +83,22 @@ async function PatchNotesImpl({
 
       if (!HElem) return;
 
-      const children = domNode.children as DOMNode[];
       const attribs = { ...domNode.attribs };
+      const children = domNode.children as DOMNode[];
+
       if (!attribs.id && children[0]?.type === ElementType.Text) {
-        attribs.id = toKebabCase(children[0].data);
+        const headingText = children[0].data;
+        const id = toKebabCase(headingText);
+
+        attribs.id = id;
+
+        if ((HElem as string).startsWith("h")) {
+          tableOfContents.push({
+            text: headingText,
+            id: id,
+            level: Number((HElem as string).at(-1)) - 2,
+          })
+        }
       }
 
       return <HElem {...attribs}>{domToReact(children, options)}</HElem>;
@@ -87,6 +107,7 @@ async function PatchNotesImpl({
 
   const dom = parseHtml(cleanPatchNotesHTML, options);
   const dateFormat: Intl.DateTimeFormatOptions = {day: "numeric", weekday: "long", month: "long", year: "numeric"};
+  const publicationDate = new Date(patchNotes.date).toLocaleDateString(undefined, dateFormat);
 
   return (
     <div>
@@ -94,8 +115,20 @@ async function PatchNotesImpl({
         <div className="bg-gradient-to-t from-background w-full h-full block absolute top-0"></div>
       </div>
       <div className="prose mx-auto dark:prose-invert lg:prose-xl prose-sm -translate-y-[30vh] p-2">
-        <span className="dark:text-gray-500 text-sm font-semibold text-gray-700">{new Date(patchNotes.date).toLocaleDateString(undefined, dateFormat)}</span>
+        <span className="dark:text-gray-500 text-sm font-semibold text-gray-700">{publicationDate}</span>
         <h1>{patchNotes.title}</h1>
+        <details className="text-sm border rounded-sm lg:leading-none leading-snug p-3 float-right ml-6 mb-2 max-md:w-full" open>
+          <summary className="font-semibold text-foreground/80 lg:list-none">Table of Contents</summary>
+          <ul>
+            {tableOfContents.map(header => (
+              <li key={header.id} style={{marginLeft: header.level * 15, listStyleType: header.level === 0 ? "unset" : "'–'"}}>
+                <a href={'#' + header.id} className="no-underline text-foreground/60 hover:text-foreground/80 w-full inline-block">
+                  {header.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </details>
         {dom}
       </div>
     </div>
