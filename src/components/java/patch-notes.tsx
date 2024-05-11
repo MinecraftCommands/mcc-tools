@@ -14,6 +14,7 @@ import type { DOMNode } from "html-dom-parser";
 import { Skeleton } from "../ui/skeleton";
 import { toKebabCase } from "~/lib/utils";
 import { BASE_ASSET_URL } from "~/server/java/versions";
+import { type DataNode, type Element } from "domhandler";
 
 export default function PatchNotes({
   version = { latest: true },
@@ -87,7 +88,10 @@ async function PatchNotesImpl({
       const children = domNode.children as DOMNode[];
 
       if (!attribs.id && children[0]?.type === ElementType.Text) {
-        const headingText = children[0].data;
+        const headingText: string = children.map(child =>
+          (child as DataNode)?.data ||
+          ((child as Element).children[0] as DataNode)?.data
+        ).join("");
         const id = toKebabCase(headingText);
 
         attribs.id = id;
