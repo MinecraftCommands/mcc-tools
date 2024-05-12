@@ -2,7 +2,7 @@ import { ZodError } from "zod";
 import { type PatchNotesQuery, getPatchNotes } from "~/server/java/versions";
 import { fromError } from "zod-validation-error";
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
-import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
+import { ExclamationTriangleIcon, TriangleUpIcon } from "@radix-ui/react-icons";
 import sanitizeHtml from "sanitize-html";
 import parseHtml, {
   domToReact,
@@ -12,7 +12,7 @@ import { ElementType } from "domelementtype";
 import { Suspense, type JSX } from "react";
 import type { DOMNode } from "html-dom-parser";
 import { Skeleton } from "../ui/skeleton";
-import { toKebabCase } from "~/lib/utils";
+import {cn, toKebabCase} from "~/lib/utils";
 import { BASE_ASSET_URL } from "~/server/java/versions";
 import { type DataNode, type Element } from "domhandler";
 
@@ -28,10 +28,16 @@ export default function PatchNotes({
   );
 }
 
-type ArticleHeader = {
+type ArticleSection = {
   text?: string,
   id?: string,
-  level: number,
+  children: ArticleSubSection[]
+}
+
+type ArticleSubSection = {
+  text?: string,
+  id?: string,
+  level: number
 }
 
 async function PatchNotesImpl({
@@ -70,7 +76,7 @@ async function PatchNotesImpl({
     allowedAttributes,
   });
 
-  const tableOfContents: ArticleHeader[] = [];
+  const articleSections: ArticleSection[] = [];
 
   const options: HTMLReactParserOptions = {
     replace(
@@ -93,19 +99,34 @@ async function PatchNotesImpl({
           ((child as Element).children[0] as DataNode)?.data
         ).join("");
         const id = toKebabCase(headingText);
+        const headingLevel = Number((HElem as string).at(-1)) - 2;
 
         attribs.id = id;
 
+        const section = articleSections.at(-1);
         if ((HElem as string).startsWith("h")) {
-          tableOfContents.push({
-            text: headingText,
-            id: id,
-            level: Number((HElem as string).at(-1)) - 2,
-          })
+          if (headingLevel > 0 && section) {
+            section.children.push({
+              text: headingText,
+              id: id,
+              level: headingLevel
+            })
+          } else {
+            articleSections.push({
+              text: headingText,
+              id: id,
+              children: []
+            })
+          }
         }
       }
 
-      return <HElem {...attribs}>{domToReact(children, options)}</HElem>;
+      return <HElem {...attribs}>
+        {domToReact(children, options)}
+        <a href="#table-of-contents" className="text-foreground/60 ml-6">
+          <TriangleUpIcon className="inline scale-150"/>
+        </a>
+      </HElem>;
     },
   };
 
@@ -121,15 +142,11 @@ async function PatchNotesImpl({
       <div className="prose mx-auto dark:prose-invert lg:prose-xl prose-sm -translate-y-[30vh] p-2">
         <span className="dark:text-gray-500 text-sm font-semibold text-gray-700">{publicationDate}</span>
         <h1>{patchNotes.title}</h1>
-        <details className="text-sm border rounded-sm lg:leading-none leading-snug p-3 float-right ml-6 mb-2 max-md:w-full" open>
+        <details className="text-sm border rounded-sm p-3 w-1/3 leading-5 float-right ml-6 mb-2 max-md:w-full max-w-1/2" open id="table-of-contents">
           <summary className="font-semibold text-foreground/80 lg:list-none">Table of Contents</summary>
           <ul>
-            {tableOfContents.map(header => (
-              <li key={header.id} style={{marginLeft: header.level * 15, listStyleType: header.level === 0 ? "unset" : "'–'"}}>
-                <a href={'#' + header.id} className="no-underline text-foreground/60 hover:text-foreground/80 w-full inline-block">
-                  {header.text}
-                </a>
-              </li>
+            {articleSections.map(section => (
+              <DropdownItem key={section.id} section={section}/>
             ))}
           </ul>
         </details>
@@ -137,6 +154,43 @@ async function PatchNotesImpl({
       </div>
     </div>
   );
+}
+
+function DropdownLink({id, className, children}: {id?: string, className?: string, children?: string}) {
+  return (
+    <a href={'#' + id} className={cn("no-underline text-foreground/60 hover:text-foreground/80 inline-block leading-snug align-top", className)}>
+      {children}
+    </a>
+  )
+}
+
+function DropdownItem({section}: { section: ArticleSection }) {
+  const subSections = section.children.map(header => (
+    <li key={header.id} style={{marginLeft: (header.level - 2) * 15, listStyleType: "'–'"}}>
+      <DropdownLink id={header.id}>{header.text}</DropdownLink>
+    </li>
+  ))
+
+  if (section.children.length < 5) {
+    return (<>
+      <li className="relative">
+        {section.text}
+        <DropdownLink id={section.id} className="absolute right-0">(Jump)</DropdownLink>
+      </li>
+      {subSections}
+    </>);
+  }
+  return (
+    <li>
+      <details>
+        <summary className="relative cursor-pointer">
+          {section.text}
+          <DropdownLink id={section.id} className="absolute right-0">(Jump)</DropdownLink>
+        </summary>
+        <ul>{subSections}</ul>
+      </details>
+    </li>
+  )
 }
 
 const HEADING_REDUCTION = new Map([
