@@ -12,9 +12,10 @@ import { ElementType } from "domelementtype";
 import { Suspense, type JSX } from "react";
 import type { DOMNode } from "html-dom-parser";
 import { Skeleton } from "../ui/skeleton";
-import {cn, toKebabCase} from "~/lib/utils";
+import { toKebabCase } from "~/lib/utils";
 import { BASE_ASSET_URL } from "~/server/java/versions";
 import { type DataNode, type Element } from "domhandler";
+import "~/styles/patch-notes.css";
 
 export default function PatchNotes({
   version = { latest: true },
@@ -142,54 +143,48 @@ async function PatchNotesImpl({
       <div className="prose mx-auto dark:prose-invert lg:prose-xl prose-sm -translate-y-[30vh] p-2">
         <span className="dark:text-gray-500 text-sm font-semibold text-gray-700">{publicationDate}</span>
         <h1>{patchNotes.title}</h1>
-        <details className="text-sm border rounded-sm p-3 w-1/3 leading-5 float-right ml-6 mb-2 max-md:w-full max-w-1/2" open id="table-of-contents">
-          <summary className="font-semibold text-foreground/80 lg:list-none">Table of Contents</summary>
-          <ul>
-            {articleSections.map(section => (
-              <DropdownItem key={section.id} section={section}/>
-            ))}
-          </ul>
-        </details>
+        <div className="text-sm border rounded-sm p-3 w-1/3 leading-5 float-right ml-6 mb-2 max-md:w-full max-w-1/2" id="table-of-contents">
+          <span className="font-semibold text-foreground/80 lg:list-none">Table of Contents</span>
+          {articleSections.map(section => (
+            <DropdownItem key={section.id} section={section}/>
+          ))}
+        </div>
         {dom}
       </div>
     </div>
   );
 }
 
-function DropdownLink({id, className, children}: {id?: string, className?: string, children?: string}) {
+function DropdownLink({section}: {section: ArticleSection | ArticleSubSection}) {
   return (
-    <a href={'#' + id} className={cn("no-underline text-foreground/60 hover:text-foreground/80 inline-block leading-snug align-top", className)}>
-      {children}
+    <a href={'#' + section.id} className="no-underline text-foreground/60 hover:text-foreground/80 inline-block leading-snug">
+      {section.text}
     </a>
   )
 }
 
 function DropdownItem({section}: { section: ArticleSection }) {
-  const subSections = section.children.map(header => (
-    <li key={header.id} style={{marginLeft: (header.level - 2) * 15, listStyleType: "'–'"}}>
-      <DropdownLink id={header.id}>{header.text}</DropdownLink>
-    </li>
-  ))
-
-  if (section.children.length < 5) {
-    return (<>
-      <li className="relative">
-        {section.text}
-        <DropdownLink id={section.id} className="absolute right-0">(Jump)</DropdownLink>
-      </li>
-      {subSections}
-    </>);
+  if (section.children.length === 0) {
+    return <div className="ml-6 py-1">
+      <DropdownLink section={section}/>
+    </div>
   }
+
   return (
-    <li>
-      <details>
-        <summary className="relative cursor-pointer">
-          {section.text}
-          <DropdownLink id={section.id} className="absolute right-0">(Jump)</DropdownLink>
-        </summary>
-        <ul>{subSections}</ul>
-      </details>
-    </li>
+    <details open={section.children.length < 6}>
+      <summary className="relative cursor-pointer marker:text-xl">
+        <div className="inline-flex max-w-[calc(100%-2rem)] ml-1 -translate-y-0.5">
+          <DropdownLink section={section}/>
+        </div>
+      </summary>
+      <ul className="!-mt-1 !mb-1 -ml-2">
+        {section.children.map(header => (
+          <li key={header.id} style={{marginLeft: (header.level) * 15, listStyleType: "'–'"}} className="!my-1">
+            <DropdownLink section={header}/>
+          </li>
+        ))}
+      </ul>
+    </details>
   )
 }
 
