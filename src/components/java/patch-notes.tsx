@@ -15,7 +15,6 @@ import { Skeleton } from "../ui/skeleton";
 import { toKebabCase } from "~/lib/utils";
 import { BASE_ASSET_URL } from "~/server/java/versions";
 import { type DataNode, type Element } from "domhandler";
-import "~/styles/patch-notes.css";
 
 export default function PatchNotes({
   version = { latest: true },
@@ -30,16 +29,16 @@ export default function PatchNotes({
 }
 
 type ArticleSection = {
-  text?: string,
-  id?: string,
-  children: ArticleSubSection[]
-}
+  text?: string;
+  id?: string;
+  children: ArticleSubSection[];
+};
 
 type ArticleSubSection = {
-  text?: string,
-  id?: string,
-  level: number
-}
+  text?: string;
+  id?: string;
+  level: number;
+};
 
 async function PatchNotesImpl({
   version = { latest: true },
@@ -95,10 +94,13 @@ async function PatchNotesImpl({
       const children = domNode.children as DOMNode[];
 
       if (!attribs.id && children[0]?.type === ElementType.Text) {
-        const headingText: string = children.map(child =>
-          (child as DataNode)?.data ||
-          ((child as Element).children[0] as DataNode)?.data
-        ).join("");
+        const headingText: string = children
+          .map(
+            (child) =>
+              (child as DataNode)?.data ||
+              ((child as Element).children[0] as DataNode)?.data,
+          )
+          .join("");
         const id = toKebabCase(headingText);
         const headingLevel = Number((HElem as string).at(-1)) - 2;
 
@@ -110,43 +112,65 @@ async function PatchNotesImpl({
             section.children.push({
               text: headingText,
               id: id,
-              level: headingLevel
-            })
+              level: headingLevel,
+            });
           } else {
             articleSections.push({
               text: headingText,
               id: id,
-              children: []
-            })
+              children: [],
+            });
           }
         }
       }
 
-      return <HElem {...attribs}>
-        {domToReact(children, options)}
-        <a href="#table-of-contents" className="text-foreground/60 ml-6">
-          <TriangleUpIcon className="inline scale-150"/>
-        </a>
-      </HElem>;
+      return (
+        <HElem {...attribs}>
+          {domToReact(children, options)}
+          <a href="#table-of-contents" className="ml-6 text-foreground/60">
+            <TriangleUpIcon className="inline scale-150" />
+          </a>
+        </HElem>
+      );
     },
   };
 
   const dom = parseHtml(cleanPatchNotesHTML, options);
-  const dateFormat: Intl.DateTimeFormatOptions = {day: "numeric", weekday: "long", month: "long", year: "numeric"};
-  const publicationDate = new Date(patchNotes.date).toLocaleDateString(undefined, dateFormat);
+  const dateFormat: Intl.DateTimeFormatOptions = {
+    day: "numeric",
+    weekday: "long",
+    month: "long",
+    year: "numeric",
+  };
+  const publicationDate = new Date(patchNotes.date).toLocaleDateString(
+    undefined,
+    dateFormat,
+  );
 
   return (
     <div>
-      <div className="relative h-[60vh] bg-cover bg-center" style={{backgroundImage: `url(${BASE_ASSET_URL + patchNotes.image.url})`}}>
-        <div className="bg-gradient-to-t from-background w-full h-full block absolute top-0"></div>
+      <div
+        className="relative h-[60vh] bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${BASE_ASSET_URL + patchNotes.image.url})`,
+        }}
+      >
+        <div className="absolute top-0 block h-full w-full bg-gradient-to-t from-background"></div>
       </div>
-      <div className="prose mx-auto dark:prose-invert lg:prose-xl prose-sm -translate-y-[30vh] p-2">
-        <span className="dark:text-gray-500 text-sm font-semibold text-gray-700">{publicationDate}</span>
+      <div className="prose prose-sm mx-auto -translate-y-[30vh] p-2 dark:prose-invert lg:prose-xl prose-code:[word-break:break-word]">
+        <span className="text-sm font-semibold text-gray-700 dark:text-gray-500">
+          {publicationDate}
+        </span>
         <h1>{patchNotes.title}</h1>
-        <div className="text-sm border rounded-sm p-3 w-1/3 leading-5 float-right ml-6 mb-2 max-md:w-full max-w-1/2" id="table-of-contents">
-          <span className="font-semibold text-foreground/80 lg:list-none">Table of Contents</span>
-          {articleSections.map(section => (
-            <DropdownItem key={section.id} section={section}/>
+        <div
+          className="max-w-1/2 float-right mb-2 ml-6 w-1/3 rounded-sm border p-3 text-sm leading-5 max-md:w-full"
+          id="table-of-contents"
+        >
+          <span className="font-semibold text-foreground/80">
+            Table of Contents
+          </span>
+          {articleSections.map((section) => (
+            <DropdownItem key={section.id} section={section} />
           ))}
         </div>
         {dom}
@@ -155,37 +179,50 @@ async function PatchNotesImpl({
   );
 }
 
-function DropdownLink({section}: {section: ArticleSection | ArticleSubSection}) {
+function DropdownLink({
+  section,
+}: {
+  section: ArticleSection | ArticleSubSection;
+}) {
   return (
-    <a href={'#' + section.id} className="no-underline text-foreground/60 hover:text-foreground/80 inline-block leading-snug">
+    <a
+      href={"#" + section.id}
+      className="text-foreground/60 no-underline hover:text-foreground/80"
+    >
       {section.text}
     </a>
-  )
+  );
 }
 
-function DropdownItem({section}: { section: ArticleSection }) {
+function DropdownItem({ section }: { section: ArticleSection }) {
   if (section.children.length === 0) {
-    return <div className="ml-6 py-1">
-      <DropdownLink section={section}/>
-    </div>
+    return (
+      <div className="ml-6 py-1">
+        <DropdownLink section={section} />
+      </div>
+    );
   }
 
   return (
     <details open={section.children.length < 6}>
-      <summary className="relative cursor-pointer marker:text-xl">
-        <div className="inline-flex max-w-[calc(100%-2rem)] ml-1 -translate-y-0.5">
-          <DropdownLink section={section}/>
+      <summary className="cursor-pointer marker:text-xl">
+        <div className="ml-1 inline-flex max-w-[calc(100%-2rem)] -translate-y-0.5">
+          <DropdownLink section={section} />
         </div>
       </summary>
-      <ul className="!-mt-1 !mb-1 -ml-2">
-        {section.children.map(header => (
-          <li key={header.id} style={{marginLeft: (header.level) * 15, listStyleType: "'–'"}} className="!my-1">
-            <DropdownLink section={header}/>
+      <ul className="not-prose -mt-1 mb-1 ml-2">
+        {section.children.map((header) => (
+          <li
+            key={header.id}
+            style={{ marginLeft: header.level * 15, listStyleType: "'–'" }}
+            className="my-1 pl-2"
+          >
+            <DropdownLink section={header} />
           </li>
         ))}
       </ul>
     </details>
-  )
+  );
 }
 
 const HEADING_REDUCTION = new Map([
