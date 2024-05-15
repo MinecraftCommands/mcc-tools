@@ -15,6 +15,7 @@ import { Skeleton } from "../ui/skeleton";
 import { toKebabCase } from "~/lib/utils";
 import { BASE_ASSET_URL } from "~/server/java/versions";
 import { type DataNode, type Element } from "domhandler";
+import { PublishDate } from "~/components/java/publish-date";
 
 export default function PatchNotes({
   version = { latest: true },
@@ -101,7 +102,7 @@ async function PatchNotesImpl({
         const headingText: string = children
           .map(
             (child) =>
-              (child as DataNode)?.data ||
+              (child as DataNode).data ??
               ((child as Element).children[0] as DataNode)?.data,
           )
           .join("");
@@ -143,16 +144,6 @@ async function PatchNotesImpl({
   };
 
   const dom = parseHtml(cleanPatchNotesHTML, options);
-  const dateFormat: Intl.DateTimeFormatOptions = {
-    day: "numeric",
-    weekday: "long",
-    month: "long",
-    year: "numeric",
-  };
-  const publicationDate = new Date(patchNotes.date).toLocaleDateString(
-    undefined,
-    dateFormat,
-  );
 
   return (
     <div>
@@ -165,9 +156,7 @@ async function PatchNotesImpl({
         <div className="absolute top-0 block h-full w-full bg-gradient-to-t from-background"></div>
       </div>
       <div className="prose prose-sm mx-auto -translate-y-[30vh] p-2 dark:prose-invert lg:prose-xl prose-code:[word-break:break-word]">
-        <span className="text-sm font-semibold text-gray-700 dark:text-gray-500">
-          {publicationDate}
-        </span>
+        <PublishDate date={patchNotes.date} />
         <h1>{patchNotes.title}</h1>
         <div
           className="max-w-1/2 float-right mb-2 ml-6 w-1/3 rounded-sm border p-3 text-sm leading-5 max-md:w-full"
