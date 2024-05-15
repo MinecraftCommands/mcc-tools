@@ -9,7 +9,7 @@ import parseHtml, {
   type HTMLReactParserOptions,
 } from "html-react-parser";
 import { ElementType } from "domelementtype";
-import { Suspense, type JSX } from "react";
+import { createElement, Suspense, type JSX } from "react";
 import type { DOMNode } from "html-dom-parser";
 import { Skeleton } from "../ui/skeleton";
 import { toKebabCase } from "~/lib/utils";
@@ -83,17 +83,21 @@ async function PatchNotesImpl({
       domNode: DOMNode,
     ): JSX.Element | string | null | boolean | object | void {
       if (domNode.type !== ElementType.Tag) return;
-
-      // TODO: Determine the proper type here
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const HElem: any = HEADING_REDUCTION.get(domNode.name);
-
-      if (!HElem) return;
+      if (!domNode.name.startsWith("h")) return;
 
       const attribs = { ...domNode.attribs };
       const children = domNode.children as DOMNode[];
 
-      if (!attribs.id && children[0]?.type === ElementType.Text) {
+      const initialHeadingLevel = Number(domNode.name.at(-1));
+      if (Number.isNaN(initialHeadingLevel)) return;
+
+      let HElem = "p";
+
+      if (
+        !attribs.id &&
+        children[0]?.type === ElementType.Text &&
+        initialHeadingLevel < 6
+      ) {
         const headingText: string = children
           .map(
             (child) =>
@@ -102,35 +106,38 @@ async function PatchNotesImpl({
           )
           .join("");
         const id = toKebabCase(headingText);
-        const headingLevel = Number((HElem as string).at(-1)) - 2;
 
         attribs.id = id;
 
         const section = articleSections.at(-1);
-        if ((HElem as string).startsWith("h")) {
-          if (headingLevel > 0 && section) {
-            section.children.push({
-              text: headingText,
-              id: id,
-              level: headingLevel,
-            });
-          } else {
-            articleSections.push({
-              text: headingText,
-              id: id,
-              children: [],
-            });
-          }
+        const headingLevel = initialHeadingLevel + 1;
+
+        HElem = "h" + headingLevel;
+
+        if (headingLevel > 2 && section) {
+          section.children.push({
+            text: headingText,
+            id: id,
+            level: headingLevel - 2,
+          });
+        } else {
+          articleSections.push({
+            text: headingText,
+            id: id,
+            children: [],
+          });
         }
       }
 
-      return (
-        <HElem {...attribs}>
+      return createElement(
+        HElem,
+        { ...attribs },
+        <>
           {domToReact(children, options)}
           <a href="#table-of-contents" className="ml-6 text-foreground/60">
             <TriangleUpIcon className="inline scale-150" />
           </a>
-        </HElem>
+        </>,
       );
     },
   };
@@ -224,12 +231,3 @@ function DropdownItem({ section }: { section: ArticleSection }) {
     </details>
   );
 }
-
-const HEADING_REDUCTION = new Map([
-  ["h1", "h2"],
-  ["h2", "h3"],
-  ["h3", "h4"],
-  ["h4", "h5"],
-  ["h5", "h6"],
-  ["h6", "p"],
-]);
