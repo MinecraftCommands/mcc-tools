@@ -31,7 +31,19 @@ export default function RootLayout({
           inter.variable,
         )}
       >
-        <ThemeProvider attribute="class" disableTransitionOnChange>
+        <ThemeProvider
+          attribute="class"
+          themes={["latte", "frappe", "macchiato", "mocha"]}
+          value={{
+            light: "latte",
+            dark: "mocha",
+            latte: "latte",
+            frappe: "frappe",
+            macchiato: "macchiato",
+            mocha: "mocha",
+          }}
+          disableTransitionOnChange
+        >
           <SiteHeader />
           <TRPCReactProvider>{children}</TRPCReactProvider>
         </ThemeProvider>
