@@ -1,9 +1,16 @@
 import type { Config } from "tailwindcss";
 import plugin from "tailwindcss/plugin";
 import { fontFamily } from "tailwindcss/defaultTheme";
+import catppuccin from "@catppuccin/tailwindcss";
+import { flavorEntries } from "@catppuccin/palette";
 
 export default {
-  darkMode: ["class"],
+  darkMode: [
+    "variant",
+    flavorEntries
+      .filter(([_, { dark }]) => dark)
+      .map(([theme, _]) => `&:where(.${theme}, .${theme} *)`),
+  ],
   content: ["./src/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
@@ -30,7 +37,7 @@ export default {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
+        background: "rgb(var(--ctp-base))", // "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -104,6 +111,9 @@ export default {
   plugins: [
     require("tailwindcss-animate"),
     require("@tailwindcss/typography"),
+    catppuccin({
+      defaultFlavour: "latte",
+    }),
     plugin(function ({ matchUtilities, theme }) {
       matchUtilities(
         {
