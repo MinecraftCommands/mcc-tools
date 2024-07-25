@@ -1,7 +1,7 @@
 import { type PatchNotesQuery, getPatchNotes } from "~/server/java/versions";
 import { fromError, isZodErrorLike } from "zod-validation-error";
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
-import { ExclamationTriangleIcon, TriangleUpIcon } from "@radix-ui/react-icons";
+import { ExclamationTriangleIcon, ResetIcon } from "@radix-ui/react-icons";
 import sanitizeHtml from "sanitize-html";
 import parseHtml, {
   domToReact,
@@ -137,8 +137,8 @@ async function PatchNotesImpl({
         { ...attribs },
         <>
           {domToReact(children, options)}
-          <a href="#table-of-contents" className="ml-6 text-foreground/60">
-            <TriangleUpIcon className="inline scale-150" />
+          <a href="#table-of-contents" className="ml-1 text-foreground/60">
+            <ResetIcon className="inline" />
           </a>
         </>,
       );
