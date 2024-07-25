@@ -1,3 +1,5 @@
+"use client";
+
 import {
   HoverCard,
   HoverCardContent,
@@ -6,6 +8,7 @@ import {
 } from "~/components/ui/hover-card";
 import Link from "next/link";
 import { cn } from "~/lib/utils";
+import { usePathname } from "next/navigation";
 
 export default function VersionLink({
   versionName,
@@ -21,6 +24,8 @@ export default function VersionLink({
   className?: string;
 }) {
   const url = `/java/changelog/${versionLink}`;
+  const pathname = usePathname();
+  const selected = url === pathname || url === pathname + "/";
 
   return (
     <HoverCard closeDelay={0}>
@@ -30,7 +35,7 @@ export default function VersionLink({
           href={url}
           className={cn(
             "inline-block w-full hover:bg-foreground/10",
-            { "bg-foreground/15 underline": versionName == "1.20.6" },
+            { "bg-foreground/15 underline": selected },
             className,
           )}
         >
