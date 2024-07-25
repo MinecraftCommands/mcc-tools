@@ -59,19 +59,22 @@ export default async function ChangelogLayout({
           </SheetHeader>
           <ScrollArea className="h-full">
             <ul>
-              <VersionLinks versions={versions} className="py-2" />
+              <VersionLinks
+                versions={versions}
+                className="rounded-lg px-3 py-2"
+              />
             </ul>
           </ScrollArea>
         </SheetContent>
       </Sheet>
-      <div className="grid grid-cols-[1fr] items-start gap-3 md:grid-cols-[10vw_1fr]">
+      <div className="grid grid-cols-[1fr] items-start gap-3 md:grid-cols-[auto_1fr]">
         <div className="sticky top-[calc(theme(height.header)+theme(padding.2))] ml-2 hidden md:block">
           <ScrollArea className="h-page rounded-md border">
             <ul>
               <li key="header" className="p-2">
                 <h2 className="font-semibold">Versions:</h2>
               </li>
-              <VersionLinks versions={versions} className="px-3 py-1" />
+              <VersionLinks versions={versions} className="py-1 pl-3 pr-4" />
             </ul>
           </ScrollArea>
         </div>

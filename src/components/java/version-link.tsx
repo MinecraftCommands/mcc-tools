@@ -30,7 +30,6 @@ export default function VersionLink({
   return (
     <HoverCard closeDelay={0}>
       <HoverCardTrigger asChild>
-        {/*TODO: Unhardcode this to show the currently selected page.*/}
         <Link
           href={url}
           className={cn(
