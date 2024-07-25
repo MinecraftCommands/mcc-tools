@@ -1,7 +1,7 @@
 import { unstable_cache } from "next/cache";
 import { type ZodError, z } from "zod";
 
-const VERSION_COMMON_SCHEMA = z.object({
+const VERSION_MANIFEST_ENTRY_SCHEMA = z.object({
   title: z.string(),
   version: z.string(),
   type: z.union([z.enum(["snapshot", "release"]), z.string()]),
@@ -14,9 +14,6 @@ const VERSION_COMMON_SCHEMA = z.object({
     .string()
     .datetime()
     .transform((d) => new Date(d)),
-});
-
-const VERSION_MANIFEST_ENTRY_SCHEMA = VERSION_COMMON_SCHEMA.extend({
   contentPath: z.string(),
   shortText: z.string(),
 });
@@ -62,11 +59,13 @@ export const getVersionManifest = unstable_cache(
   { revalidate: 2 /* m */ * 60 /* s/m */ },
 );
 
-const PATCH_NOTE_SCHEMA = VERSION_COMMON_SCHEMA.extend({
+const PATCH_NOTE_SCHEMA = z.object({
+  version: z.string(),
   body: z.string(),
 });
 
-export type PatchNote = z.infer<typeof PATCH_NOTE_SCHEMA>;
+export type PatchNote = VersionManifestEntry &
+  z.infer<typeof PATCH_NOTE_SCHEMA>;
 export type PatchNoteZodError = ZodError<z.input<typeof PATCH_NOTE_SCHEMA>>;
 
 export enum PatchNotesError {
@@ -106,7 +105,13 @@ export const getPatchNotes = unstable_cache(
       return { success: false, error: PatchNotesError.VersionNotFound };
 
     const patchRes = await fetch(BASE_URL + partialVersion.contentPath);
-    return PATCH_NOTE_SCHEMA.safeParse(await patchRes.json());
+    const patch = PATCH_NOTE_SCHEMA.safeParse(await patchRes.json());
+    if (!patch.success) return patch;
+
+    return {
+      success: true,
+      data: { ...partialVersion, ...patch.data },
+    };
   },
   ["java", "patch_note"],
   { revalidate: 2 /* m */ * 60 /* s/m */ },

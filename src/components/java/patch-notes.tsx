@@ -1,6 +1,5 @@
-import { ZodError } from "zod";
 import { type PatchNotesQuery, getPatchNotes } from "~/server/java/versions";
-import { fromError } from "zod-validation-error";
+import { fromError, isZodErrorLike } from "zod-validation-error";
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { ExclamationTriangleIcon, TriangleUpIcon } from "@radix-ui/react-icons";
 import sanitizeHtml from "sanitize-html";
@@ -50,10 +49,13 @@ async function PatchNotesImpl({
   if (!maybePatchNotes.success) {
     let msg: string;
 
-    if (maybePatchNotes.error instanceof ZodError) {
+    if (isZodErrorLike(maybePatchNotes.error)) {
       msg = fromError(maybePatchNotes.error).toString();
-    } else {
+    } else if (typeof maybePatchNotes.error === "string") {
       msg = maybePatchNotes.error;
+    } else {
+      // TODO: fix serialized errors not being rendered nicely
+      msg = JSON.stringify(maybePatchNotes.error);
     }
 
     return (
