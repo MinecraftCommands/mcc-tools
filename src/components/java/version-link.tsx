@@ -5,18 +5,20 @@ import {
   HoverCardTrigger,
 } from "~/components/ui/hover-card";
 import Link from "next/link";
-import {cn} from "~/lib/utils";
+import { cn } from "~/lib/utils";
 
 export default function VersionLink({
   versionName,
   versionLink = versionName,
   title,
   shortText,
+  className = "px-3 py-1",
 }: {
   versionName: string;
   versionLink?: string;
   title: string;
   shortText: string;
+  className?: string;
 }) {
   const url = `/java/changelog/${versionLink}`;
 
@@ -24,11 +26,19 @@ export default function VersionLink({
     <HoverCard closeDelay={0}>
       <HoverCardTrigger asChild>
         {/*TODO: Unhardcode this to show the currently selected page.*/}
-        <Link href={url} className={cn('w-full inline-block hover:bg-foreground/10 p-1 px-3',
-          {'bg-foreground/15 underline': versionName == '1.20.6'})}>{versionName}</Link>
+        <Link
+          href={url}
+          className={cn(
+            "inline-block w-full hover:bg-foreground/10",
+            { "bg-foreground/15 underline": versionName == "1.20.6" },
+            className,
+          )}
+        >
+          {versionName}
+        </Link>
       </HoverCardTrigger>
       <HoverCardPortal>
-        <HoverCardContent className="prose prose-sm dark:prose-invert w-80">
+        <HoverCardContent className="prose prose-sm w-80 dark:prose-invert">
           <h2>{title}</h2>
           <p>{shortText}...</p>
         </HoverCardContent>
