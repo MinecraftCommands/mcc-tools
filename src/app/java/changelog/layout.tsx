@@ -97,8 +97,7 @@ function VersionLinks({
         <VersionLink
           versionName="Latest"
           versionLink=""
-          shortText={versions[0].shortText}
-          title={versions[0].title}
+          data={versions[0]}
           className={className}
         />
       </li>
@@ -107,8 +106,7 @@ function VersionLinks({
           <li key={v.version}>
             <VersionLink
               versionName={v.version}
-              shortText={v.shortText}
-              title={v.title}
+              data={v}
               className={className}
             />
           </li>

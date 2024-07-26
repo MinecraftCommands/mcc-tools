@@ -9,18 +9,20 @@ import {
 import Link from "next/link";
 import { cn } from "~/lib/utils";
 import { usePathname } from "next/navigation";
+import {
+  BASE_ASSET_URL,
+  type VersionManifestEntry,
+} from "~/server/java/versions";
 
 export default function VersionLink({
   versionName,
   versionLink = versionName,
-  title,
-  shortText,
+  data: { shortText, title, image },
   className = "px-3 py-1",
 }: {
   versionName: string;
   versionLink?: string;
-  title: string;
-  shortText: string;
+  data: VersionManifestEntry;
   className?: string;
 }) {
   const url = `/java/changelog/${versionLink}`;
@@ -49,7 +51,13 @@ export default function VersionLink({
         </Link>
       </HoverCardTrigger>
       <HoverCardPortal>
-        <HoverCardContent className="prose prose-sm w-80 dark:prose-invert">
+        <HoverCardContent className="prose prose-sm isolate w-80 dark:prose-invert">
+          <div
+            className="absolute inset-0 -z-10 rounded-md bg-cover bg-center opacity-20"
+            style={{
+              backgroundImage: `url(${BASE_ASSET_URL + image.url})`,
+            }}
+          />
           <h2>{title}</h2>
           <p>{repairedShortText}…</p>
         </HoverCardContent>
