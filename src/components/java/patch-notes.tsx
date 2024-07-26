@@ -80,6 +80,7 @@ async function PatchNotesImpl({
   });
 
   const articleSections: ArticleSection[] = [];
+  const ids = new Map<string, number>();
 
   const options: HTMLReactParserOptions = {
     replace(
@@ -108,7 +109,13 @@ async function PatchNotesImpl({
               ((child as Element).children[0] as DataNode)?.data,
           )
           .join("");
-        const id = toKebabCase(headingText);
+
+        let id = toKebabCase(headingText);
+        const dups = ids.get(id) ?? 0;
+        if (dups > 0) {
+          id += `-${dups}`;
+        }
+        ids.set(id, dups + 1);
 
         attribs.id = id;
 
