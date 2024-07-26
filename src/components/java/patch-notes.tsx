@@ -192,7 +192,7 @@ function DropdownLink({
   return (
     <a
       href={"#" + section.id}
-      className="text-foreground/60 no-underline hover:text-foreground/80"
+      className="text-foreground/80 no-underline hover:text-foreground"
     >
       {section.text}
     </a>
@@ -202,7 +202,7 @@ function DropdownLink({
 function DropdownItem({ section }: { section: ArticleSection }) {
   if (section.children.length === 0) {
     return (
-      <div className="ml-6 text-pretty py-1">
+      <div className="ml-6 text-pretty py-2">
         <DropdownLink section={section} />
       </div>
     );
@@ -210,7 +210,7 @@ function DropdownItem({ section }: { section: ArticleSection }) {
 
   return (
     <details open={section.children.length < 6}>
-      <summary className="cursor-pointer marker:text-xl">
+      <summary className="mt-2 cursor-pointer marker:text-xl">
         <div className="ml-1 inline-flex max-w-[calc(100%-2rem)] -translate-y-0.5 text-pretty">
           <DropdownLink section={section} />
         </div>
@@ -220,7 +220,7 @@ function DropdownItem({ section }: { section: ArticleSection }) {
           <li
             key={header.id}
             style={{ marginLeft: header.level * 15, listStyleType: "'–'" }}
-            className="my-1 text-pretty pl-2"
+            className="my-2 text-pretty pl-2"
           >
             <DropdownLink section={header} />
           </li>
