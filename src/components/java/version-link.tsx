@@ -37,7 +37,7 @@ export default function VersionLink({
     .replace(/([a-z][!.])([A-Z])/g, "$1 $2");
 
   return (
-    <HoverCard closeDelay={0}>
+    <HoverCard closeDelay={0} openDelay={0}>
       <HoverCardTrigger asChild>
         <Link
           href={url}
@@ -51,7 +51,10 @@ export default function VersionLink({
         </Link>
       </HoverCardTrigger>
       <HoverCardPortal>
-        <HoverCardContent className="prose prose-sm isolate w-80 dark:prose-invert">
+        <HoverCardContent
+          side="right"
+          className="prose prose-sm isolate w-80 dark:prose-invert"
+        >
           <div
             className="absolute inset-0 -z-10 rounded-md bg-cover bg-center opacity-20"
             style={{
