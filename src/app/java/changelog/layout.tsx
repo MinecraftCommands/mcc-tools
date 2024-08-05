@@ -13,6 +13,7 @@ import { fromError } from "zod-validation-error";
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -56,6 +57,9 @@ export default async function ChangelogLayout({
         <SheetContent>
           <SheetHeader>
             <SheetTitle>Versions</SheetTitle>
+            <SheetDescription>
+              Select a version to view the changelogs for
+            </SheetDescription>
           </SheetHeader>
           <ScrollArea className="h-full">
             <ul>
