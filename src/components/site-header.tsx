@@ -51,7 +51,7 @@ const nav: NavGroupProps[] = [
 
 export function SiteHeader() {
   return (
-    <header className="container sticky top-0 z-50 flex h-header w-full items-center border-b border-border/40 bg-background/95 py-2 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 flex h-header w-full items-center border-b border-border/40 bg-background/95 p-2 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
@@ -59,7 +59,7 @@ export function SiteHeader() {
               <Link
                 href="/"
                 className={cn(
-                  "flex items-center gap-2 font-robotoMono font-[300] dark:font-[250]",
+                  "flex items-center gap-2 pr-4 font-robotoMono font-[300] dark:font-[250]",
                   robotoMono.variable,
                 )}
               >
