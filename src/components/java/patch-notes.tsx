@@ -157,7 +157,7 @@ async function PatchNotesImpl({
   return (
     <div>
       <div
-        className="relative h-[60vh] bg-cover bg-center"
+        className="relative h-[60vh] bg-cover bg-center md:blur-[1px] lg:blur-[2px] xl:blur-[3px] 2xl:blur-[4px]"
         style={{
           backgroundImage: `url(${BASE_ASSET_URL + patchNotes.image.url})`,
         }}
