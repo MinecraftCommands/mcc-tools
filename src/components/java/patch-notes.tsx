@@ -164,7 +164,7 @@ async function PatchNotesImpl({
       >
         <div className="absolute top-0 block h-full w-full bg-gradient-to-t from-background"></div>
       </div>
-      <div className="prose prose-sm mx-auto max-w-[100ch] -translate-y-[30vh] px-4 dark:prose-invert md:prose-base 2xl:prose-lg prose-code:[word-break:break-word]">
+      <div className="prose prose-base mx-auto max-w-[100ch] -translate-y-[30vh] px-4 dark:prose-invert 2xl:prose-lg prose-code:[word-break:break-word]">
         <PublishDate date={patchNotes.date} />
         <h1>{patchNotes.title}</h1>
         <div
