@@ -15,6 +15,7 @@ import { ModeToggle } from "~/components/mode-toggle";
 import { cn } from "~/lib/utils";
 
 import { Roboto_Mono } from "next/font/google";
+import { usePathname } from "next/navigation";
 
 const robotoMono = Roboto_Mono({
   subsets: ["latin"],
@@ -24,6 +25,7 @@ const robotoMono = Roboto_Mono({
 type NavItemProps = {
   title: string;
   href?: string;
+  activeWhen?: RegExp;
   description: string;
 };
 
@@ -44,6 +46,7 @@ const nav: NavGroupProps[] = [
         title: "Java Changelogs",
         href: "/java/changelog",
         description: "Check out how Java edition has changed across versions",
+        activeWhen: /^\/java\/changelog/,
       },
     ],
   },
@@ -81,21 +84,41 @@ export function SiteHeader() {
 }
 
 function NavGroup({ name, items }: NavGroupProps) {
+  const pathname = usePathname();
+
+  let anyChildActive = false;
+  const children = items.map((item) => {
+    const activeWhen = item.activeWhen;
+    const active = activeWhen
+      ? activeWhen.test(pathname)
+      : pathname === item.href;
+    anyChildActive ||= active;
+
+    return <NavItem key={item.title} {...item} active={active} />;
+  });
+
   return (
     <NavigationMenuItem>
-      <NavigationMenuTrigger>{name}</NavigationMenuTrigger>
+      <NavigationMenuTrigger
+        className={{ "[&:not(:hover)]:bg-accent/40": anyChildActive }}
+      >
+        {name}
+      </NavigationMenuTrigger>
       <NavigationMenuContent>
         <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-          {items.map((item) => (
-            <NavItem key={item.title} {...item} />
-          ))}
+          {children}
         </ul>
       </NavigationMenuContent>
     </NavigationMenuItem>
   );
 }
 
-function NavItem({ title, href, description }: NavItemProps) {
+function NavItem({
+  title,
+  href,
+  description,
+  active,
+}: Omit<NavItemProps, "activeWhen"> & { active: boolean }) {
   const content = (
     <>
       <div className="text-sm font-medium leading-none">{title}</div>
@@ -116,11 +139,11 @@ function NavItem({ title, href, description }: NavItemProps) {
 
   return (
     <li>
-      <NavigationMenuLink asChild>
+      <NavigationMenuLink asChild active={active}>
         <Link
           className={cn(
             className,
-            "select-none rounded-md no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            "select-none rounded-md no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground data-[active]:[&:not(:hover)]:bg-accent/40",
           )}
           href={href}
         >
