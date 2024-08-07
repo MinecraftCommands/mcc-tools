@@ -7,8 +7,9 @@ import { cn } from "~/lib/utils";
 
 import Link from "next/link";
 import { ThemedImg } from "~/components/themed-img";
+import type { ClassValue } from "clsx";
 
-export function DiscordInvite({ className }: { className?: string }) {
+export function DiscordInvite({ className }: { className?: ClassValue }) {
   return (
     <Link href="https://discord.gg/QAFXFtZ" target="_blank">
       <ThemedImg

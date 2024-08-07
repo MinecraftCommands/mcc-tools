@@ -13,6 +13,7 @@ import {
   BASE_ASSET_URL,
   type VersionManifestEntry,
 } from "~/server/java/versions";
+import type { ClassValue } from "clsx";
 
 export default function VersionLink({
   versionName,
@@ -23,7 +24,7 @@ export default function VersionLink({
   versionName: string;
   versionLink?: string;
   data: VersionManifestEntry;
-  className?: string;
+  className?: ClassValue;
 }) {
   const url = `/java/changelog/${versionLink}`;
   const pathname = usePathname();

@@ -11,3 +11,7 @@ export function toKebabCase(str: string) {
     .replace(/[\s_]+/g, "-")
     .toLowerCase();
 }
+
+export type Modify<T, R> = Omit<T, keyof R> & R;
+
+export type WithCn<T> = Modify<T, { className?: ClassValue }>;
