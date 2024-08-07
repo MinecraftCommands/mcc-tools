@@ -46,6 +46,7 @@ export default function VersionLink({
             { "bg-foreground/15 underline": selected },
             className,
           )}
+          prefetch={false}
         >
           {versionName}
         </Link>
