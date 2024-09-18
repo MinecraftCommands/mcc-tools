@@ -14,7 +14,10 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "MCC Gadgets",
+  title: {
+    default: "MCC Gadgets",
+    template: "%s | MCC Gadgets",
+  },
   description: "Tools for the Minecraft Commands community",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };

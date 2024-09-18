@@ -6,6 +6,16 @@ import PatchNotes from "~/components/java/patch-notes";
 // This needs to be investigated further, but it is difficult to do
 export const dynamic = "force-dynamic";
 
+export const metadata = {
+  title: `Latest Java Changelog`,
+  description: "See the latest changelog for Minecraft Java edition",
+  openGraph: {
+    type: "article",
+    authors: "Mojang",
+    siteName: "MCC Gadgets",
+  },
+};
+
 export default async function LatestPatchNotes() {
   return <PatchNotes />;
 }
