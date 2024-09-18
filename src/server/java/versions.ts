@@ -81,6 +81,35 @@ export enum PatchNotesError {
 
 export type PatchNotesQuery = string | { latest: string[] | string | true };
 
+export async function getPartialVersion(
+  version: PatchNotesQuery = { latest: true },
+): Promise<
+  | { success: true; data: VersionManifestEntry }
+  | { success: false; error: VersionManifestZodError | PatchNotesError }
+> {
+  const versions = await getVersionManifest();
+  if (!versions.success) return versions;
+
+  let partialVersion;
+  if (typeof version === "string") {
+    partialVersion = versions.data.entries.find((v) => v.version === version);
+  } else if (version.latest === true) {
+    partialVersion = versions.data.entries[0];
+  } else if (typeof version.latest === "string") {
+    partialVersion = versions.data.entries.find(
+      (v) => v.type === version.latest,
+    );
+  } else {
+    const includes = version.latest.includes.bind(version.latest);
+    partialVersion = versions.data.entries.find((v) => includes(v.type));
+  }
+
+  if (!partialVersion)
+    return { success: false, error: PatchNotesError.VersionNotFound };
+
+  return { success: true, data: partialVersion };
+}
+
 export const getPatchNotes = unstable_cache(
   async (
     version: PatchNotesQuery = { latest: true },
@@ -91,26 +120,10 @@ export const getPatchNotes = unstable_cache(
         error: PatchNotesError | PatchNoteZodError | VersionManifestZodError;
       }
   > => {
-    const versions = await getVersionManifest();
-    if (!versions.success) return versions;
+    const maybePartialVersion = await getPartialVersion(version);
+    if (!maybePartialVersion.success) return maybePartialVersion;
 
-    let partialVersion;
-    if (typeof version === "string") {
-      partialVersion = versions.data.entries.find((v) => v.version === version);
-    } else if (version.latest === true) {
-      partialVersion = versions.data.entries[0];
-    } else if (typeof version.latest === "string") {
-      partialVersion = versions.data.entries.find(
-        (v) => v.type === version.latest,
-      );
-    } else {
-      const includes = version.latest.includes.bind(version.latest);
-      partialVersion = versions.data.entries.find((v) => includes(v.type));
-    }
-
-    if (!partialVersion)
-      return { success: false, error: PatchNotesError.VersionNotFound };
-
+    const partialVersion = maybePartialVersion.data;
     const patchRes = await fetch(BASE_URL + partialVersion.contentPath);
     const patch = PATCH_NOTE_SCHEMA.safeParse(await patchRes.json());
     if (!patch.success) return patch;
