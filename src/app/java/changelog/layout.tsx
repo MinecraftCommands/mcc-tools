@@ -71,7 +71,7 @@ export default async function ChangelogLayout({
           </ScrollArea>
         </SheetContent>
       </Sheet>
-      <div className="grid grid-cols-[1fr] items-start gap-3 md:grid-cols-[minmax(10vw,max-content)_1fr]">
+      <div className="grid grid-cols-1 items-start gap-3 md:grid-cols-[minmax(10vw,max-content)_minmax(0,1fr)]">
         <div className="sticky top-[calc(theme(height.header)+theme(padding.2))] ml-2 hidden md:block">
           <ScrollArea className="h-page rounded-md border">
             <ul>
