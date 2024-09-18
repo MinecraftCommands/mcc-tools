@@ -30,13 +30,6 @@ export default function VersionLink({
   const pathname = usePathname();
   const selected = url === pathname || url === pathname + "/";
 
-  // HACK: This attempts to fix broken spacing that is in the API itself
-  // Eventually it would be good to extract a better preview from the full article
-  // This could easily break code snippets if they happen to be in the preview text, but that should be unlikely
-  const repairedShortText = shortText
-    .replace(/([a-z])([A-Z])/g, "$1. $2")
-    .replace(/([a-z][!.])([A-Z])/g, "$1 $2");
-
   return (
     <HoverCard closeDelay={0} openDelay={0}>
       <HoverCardTrigger asChild>
@@ -64,7 +57,7 @@ export default function VersionLink({
             }}
           />
           <h2>{title}</h2>
-          <p>{repairedShortText}…</p>
+          <p>{shortText}…</p>
         </HoverCardContent>
       </HoverCardPortal>
     </HoverCard>

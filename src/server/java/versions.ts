@@ -15,7 +15,14 @@ const VERSION_MANIFEST_ENTRY_SCHEMA = z.object({
     .datetime()
     .transform((d) => new Date(d)),
   contentPath: z.string(),
-  shortText: z.string(),
+  shortText: z.string().transform((shortText) => {
+    // HACK: This attempts to fix broken spacing that is in the API itself
+    // Eventually it would be good to extract a better preview from the full article
+    // This could easily break code snippets if they happen to be in the preview text, but that should be unlikely
+    return shortText
+      .replace(/([a-z])([A-Z])/g, "$1. $2")
+      .replace(/([a-z][!.])([A-Z])/g, "$1 $2");
+  }),
 });
 
 export type VersionManifestEntry = z.infer<
