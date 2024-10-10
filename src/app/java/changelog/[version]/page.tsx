@@ -25,11 +25,7 @@ export async function generateMetadata({
       type: "article",
       authors: "Mojang",
       images: BASE_ASSET_URL + partialVersion.image.url,
-      publishedTime:
-        // The Next.JS caching ends up actually giving a string rather than the properly transformed Date
-        typeof partialVersion.date == "string"
-          ? partialVersion.date
-          : partialVersion.date.toISOString(),
+      publishedTime: partialVersion.date.toISOString(),
       siteName: "MCC Gadgets",
     },
   };

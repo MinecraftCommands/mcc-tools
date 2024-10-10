@@ -51,11 +51,8 @@ async function PatchNotesImpl({
 
     if (isZodErrorLike(maybePatchNotes.error)) {
       msg = fromError(maybePatchNotes.error).toString();
-    } else if (typeof maybePatchNotes.error === "string") {
-      msg = maybePatchNotes.error;
     } else {
-      // TODO: fix serialized errors not being rendered nicely
-      msg = JSON.stringify(maybePatchNotes.error);
+      msg = maybePatchNotes.error;
     }
 
     return (

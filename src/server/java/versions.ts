@@ -1,4 +1,4 @@
-import { unstable_cache } from "next/cache";
+import { cache } from "~/lib/fetch";
 import { type ZodError, z } from "zod";
 
 const VERSION_MANIFEST_ENTRY_SCHEMA = z.object({
@@ -43,7 +43,7 @@ export type VersionManifestZodError = ZodError<
 export const BASE_ASSET_URL = "https://launchercontent.mojang.com";
 const BASE_URL = BASE_ASSET_URL + "/v2/";
 
-export const getVersionManifest = unstable_cache(
+export const getVersionManifest = cache(
   async (): Promise<
     | { success: true; data: VersionManifest }
     | {
@@ -110,7 +110,7 @@ export async function getPartialVersion(
   return { success: true, data: partialVersion };
 }
 
-export const getPatchNotes = unstable_cache(
+export const getPatchNotes = cache(
   async (
     version: PatchNotesQuery = { latest: true },
   ): Promise<
