@@ -30,7 +30,7 @@ export default async function Home() {
       <ul className="not-prose flex list-none flex-wrap gap-2">
         {SOCIALS.map(({ Element, name }) => (
           <li key={name}>
-            <Badge variant="outline">
+            <Badge variant="outline" className="py-2">
               <Element className="h-8 w-auto" />
               <span className="sr-only">{name}</span>
             </Badge>
