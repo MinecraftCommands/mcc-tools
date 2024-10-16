@@ -16,7 +16,7 @@ export function PublishDate({ date }: { date: Date }) {
 
   return (
     <span
-      className="text-sm font-semibold text-gray-700 dark:text-gray-500"
+      className="dark:text-shadow-around text-sm font-semibold text-gray-700 dark:text-gray-400 dark:shadow-gray-950"
       suppressHydrationWarning // Prevents React hydration warning caused by time localisation
     >
       {publicationDate}
