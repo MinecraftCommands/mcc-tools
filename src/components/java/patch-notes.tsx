@@ -15,6 +15,7 @@ import { toKebabCase } from "~/lib/utils";
 import { BASE_ASSET_URL } from "~/server/java/versions";
 import { type DataNode, type Element } from "domhandler";
 import { PublishDate } from "~/components/java/publish-date";
+import Image from "next/image";
 
 export default function PatchNotes({
   version = { latest: true },
@@ -152,20 +153,32 @@ async function PatchNotesImpl({
   const dom = parseHtml(cleanPatchNotesHTML, options);
 
   return (
-    <div>
+    <div className="relative">
       <div
-        className="relative h-[60vh] bg-cover bg-center md:blur-[1px] lg:blur-[2px] xl:blur-[3px] 2xl:blur-[4px]"
+        className="absolute -z-10 h-[60vh] w-full bg-cover bg-center md:blur-[1px] lg:blur-[2px] xl:blur-[3px] 2xl:blur-[4px]"
         style={{
           backgroundImage: `url(${BASE_ASSET_URL + patchNotes.image.url})`,
         }}
       >
         <div className="absolute top-0 block h-full w-full bg-gradient-to-t from-background"></div>
       </div>
-      <div className="prose prose-sm mx-auto max-w-[100ch] -translate-y-[30vh] break-words px-4 dark:prose-invert md:prose-base 2xl:prose-lg">
-        <PublishDate date={patchNotes.date} />
-        <h1>{patchNotes.title}</h1>
+      <div className="prose-s prose mx-auto max-w-[100ch] break-words px-4 dark:prose-invert md:prose-base 2xl:prose-lg">
+        <div className="not-prose float-right my-4 ml-6 w-1/3 max-md:hidden">
+          <Image
+            src={BASE_ASSET_URL + patchNotes.image.url}
+            alt=""
+            unoptimized
+            width={540}
+            height={540}
+            className="rounded-md drop-shadow-lg-dark"
+          />
+        </div>
+        <div className="pt-[30vh]">
+          <PublishDate date={patchNotes.date} />
+        </div>
+        <h1 className="text-pretty">{patchNotes.title}</h1>
         <div
-          className="max-w-1/2 float-right mb-2 ml-6 w-1/3 rounded-sm border p-3 text-sm leading-5 max-md:w-full"
+          className="float-right clear-right mb-2 ml-6 w-1/3 rounded-sm border p-3 text-sm leading-5 max-md:w-full"
           id="table-of-contents"
         >
           <span className="font-semibold text-foreground/80">
