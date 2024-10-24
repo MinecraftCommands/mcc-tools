@@ -16,7 +16,7 @@ export default function CssVars({ children }: { children: React.ReactNode }) {
  *
  * @return {string} The height of the viewport in pixels or "100vh" on the server.
  */
-function useViewportHeight() {
+function useViewportHeight(): string {
   const [height, setHeight] = useState("100vh");
   const updateHeight = useCallback(
     () => setHeight(`${document.documentElement.clientHeight}px`),
