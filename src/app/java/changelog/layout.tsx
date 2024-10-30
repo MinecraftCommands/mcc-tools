@@ -54,7 +54,7 @@ export default async function ChangelogLayout({
             <span>Versions</span>
           </Button>
         </SheetTrigger>
-        <SheetContent>
+        <SheetContent className="flex flex-col">
           <SheetHeader>
             <SheetTitle>Versions</SheetTitle>
             <SheetDescription>
