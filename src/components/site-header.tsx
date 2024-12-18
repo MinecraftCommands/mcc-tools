@@ -54,7 +54,7 @@ const nav: NavGroupProps[] = [
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 flex h-header w-full items-center border-b border-border/40 bg-background/95 p-2 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 flex h-header w-full items-center border-b border-border/40 bg-crust p-2 backdrop-blur supports-[backdrop-filter]:bg-crust/60">
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
@@ -62,7 +62,7 @@ export function SiteHeader() {
               <Link
                 href="/"
                 className={cn(
-                  "flex items-center gap-2 pr-4 font-robotoMono font-[300] dark:font-[250]",
+                  "flex items-center gap-2 pr-4 font-robotoMono font-[300] text-text dark:font-[250]",
                   robotoMono.variable,
                 )}
               >
@@ -100,12 +100,17 @@ function NavGroup({ name, items }: NavGroupProps) {
   return (
     <NavigationMenuItem>
       <NavigationMenuTrigger
-        className={{ "[&:not(:hover)]:bg-accent/40": anyChildActive }}
+        className={cn(
+          {
+            "bg-surface0": anyChildActive,
+          },
+          "text-text",
+        )}
       >
         {name}
       </NavigationMenuTrigger>
       <NavigationMenuContent>
-        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+        <ul className="grid w-[400px] gap-3 bg-crust p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
           {children}
         </ul>
       </NavigationMenuContent>
@@ -143,7 +148,7 @@ function NavItem({
         <Link
           className={cn(
             className,
-            "select-none rounded-md no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground data-[active]:[&:not(:hover)]:bg-accent/40",
+            "select-none rounded-md bg-surface0 text-text no-underline outline-none transition-colors hover:bg-surface1",
           )}
           href={href}
         >

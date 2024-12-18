@@ -36,8 +36,8 @@ export default function VersionLink({
         <Link
           href={url}
           className={cn(
-            "inline-block w-full hover:bg-foreground/10",
-            { "bg-foreground/15 underline": selected },
+            "inline-block w-full text-subtext1 hover:bg-surface1",
+            { "bg-surface0 underline": selected },
             className,
           )}
           prefetch={false}
@@ -57,7 +57,7 @@ export default function VersionLink({
             }}
           />
           <h2>{title}</h2>
-          <p>{shortText}…</p>
+          <p className="text-text">{shortText}…</p>
         </HoverCardContent>
       </HoverCardPortal>
     </HoverCard>

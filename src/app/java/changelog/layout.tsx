@@ -50,13 +50,13 @@ export default async function ChangelogLayout({
             variant="outline"
             className="fixed right-0 z-10 m-1 gap-2 md:hidden"
           >
-            <ActivityLogIcon />
-            <span>Versions</span>
+            <ActivityLogIcon className="text-text" />
+            <span className="text-text">Versions</span>
           </Button>
         </SheetTrigger>
         <SheetContent className="flex flex-col">
           <SheetHeader>
-            <SheetTitle>Versions</SheetTitle>
+            <SheetTitle className="text-text">Versions</SheetTitle>
             <SheetDescription>
               Select a version to view the changelogs for
             </SheetDescription>
@@ -79,7 +79,7 @@ export default async function ChangelogLayout({
           >
             <ul>
               <li key="header" className="p-2">
-                <h2 className="font-semibold">Versions:</h2>
+                <h2 className="font-semibold text-text">Versions:</h2>
               </li>
               <VersionLinks versions={versions} className="py-1 pl-3 pr-4" />
             </ul>

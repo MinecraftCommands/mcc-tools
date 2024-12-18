@@ -142,8 +142,11 @@ async function PatchNotesImpl({
         { ...attribs },
         <>
           {domToReact(children, options)}
-          <a href="#table-of-contents" className="ml-1 text-foreground/60">
-            <ResetIcon className="inline" />
+          <a
+            href="#table-of-contents"
+            className="ml-2 inline-block h-full text-subtext1 hover:text-subtext0"
+          >
+            <ResetIcon className="inline translate-y-2/3 align-top" />
           </a>
         </>,
       );
@@ -160,9 +163,9 @@ async function PatchNotesImpl({
           backgroundImage: `url(${BASE_ASSET_URL + patchNotes.image.url})`,
         }}
       >
-        <div className="absolute top-0 block h-full w-full bg-gradient-to-t from-background"></div>
+        <div className="absolute top-0 block h-full w-full bg-gradient-to-t from-base"></div>
       </div>
-      <div className="prose-s prose mx-auto max-w-[100ch] break-words px-4 dark:prose-invert md:prose-base 2xl:prose-lg">
+      <div className="prose-s prose mx-auto max-w-[100ch] break-words px-4 md:prose-base 2xl:prose-lg dark:prose-invert">
         <div className="not-prose float-right my-4 ml-6 w-1/3 max-md:hidden">
           <Image
             src={BASE_ASSET_URL + patchNotes.image.url}
@@ -181,9 +184,7 @@ async function PatchNotesImpl({
           className="float-right clear-right mb-2 ml-6 w-1/3 rounded-sm border p-3 text-sm leading-5 max-md:w-full"
           id="table-of-contents"
         >
-          <span className="font-semibold text-foreground/80">
-            Table of Contents
-          </span>
+          <span className="font-semibold text-subtext1">Table of Contents</span>
           {articleSections.map((section) => (
             <DropdownItem key={section.id} section={section} />
           ))}
@@ -202,7 +203,7 @@ function DropdownLink({
   return (
     <a
       href={"#" + section.id}
-      className="text-foreground/80 no-underline hover:text-foreground"
+      className="text-subtext0 no-underline hover:text-subtext1"
     >
       {section.text}
     </a>

@@ -31,24 +31,24 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "min-h-screen bg-base font-sans antialiased",
           inter.variable,
         )}
       >
         <CssVars>
           <ThemeProvider
-          attribute="class"
-          themes={["latte", "frappe", "macchiato", "mocha"]}
-          value={{
-            light: "latte",
-            dark: "mocha",
-            latte: "latte",
-            frappe: "frappe",
-            macchiato: "macchiato",
-            mocha: "mocha",
-          }}
-          disableTransitionOnChange
-        >
+            attribute="class"
+            themes={["latte", "frappe", "macchiato", "mocha"]}
+            value={{
+              light: "latte",
+              dark: "mocha",
+              latte: "latte",
+              frappe: "frappe",
+              macchiato: "macchiato",
+              mocha: "mocha",
+            }}
+            disableTransitionOnChange
+          >
             <SiteHeader />
             <TRPCReactProvider>{children}</TRPCReactProvider>
           </ThemeProvider>
