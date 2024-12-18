@@ -33,6 +33,8 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+    scroll-behavior: smooth;
+    scroll-padding: calc(theme(height.header) + theme(padding.2));
   }
 
   .dark {

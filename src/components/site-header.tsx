@@ -4,46 +4,152 @@ import Link from "next/link";
 import * as React from "react";
 import {
   NavigationMenu,
+  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
+  NavigationMenuTrigger,
 } from "~/components/ui/navigation-menu";
 import { Logo } from "~/components/logo";
 import { ModeToggle } from "~/components/mode-toggle";
 import { cn } from "~/lib/utils";
 
 import { Roboto_Mono } from "next/font/google";
+import { usePathname } from "next/navigation";
 
 const robotoMono = Roboto_Mono({
   subsets: ["latin"],
   variable: "--font-roboto_mono",
 });
 
+type NavItemProps = {
+  title: string;
+  href?: string;
+  activeWhen?: RegExp;
+  description: string;
+};
+
+type NavGroupProps = {
+  name: string;
+  items: NavItemProps[];
+};
+
+const nav: NavGroupProps[] = [
+  {
+    name: "Articles",
+    items: [
+      {
+        title: "Articles",
+        description: "All about data/resource pack development",
+      },
+      {
+        title: "Java Changelogs",
+        href: "/java/changelog",
+        description: "Check out how Java edition has changed across versions",
+        activeWhen: /^\/java\/changelog/,
+      },
+    ],
+  },
+];
+
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 py-2 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex items-center">
-        <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink
-                  className={cn(
-                    "flex items-center gap-2 font-robotoMono font-[300] dark:font-[250]",
-                    robotoMono.variable,
-                  )}
-                >
-                  <Logo />
-                  <div>MCC Gadgets</div>
-                </NavigationMenuLink>
+    <header className="sticky top-0 z-50 flex h-header w-full items-center border-b border-border/40 bg-background/95 p-2 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <NavigationMenu>
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <NavigationMenuLink asChild>
+              <Link
+                href="/"
+                className={cn(
+                  "flex items-center gap-2 pr-4 font-robotoMono font-[300] dark:font-[250]",
+                  robotoMono.variable,
+                )}
+              >
+                <Logo />
+                <div className="max-md:sr-only">MCC Gadgets</div>
               </Link>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-        <div className="ml-auto">
-          <ModeToggle />
-        </div>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+          {nav.map((group) => (
+            <NavGroup key={group.name} {...group} />
+          ))}
+        </NavigationMenuList>
+      </NavigationMenu>
+      <div className="ml-auto">
+        <ModeToggle />
       </div>
     </header>
+  );
+}
+
+function NavGroup({ name, items }: NavGroupProps) {
+  const pathname = usePathname();
+
+  let anyChildActive = false;
+  const children = items.map((item) => {
+    const activeWhen = item.activeWhen;
+    const active = activeWhen
+      ? activeWhen.test(pathname)
+      : pathname === item.href;
+    anyChildActive ||= active;
+
+    return <NavItem key={item.title} {...item} active={active} />;
+  });
+
+  return (
+    <NavigationMenuItem>
+      <NavigationMenuTrigger
+        className={{ "[&:not(:hover)]:bg-accent/40": anyChildActive }}
+      >
+        {name}
+      </NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+          {children}
+        </ul>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+  );
+}
+
+function NavItem({
+  title,
+  href,
+  description,
+  active,
+}: Omit<NavItemProps, "activeWhen"> & { active: boolean }) {
+  const content = (
+    <>
+      <div className="text-sm font-medium leading-none">{title}</div>
+      <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+        {description}
+      </p>
+    </>
+  );
+
+  const className = "block space-y-1 p-3 leading-none";
+  if (!href) {
+    return (
+      <li>
+        <div className={className}>{content}</div>
+      </li>
+    );
+  }
+
+  return (
+    <li>
+      <NavigationMenuLink asChild active={active}>
+        <Link
+          className={cn(
+            className,
+            "select-none rounded-md no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground data-[active]:[&:not(:hover)]:bg-accent/40",
+          )}
+          href={href}
+        >
+          {content}
+        </Link>
+      </NavigationMenuLink>
+    </li>
   );
 }

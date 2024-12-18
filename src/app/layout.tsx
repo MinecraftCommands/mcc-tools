@@ -6,6 +6,7 @@ import { TRPCReactProvider } from "~/trpc/react";
 import { cn } from "~/lib/utils";
 import { ThemeProvider } from "~/components/theme-provider";
 import { SiteHeader } from "~/components/site-header";
+import CssVars from "~/components/css-vars";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -13,7 +14,10 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "MCC Gadgets",
+  title: {
+    default: "MCC Gadgets",
+    template: "%s | MCC Gadgets",
+  },
   description: "Tools for the Minecraft Commands community",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
@@ -31,22 +35,24 @@ export default function RootLayout({
           inter.variable,
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          themes={["latte", "frappe", "macchiato", "mocha"]}
-          value={{
-            light: "latte",
-            dark: "mocha",
-            latte: "latte",
-            frappe: "frappe",
-            macchiato: "macchiato",
-            mocha: "mocha",
-          }}
-          disableTransitionOnChange
-        >
-          <SiteHeader />
-          <TRPCReactProvider>{children}</TRPCReactProvider>
-        </ThemeProvider>
+        <CssVars>
+            <ThemeProvider
+                attribute="class"
+                themes={["latte", "frappe", "macchiato", "mocha"]}
+                value={{
+                    light: "latte",
+                    dark: "mocha",
+                    latte: "latte",
+                    frappe: "frappe",
+                    macchiato: "macchiato",
+                    mocha: "mocha",
+                }}
+                disableTransitionOnChange
+            >
+                <SiteHeader />
+                <TRPCReactProvider>{children}</TRPCReactProvider>
+            </ThemeProvider>
+        </CssVars>
       </body>
     </html>
   );

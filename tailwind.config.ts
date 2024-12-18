@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 import { fontFamily } from "tailwindcss/defaultTheme";
 import catppuccin from "@catppuccin/tailwindcss";
 import { flavorEntries } from "@catppuccin/palette";
@@ -21,6 +22,13 @@ export default {
       },
     },
     extend: {
+      height: ({ theme }) => {
+        const headerHeight = "52px";
+        return {
+          header: headerHeight,
+          page: `calc(var(--viewport-height) - ${headerHeight} - ${theme("padding.2")}*2)`,
+        };
+      },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
         robotoMono: ["var(--font-roboto_mono)"],
@@ -79,13 +87,42 @@ export default {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      typography: {
+        sm: {
+          css: [
+            {
+              fontSize: `0.9375rem`,
+            },
+          ],
+        },
+      },
+      dropShadow: {
+        "lg-dark": [
+          "0 10px 8px rgb(0 0 0 / 0.08)",
+          "0 4px 3px rgb(0 0 0 / 0.2)",
+        ],
+      },
+      textShadow: {
+        around:
+          "-1px -1px 0 var(--tw-shadow-color), 1px -1px 0 var(--tw-shadow-color), -1px 1px 0 var(--tw-shadow-color), 1px 1px 0 var(--tw-shadow-color)",
+      },
     },
   },
   plugins: [
     require("tailwindcss-animate"),
     require("@tailwindcss/typography"),
-    catppuccin({
-      defaultFlavour: "latte",
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          "text-shadow": (value: string) => ({
+            textShadow: value,
+          }),
+        },
+        { values: theme("textShadow") },
+      );
     }),
+      catppuccin({
+          defaultFlavour: "latte",
+      }),
   ],
 } satisfies Config;
