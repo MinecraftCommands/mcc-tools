@@ -1,5 +1,5 @@
 {
-    "conventionalCommits.scopes": [
-        "vercel"
-    ]
+  "conventionalCommits.scopes": ["vercel", "internal", "deps"],
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "tailwindCSS.classAttributes": ["class", "className", ".*ClassName"]
 }

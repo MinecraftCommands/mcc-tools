@@ -7,8 +7,9 @@ import { cn } from "~/lib/utils";
 
 import Link from "next/link";
 import { ThemedImg } from "~/components/themed-img";
+import type { ClassValue } from "clsx";
 
-export function SubredditLink({ className }: { className?: string }) {
+export function SubredditLink({ className }: { className?: ClassValue }) {
   return (
     <Link href="https://www.reddit.com/r/MinecraftCommands/" target="_blank">
       <ThemedImg
