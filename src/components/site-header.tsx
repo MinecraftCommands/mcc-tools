@@ -11,7 +11,7 @@ import {
   NavigationMenuTrigger,
 } from "~/components/ui/navigation-menu";
 import { Logo } from "~/components/logo";
-import { ModeToggle } from "~/components/mode-toggle";
+import { ThemePicker } from "~/components/theme-picker";
 import { cn } from "~/lib/utils";
 
 import { Roboto_Mono } from "next/font/google";
@@ -77,7 +77,7 @@ export function SiteHeader() {
         </NavigationMenuList>
       </NavigationMenu>
       <div className="ml-auto">
-        <ModeToggle />
+        <ThemePicker />
       </div>
     </header>
   );

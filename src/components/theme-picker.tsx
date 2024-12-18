@@ -18,7 +18,7 @@ function capitalise(str: string): string {
   return str[0].toUpperCase() + str.slice(1);
 }
 
-export function ModeToggle() {
+export function ThemePicker() {
   const { setTheme, themes, theme } = useTheme();
 
   return (
@@ -27,15 +27,15 @@ export function ModeToggle() {
         <Button variant="outline" size="icon">
           <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 text-text transition-all dark:-rotate-90 dark:scale-0" />
           <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 text-text transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
+          <span className="sr-only">Change theme</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="end" className="bg-mantle text-text">
         {themes.map((t) => (
           <DropdownMenuItem
             key={t}
             onClick={() => setTheme(t)}
-            className={cn({ "bg-red-500": theme === t })}
+            className={cn({ "bg-surface0": theme === t }, "hover:bg-surface1")}
           >
             {capitalise(t)}
           </DropdownMenuItem>
