@@ -70,6 +70,6 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-mantle;
   }
 }

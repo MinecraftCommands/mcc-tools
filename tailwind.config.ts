@@ -8,8 +8,8 @@ export default {
   darkMode: [
     "variant",
     flavorEntries
-      .filter(([_, { dark }]) => dark)
-      .map(([theme, _]) => `&:where(.${theme}, .${theme} *)`),
+      .filter(([_, { dark }]) => dark) // Filter to dark Catppuccin themes
+      .map(([theme, _]) => `&:where(.${theme}, .${theme} *)`), // Map to a selector targeting elements affected by that theme
   ],
   content: ["./src/**/*.{ts,tsx}"],
   prefix: "",
@@ -121,8 +121,8 @@ export default {
         { values: theme("textShadow") },
       );
     }),
-      catppuccin({
-          defaultFlavour: "latte",
-      }),
+    catppuccin({
+      defaultFlavour: "latte",
+    }),
   ],
 } satisfies Config;
