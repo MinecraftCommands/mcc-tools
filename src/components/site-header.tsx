@@ -104,7 +104,7 @@ function NavGroup({ name, items }: NavGroupProps) {
           {
             "bg-surface0": anyChildActive,
           },
-          "text-text",
+          "text-text focus:bg-surface0",
         )}
       >
         {name}
@@ -148,7 +148,7 @@ function NavItem({
         <Link
           className={cn(
             className,
-            "select-none rounded-md bg-surface0 text-text no-underline outline-none transition-colors hover:bg-surface1",
+            "select-none rounded-md text-text no-underline outline-none transition-colors hover:bg-surface0 focus:bg-surface0 data-[active]:[&:not(:hover)]:bg-mantle",
           )}
           href={href}
         >
