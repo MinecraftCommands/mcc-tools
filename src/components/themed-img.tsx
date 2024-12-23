@@ -31,11 +31,12 @@ export function ThemedImg({
 
     switch (resolvedTheme) {
       case "light":
+      case "latte":
         return light;
-      case "dark":
-        return dark;
-      default:
+      case undefined:
         return Skeleton;
+      default:
+        return dark;
     }
   })();
 
