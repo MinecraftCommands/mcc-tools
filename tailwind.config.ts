@@ -111,6 +111,9 @@ export default {
   plugins: [
     require("tailwindcss-animate"),
     require("@tailwindcss/typography"),
+    catppuccin({
+      defaultFlavour: "latte",
+    }),
     plugin(function ({ matchUtilities, theme }) {
       matchUtilities(
         {
