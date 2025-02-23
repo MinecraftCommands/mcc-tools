@@ -12,6 +12,11 @@ export function toKebabCase(str: string) {
     .toLowerCase();
 }
 
+export function capitalise(str: string): string {
+  if (!str[0]) return ""; // Keeps eslint happy
+  return str[0].toUpperCase() + str.slice(1);
+}
+
 export type Modify<T, R> = Omit<T, keyof R> & R;
 
 export type WithCn<T> = Modify<T, { className?: ClassValue }>;

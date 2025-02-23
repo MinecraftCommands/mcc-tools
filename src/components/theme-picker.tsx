@@ -11,12 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { cn } from "~/lib/utils";
-
-function capitalise(str: string): string {
-  if (!str[0]) return ""; // Keeps eslint happy
-  return str[0].toUpperCase() + str.slice(1);
-}
+import { capitalise } from "~/lib/utils";
 
 export function ThemePicker() {
   const { setTheme, themes, theme } = useTheme();
@@ -35,7 +30,7 @@ export function ThemePicker() {
           <DropdownMenuItem
             key={t}
             onClick={() => setTheme(t)}
-            className={cn({ "bg-surface0": theme === t }, "hover:bg-surface1")}
+            className={[{ "bg-surface0": theme === t }, "hover:bg-surface1"]}
           >
             {capitalise(t)}
           </DropdownMenuItem>

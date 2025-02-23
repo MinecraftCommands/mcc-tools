@@ -99,11 +99,7 @@ function NavGroup({ name, items }: NavGroupProps) {
 
   return (
     <NavigationMenuItem>
-      <NavigationMenuTrigger
-        className={cn({
-          "bg-surface0": anyChildActive,
-        })}
-      >
+      <NavigationMenuTrigger className={{ "bg-surface0": anyChildActive }}>
         {name}
       </NavigationMenuTrigger>
       <NavigationMenuContent>
