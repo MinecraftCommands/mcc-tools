@@ -124,5 +124,8 @@ export default {
         { values: theme("textShadow") },
       );
     }),
+    catppuccin({
+      defaultFlavour: "latte",
+    }),
   ],
 } satisfies Config;
