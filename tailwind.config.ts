@@ -38,7 +38,7 @@ export default {
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "rgb(var(--ctp-base))", // "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        foreground: "rgb(var(--ctp-text))", // "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -60,8 +60,8 @@ export default {
           foreground: "hsl(var(--accent-foreground))",
         },
         popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+          DEFAULT: "rgb(var(--ctp-mantle))", //"hsl(var(--popover))",
+          foreground: "rgb(var(--ctp-text))", //"hsl(var(--popover-foreground))",
         },
         card: {
           DEFAULT: "hsl(var(--card))",

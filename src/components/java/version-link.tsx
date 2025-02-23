@@ -57,7 +57,7 @@ export default function VersionLink({
             }}
           />
           <h2>{title}</h2>
-          <p className="text-text">{shortText}…</p>
+          <p>{shortText}…</p>
         </HoverCardContent>
       </HoverCardPortal>
     </HoverCard>

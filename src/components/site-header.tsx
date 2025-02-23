@@ -62,7 +62,7 @@ export function SiteHeader() {
               <Link
                 href="/"
                 className={cn(
-                  "flex items-center gap-2 pr-4 font-robotoMono font-[300] text-text dark:font-[250]",
+                  "flex items-center gap-2 pr-4 font-robotoMono font-[300] dark:font-[250]",
                   robotoMono.variable,
                 )}
               >
@@ -100,12 +100,9 @@ function NavGroup({ name, items }: NavGroupProps) {
   return (
     <NavigationMenuItem>
       <NavigationMenuTrigger
-        className={cn(
-          {
-            "bg-surface0": anyChildActive,
-          },
-          "text-text focus:bg-surface0",
-        )}
+        className={cn({
+          "bg-surface0": anyChildActive,
+        })}
       >
         {name}
       </NavigationMenuTrigger>
@@ -148,7 +145,7 @@ function NavItem({
         <Link
           className={cn(
             className,
-            "select-none rounded-md text-text no-underline outline-none transition-colors hover:bg-surface0 focus:bg-surface0 data-[active]:[&:not(:hover)]:bg-mantle",
+            "select-none rounded-md no-underline outline-none transition-colors hover:bg-surface0 focus:bg-surface0 data-[active]:[&:not(:hover)]:bg-mantle",
           )}
           href={href}
         >
