@@ -1,21 +1,31 @@
-import { type PatchNotesQuery, getPatchNotes } from "~/server/java/versions";
-import { fromError, isZodErrorLike } from "zod-validation-error";
-import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
-import sanitizeHtml from "sanitize-html";
+import { ElementType } from "domelementtype";
+import { type Element } from "domhandler";
+import type { DOMNode } from "html-dom-parser";
 import parseHtml, {
+  attributesToProps,
   domToReact,
   type HTMLReactParserOptions,
 } from "html-react-parser";
-import { ElementType } from "domelementtype";
-import { createElement, Suspense, type JSX } from "react";
-import type { DOMNode } from "html-dom-parser";
-import { Skeleton } from "../ui/skeleton";
-import { toKebabCase } from "~/lib/utils";
-import { BASE_ASSET_URL } from "~/server/java/versions";
-import { type DataNode, type Element } from "domhandler";
-import { PublishDate } from "~/components/java/publish-date";
 import Image from "next/image";
+import { createElement, Suspense, type JSX } from "react";
+import sanitizeHtml from "sanitize-html";
+import { fromError, isZodErrorLike } from "zod-validation-error";
+import { PublishDate } from "~/components/java/publish-date";
+import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
+import { textContent } from "~/lib/element";
+import { toKebabCase } from "~/lib/utils";
+import {
+  highlightMcfunctionToHtml,
+  highlightResourceTagToHtml,
+  initHighlighter,
+} from "~/server/highlighting/highlighter";
+import {
+  BASE_ASSET_URL,
+  getPatchNotes,
+  type PatchNotesQuery,
+} from "~/server/java/versions";
+import { Skeleton } from "../ui/skeleton";
 
 export default function PatchNotes({
   version = { latest: true },
@@ -46,6 +56,8 @@ async function PatchNotesImpl({
 }: {
   version?: PatchNotesQuery;
 }) {
+  // Start getting the highlighter initialising ASAP
+  const highlighterReady = initHighlighter();
   const maybePatchNotes = await getPatchNotes(version);
   if (!maybePatchNotes.success) {
     let msg: string;
@@ -85,72 +97,22 @@ async function PatchNotesImpl({
       domNode: DOMNode,
     ): JSX.Element | string | null | boolean | object | void {
       if (domNode.type !== ElementType.Tag) return;
-      if (!domNode.name.startsWith("h")) return;
 
-      const attribs = { ...domNode.attribs };
-      const children = domNode.children as DOMNode[];
-
-      const initialHeadingLevel = Number(domNode.name.at(-1));
-      if (Number.isNaN(initialHeadingLevel)) return;
-
-      let HElem = "p";
-
-      if (
-        !attribs.id &&
-        children[0]?.type === ElementType.Text &&
-        initialHeadingLevel < 6
-      ) {
-        const headingText: string = children
-          .map(
-            (child) =>
-              (child as DataNode).data ??
-              ((child as Element).children[0] as DataNode)?.data,
-          )
-          .join("");
-
-        let id = toKebabCase(headingText);
-        const dups = ids.get(id) ?? 0;
-        if (dups > 0) {
-          id += `-${dups}`;
-        }
-        ids.set(id, dups + 1);
-
-        attribs.id = id;
-
-        const section = articleSections.at(-1);
-        const headingLevel = initialHeadingLevel + 1;
-
-        HElem = "h" + headingLevel;
-
-        if (headingLevel > 2 && section) {
-          section.children.push({
-            text: headingText,
-            id: id,
-            level: headingLevel - 2,
-          });
-        } else {
-          articleSections.push({
-            text: headingText,
-            id: id,
-            children: [],
-          });
-        }
+      if (domNode.name.startsWith("h")) {
+        return parseHeader(domNode, ids, articleSections, options);
       }
 
-      return createElement(
-        HElem,
-        { ...attribs },
-        <>
-          {domToReact(children, options)}
-          <a
-            href={"#" + attribs.id}
-            className="opacity-0 ml-2 [:hover>&]:opacity-100 transition-opacity inline-block h-full text-subtext1 hover:text-subtext0"
-          >#</a>
-        </>,
-      );
+      switch (domNode.name) {
+        case "pre":
+          return parseCodeBlock(domNode);
+        case "code":
+          return parseCodeInline(domNode);
+      }
     },
   };
 
+  // Ensure the highlighter is ready to use
+  await highlighterReady;
   const dom = parseHtml(cleanPatchNotesHTML, options);
 
   return (
@@ -237,4 +199,112 @@ function DropdownItem({ section }: { section: ArticleSection }) {
       </ul>
     </details>
   );
+}
+
+function parseHeader(
+  domNode: Element,
+  ids: Map<string, number>,
+  articleSections: ArticleSection[],
+  options: HTMLReactParserOptions,
+) {
+  const attribs = { ...domNode.attribs };
+  const children = domNode.children as DOMNode[];
+
+  const initialHeadingLevel = Number(domNode.name.at(-1));
+  if (Number.isNaN(initialHeadingLevel)) return;
+
+  let HElem = "p";
+
+  if (!attribs.id && initialHeadingLevel < 6) {
+    const headingText = textContent(domNode);
+    if (headingText) {
+      let id = toKebabCase(headingText);
+      const dups = ids.get(id) ?? 0;
+      if (dups > 0) {
+        id += `-${dups}`;
+      }
+      ids.set(id, dups + 1);
+
+      attribs.id = id;
+
+      const section = articleSections.at(-1);
+      const headingLevel = initialHeadingLevel + 1;
+
+      HElem = "h" + headingLevel;
+
+      if (headingLevel > 2 && section) {
+        section.children.push({
+          text: headingText,
+          id: id,
+          level: headingLevel - 2,
+        });
+      } else {
+        articleSections.push({
+          text: headingText,
+          id: id,
+          children: [],
+        });
+      }
+    }
+  }
+
+  return createElement(
+    HElem,
+    { ...attribs },
+    <>
+      {domToReact(children, options)}
+      <a
+        href={"#" + attribs.id}
+        className="ml-2 inline-block h-full text-subtext1 opacity-0 transition-opacity hover:text-subtext0 [:hover>&]:opacity-100"
+      >
+        #
+      </a>
+    </>,
+  );
+}
+
+function parseCodeBlock(domNode: Element) {
+  const code = textContent(domNode);
+  const highlighted = highlightMcfunctionToHtml(code);
+  return parseHtml(highlighted, {
+    replace(
+      domNode: DOMNode,
+    ): JSX.Element | string | null | boolean | object | void {
+      if (domNode.type !== ElementType.Tag || domNode.name !== "pre") return;
+
+      const props = attributesToProps(domNode.attribs);
+      if ("className" in props) {
+        props.className += " rounded-md border";
+      } else {
+        props.className = "rounded-md border";
+      }
+      const children = domNode.children as DOMNode[];
+
+      return <pre {...props}>{domToReact(children)}</pre>;
+    },
+  });
+}
+
+function isResourceTag(code: string) {
+  return /^#[a-z0-9._-]+(:[a-z0-9._-]+)?$/.test(code);
+}
+
+function parseCodeInline(domNode: Element) {
+  const code = textContent(domNode);
+  // Unfortunately grammar state doesn't seem to work for getting tags to highlight correctly
+  const highlighted = isResourceTag(code)
+    ? highlightResourceTagToHtml(code)
+    : highlightMcfunctionToHtml(code);
+  return parseHtml(highlighted, {
+    replace(
+      domNode: DOMNode,
+    ): JSX.Element | string | null | boolean | object | void {
+      if (domNode.type !== ElementType.Tag || domNode.name !== "pre") return;
+
+      const props = attributesToProps(domNode.attribs);
+      const children = domNode.children as DOMNode[];
+
+      return <span {...props}>{domToReact(children)}</span>;
+    },
+  });
 }
