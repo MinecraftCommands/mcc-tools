@@ -72,4 +72,41 @@
   * {
     @apply border-overlay0;
   }
+
+  /* TODO: Figure out how to automate this */
+  .latte .shiki,
+  .latte .shiki span {
+    color: var(--shiki-latte);
+    background-color: var(--shiki-latte-bg);
+    font-style: var(--shiki-latte-font-style);
+    font-weight: var(--shiki-latte-font-weight);
+    text-decoration: var(--shiki-latte-text-decoration);
+  }
+
+  .frappe .shiki,
+  .frappe .shiki span {
+    color: var(--shiki-frappe);
+    background-color: var(--shiki-frappe-bg);
+    font-style: var(--shiki-frappe-font-style);
+    font-weight: var(--shiki-frappe-font-weight);
+    text-decoration: var(--shiki-frappe-text-decoration);
+  }
+
+  .macchiato .shiki,
+  .macchiato .shiki span {
+    color: var(--shiki-macchiato);
+    background-color: var(--shiki-macchiato-bg);
+    font-style: var(--shiki-macchiato-font-style);
+    font-weight: var(--shiki-macchiato-font-weight);
+    text-decoration: var(--shiki-macchiato-text-decoration);
+  }
+
+  .mocha .shiki,
+  .mocha .shiki span {
+    color: var(--shiki-mocha);
+    background-color: var(--shiki-mocha-bg);
+    font-style: var(--shiki-mocha-font-style);
+    font-weight: var(--shiki-mocha-font-weight);
+    text-decoration: var(--shiki-mocha-text-decoration);
+  }
 }
