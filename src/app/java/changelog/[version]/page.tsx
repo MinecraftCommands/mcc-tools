@@ -3,12 +3,12 @@ import PatchNotes from "~/components/java/patch-notes";
 import { BASE_ASSET_URL, getPartialVersion } from "~/server/java/versions";
 
 type Props = {
-  params: { version: string };
+  params: Promise<{ version: string }>;
 };
 
-export async function generateMetadata({
-  params: { version },
-}: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const { version } = await props.params;
+
   const maybePartialVersion = await getPartialVersion(version);
   if (!maybePartialVersion.success) {
     return {
@@ -31,6 +31,8 @@ export async function generateMetadata({
   };
 }
 
-export default function SelectedPatchNotes({ params: { version } }: Props) {
+export default async function SelectedPatchNotes(props: Props) {
+  const { version } = await props.params;
+
   return <PatchNotes version={version} />;
 }
