@@ -88,6 +88,18 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       typography: {
+        DEFAULT: {
+          css: [
+            {
+              "code::before": {
+                content: "none",
+              },
+              "code::after": {
+                content: "none",
+              },
+            },
+          ],
+        },
         sm: {
           css: [
             {

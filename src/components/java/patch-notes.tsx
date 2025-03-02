@@ -16,9 +16,10 @@ import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { textContent } from "~/lib/element";
 import { toKebabCase } from "~/lib/utils";
 import {
-  highlightMcfunctionToHtml,
-  highlightResourceTagToHtml,
+  highlightToHtml,
   initHighlighter,
+  type Language,
+  type Scheme,
 } from "~/server/highlighting/highlighter";
 import {
   BASE_ASSET_URL,
@@ -250,7 +251,7 @@ function parseHeader(
 
   return createElement(
     HElem,
-    { ...attribs },
+    attribs,
     <>
       {domToReact(children, options)}
       <a
@@ -263,9 +264,19 @@ function parseHeader(
   );
 }
 
-function parseCodeBlock(domNode: Element) {
+function parseCode(
+  domNode: Element,
+  options: {
+    lang: (code: string) => Language;
+    className: string;
+    elem: string;
+    scheme: Scheme;
+  },
+) {
   const code = textContent(domNode);
-  const highlighted = highlightMcfunctionToHtml(code);
+  const highlighted = highlightToHtml(code, options.lang(code), {
+    scheme: options.scheme,
+  });
   return parseHtml(highlighted, {
     replace(
       domNode: DOMNode,
@@ -274,14 +285,25 @@ function parseCodeBlock(domNode: Element) {
 
       const props = attributesToProps(domNode.attribs);
       if ("className" in props) {
-        props.className += " rounded-md border";
+        props.className += ` ${options.className}`;
       } else {
-        props.className = "rounded-md border";
+        props.className = options.className;
       }
       const children = domNode.children as DOMNode[];
 
-      return <pre {...props}>{domToReact(children)}</pre>;
+      return createElement(options.elem, props, domToReact(children));
     },
+  });
+}
+
+function parseCodeBlock(domNode: Element) {
+  return parseCode(domNode, {
+    lang() {
+      return "mcfunction";
+    },
+    className: "rounded-md border",
+    elem: "pre",
+    scheme: "mantle",
   });
 }
 
@@ -290,21 +312,12 @@ function isResourceTag(code: string) {
 }
 
 function parseCodeInline(domNode: Element) {
-  const code = textContent(domNode);
-  // Unfortunately grammar state doesn't seem to work for getting tags to highlight correctly
-  const highlighted = isResourceTag(code)
-    ? highlightResourceTagToHtml(code)
-    : highlightMcfunctionToHtml(code);
-  return parseHtml(highlighted, {
-    replace(
-      domNode: DOMNode,
-    ): JSX.Element | string | null | boolean | object | void {
-      if (domNode.type !== ElementType.Tag || domNode.name !== "pre") return;
-
-      const props = attributesToProps(domNode.attribs);
-      const children = domNode.children as DOMNode[];
-
-      return <span {...props}>{domToReact(children)}</span>;
+  return parseCode(domNode, {
+    lang(code: string) {
+      return isResourceTag(code) ? "resource-tag" : "mcfunction";
     },
+    className: "rounded-md px-1",
+    elem: "span",
+    scheme: "crust",
   });
 }
