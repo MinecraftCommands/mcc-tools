@@ -311,10 +311,20 @@ function isResourceTag(code: string) {
   return /^#[a-z0-9._-]+(:[a-z0-9._-]+)?$/.test(code);
 }
 
+const keywords = ["true", "false"];
+
+function isSimpleIdentifier(code: string) {
+  return !keywords.includes(code) && /^[a-zA-Z][a-zA-Z0-9._-]*$/.test(code);
+}
+
 function parseCodeInline(domNode: Element) {
   return parseCode(domNode, {
     lang(code: string) {
-      return isResourceTag(code) ? "resource-tag" : "mcfunction";
+      return isResourceTag(code)
+        ? "resource_tag"
+        : isSimpleIdentifier(code)
+          ? "simple_id"
+          : "mcfunction";
     },
     className: "rounded-md px-1",
     elem: "span",

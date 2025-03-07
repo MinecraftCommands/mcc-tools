@@ -8,6 +8,7 @@ import {
   type SpecialLanguage,
 } from "shiki";
 import { getMcfunctionTmLang, tagTmLang } from "./mcfunction";
+import { simpleIdentifierTmLang } from "./generic";
 import { flavorEntries } from "@catppuccin/palette";
 
 const themes = Object.fromEntries(
@@ -27,7 +28,7 @@ export function initHighlighter() {
     _initPromise = (async () => {
       const mcfunctionTmLang = await getMcfunctionTmLang();
       const highlighter = await createHighlighter({
-        langs: [mcfunctionTmLang, tagTmLang],
+        langs: [mcfunctionTmLang, tagTmLang, simpleIdentifierTmLang],
         themes: Object.values(themes),
       });
       highlightInfo = {
@@ -42,7 +43,8 @@ export function initHighlighter() {
 
 export type Language =
   | "mcfunction"
-  | "resource-tag"
+  | "resource_tag"
+  | "simple_id"
   | BundledLanguage
   | SpecialLanguage;
 
@@ -84,7 +86,8 @@ export function highlightToHtml(
 
   const langMap: Partial<Record<Language, string>> = {
     mcfunction: mcfunctionTmLang.name,
-    "resource-tag": tagTmLang.name,
+    resource_tag: tagTmLang.name,
+    simple_id: simpleIdentifierTmLang.name,
   };
 
   return highlighter.codeToHtml(code, {
