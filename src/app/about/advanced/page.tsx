@@ -34,17 +34,27 @@ export default function AdvancedSiteInfo() {
           <TableRow>
             <TableHead>Key</TableHead>
             <TableHead>Value</TableHead>
+            <TableHead>Notes</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          <EnvVarRow envVar="VERCEL_GIT_COMMIT_REF" />
+          <EnvVarRow envVar="VERCEL_GIT_COMMIT_REF">
+            This represents the name of the branch that this deployment is
+            produced from. Will be used for DB branching too
+          </EnvVarRow>
         </TableBody>
       </Table>
     </main>
   );
 }
 
-function EnvVarRow({ envVar }: { envVar: keyof typeof env }) {
+function EnvVarRow({
+  envVar,
+  children,
+}: {
+  envVar: keyof typeof env;
+  children?: React.ReactNode;
+}) {
   const value = env[envVar];
   return (
     <TableRow>
@@ -52,6 +62,7 @@ function EnvVarRow({ envVar }: { envVar: keyof typeof env }) {
       <TableCell>
         {typeof value === "undefined" ? "undefined" : value}
       </TableCell>
+      <TableCell>{children}</TableCell>
     </TableRow>
   );
 }
