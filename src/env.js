@@ -37,7 +37,7 @@ export const env = createEnv({
     DISCORD_CLIENT_ID: optionalInDev(z.string()),
     DISCORD_CLIENT_SECRET: optionalInDev(z.string()),
     VERCEL_GIT_COMMIT_REF: z.string().optional(),
-    VERCEL_GIT_PULL_REQUEST_ID: z.number().int().optional(),
+    VERCEL_GIT_PULL_REQUEST_ID: z.coerce.number().int().optional(),
   },
 
   /**
