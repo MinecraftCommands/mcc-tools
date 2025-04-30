@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
   index,
   int,
@@ -16,26 +16,26 @@ import { type AdapterAccount } from "next-auth/adapters";
  */
 export const createTable = sqliteTableCreator((name) => `mcc-gadgets_${name}`);
 
-// export const posts = createTable(
-//   "post",
-//   {
-//     id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
-//     name: text("name", { length: 256 }),
-//     createdById: text("created_by", { length: 255 })
-//       .notNull()
-//       .references(() => users.id),
-//     createdAt: int("created_at", { mode: "timestamp" })
-//       .default(sql`(unixepoch())`)
-//       .notNull(),
-//     updatedAt: int("updated_at", { mode: "timestamp" }).$onUpdate(
-//       () => new Date(),
-//     ),
-//   },
-//   (example) => [
-//     index("created_by_idx").on(example.createdById),
-//     index("name_idx").on(example.name),
-//   ],
-// );
+export const tempPosts = createTable(
+  "tempPost",
+  {
+    id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+    name: text("name", { length: 256 }),
+    createdById: text("created_by", { length: 255 })
+      .notNull()
+      .references(() => users.id),
+    createdAt: int("created_at", { mode: "timestamp" })
+      .default(sql`(unixepoch())`)
+      .notNull(),
+    updatedAt: int("updated_at", { mode: "timestamp" }).$onUpdate(
+      () => new Date(),
+    ),
+  },
+  (example) => [
+    index("created_by_idx").on(example.createdById),
+    index("name_idx").on(example.name),
+  ],
+);
 
 export const users = createTable("user", {
   id: text("id", { length: 255 })
