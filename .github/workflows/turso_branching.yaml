@@ -52,7 +52,7 @@ jobs:
     name: Ensure the DB branch exists and is up to date
     needs: setup
     if: |
-      github.event_name == 'pull_request' && (
+      github.event_name == 'pull_request_target' && (
       github.event.action == 'synchronize'
       || github.event.action == 'opened'
       || github.event.action == 'reopened')
@@ -98,7 +98,7 @@ jobs:
     name: Delete DB branch and migrate prod
     needs: setup
     if: |
-      github.event_name == 'pull_request' &&
+      github.event_name == 'pull_request_target' &&
       github.event.action == 'closed'
     runs-on: ubuntu-latest
     steps:
