@@ -1,0 +1,101 @@
+name: Automatically create and cleanup Turso DB branches for each PR
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
+
+jobs:
+  setup:
+    outputs:
+      branch_id: ${{ steps.branch_db_id.outputs.result }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Get branch name
+        id: branch_name
+        uses: tj-actions/branch-names@v8
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Generate branched DB ID
+        id: branch_db_id
+        uses: actions/github-script@v7
+        with:
+          result-encoding: string
+          script: |
+            const { previewDbId } = await import("${{github.workspace}}/src/server/db/utils.js");
+            const dbId = previewDbId(${{ github.event.number }}, "${{steps.branch_name.outputs.current_branch}}");
+            console.log(`Branched DB ID: ${dbId}`);
+            return dbId;
+
+  ensure_db_branch:
+    name: Ensure the DB branch exists and is up to date
+    needs: setup
+    if: |
+      github.event_name == 'pull_request' && (
+      github.event.action == 'synchronize'
+      || github.event.action == 'opened'
+      || github.event.action == 'reopened')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create DB branch
+        id: create_db_branch
+        run: |
+          RESPONSE=$(curl -L -X POST \
+            -H "Authorization: Bearer ${{ secrets.TURSO_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"name": "${{ needs.setup.outputs.branch_id }}", "group": "${{ secrets.TURSO_GROUP_NAME }}", "seed": {"type": "database", "name": "${{ secrets.TURSO_DATABASE_NAME }}"} }' \
+            "https://api.turso.tech/v1/organizations/${{ secrets.TURSO_ORGANIZATION_NAME }}/databases")
+
+          if [ $? -ne 0 ]; then
+            echo "Unable to create database, attempting to fetch the existing database instead"
+            RESPONSE=$(curl -L 'https://api.turso.tech/v1/organizations/${{ secrets.TURSO_ORGANIZATION_NAME }}/databases/${{ needs.setup.outputs.branch_id }}' \
+              -H 'Authorization: Bearer ${{ secrets.TURSO_API_TOKEN }}')
+            
+            if [ $? -ne 0 ]; then
+              echo "Could not create or fetch database"
+              exit 1
+            fi
+          fi
+
+          echo $RESPONSE
+          HOSTNAME=$(echo $RESPONSE | jq -r '.database.Hostname')
+          if [ -z "$HOSTNAME" ]; then
+            echo "Hostname not found in response"
+            exit 1
+          fi
+
+          echo "hostname=$HOSTNAME" >> $GITHUB_OUTPUT
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run migrations
+        env:
+          DATABASE_URL: "libsql://${{ steps.create_db_branch.hostname }}"
+          TURSO_AUTH_TOKEN: ${{ secrets.TURSO_API_TOKEN }}
+        run: npm install && npm run db:generate && npm run db:migrate
+  delete_db_branch:
+    name: Delete DB branch and migrate prod
+    needs: setup
+    if: |
+      github.event_name == 'pull_request' &&
+      github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete DB branch
+        run: |
+          curl -L -X DELETE 'https://api.turso.tech/v1/organizations/${{ secrets.TURSO_ORGANIZATION_NAME }}/databases/${{ needs.setup.outputs.branch_id }}' \
+            -H 'Authorization: Bearer ${{ secrets.TURSO_API_TOKEN }}'
+      # Migrate prod DB, hopefully faster than the vercel build, or at least before anyone tries to open the website
+      - name: Checkout
+        if: github.event.pull_request.merged == true
+        uses: actions/checkout@v4
+      - name: Apply migrations to production
+        if: github.event.pull_request.merged == true
+        env:
+          DATABASE_URL: "libsql://${{ secrets.TURSO_DATABASE_NAME }}"
+          TURSO_AUTH_TOKEN: ${{ secrets.TURSO_API_TOKEN }}
+        run: npm install && npm run db:generate && npm run db:migrate

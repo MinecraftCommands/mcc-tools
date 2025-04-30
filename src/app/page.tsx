@@ -5,7 +5,7 @@ import { SubredditLink } from "~/components/subreddit-link";
 import { Badge } from "~/components/ui/badge";
 
 // import { CreatePost } from "~/app/_components/create-post";
-// import { getServerAuthSession } from "~/server/auth";
+// import { auth } from "~/server/auth";
 // import { api } from "~/trpc/server";
 
 const SOCIALS = [
@@ -15,10 +15,10 @@ const SOCIALS = [
 
 export default async function Home() {
   // const hello = await api.post.hello({ text: "from tRPC" });
-  // const session = await getServerAuthSession();
+  // const session = await auth();
 
   return (
-    <main className="container prose pt-8 dark:prose-invert lg:prose-xl">
+    <main className="container prose pt-8 lg:prose-xl dark:prose-invert">
       <h1>Welcome to MCC Gadgets!</h1>
       <h2>Tools for the Minecraft Commands community</h2>
       <p>
