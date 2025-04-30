@@ -1,5 +1,7 @@
-import { cache } from "~/lib/fetch";
+import { cache, fetchAndParse, type FetchAndParseResult } from "~/lib/fetch";
 import { type ZodError, z } from "zod";
+import { err, ok, type Result } from "~/lib/result";
+import type { FuzzyAutocomplete } from "~/lib/utils";
 
 const VERSION_MANIFEST_ENTRY_SCHEMA = z.object({
   title: z.string(),
@@ -44,18 +46,11 @@ export const BASE_ASSET_URL = "https://launchercontent.mojang.com";
 const BASE_URL = BASE_ASSET_URL + "/v2/";
 
 export const getVersionManifest = cache(
-  async (): Promise<
-    | { success: true; data: VersionManifest }
-    | {
-        success: false;
-        error: VersionManifestZodError;
-      }
-  > => {
-    const versionsRes = await fetch(BASE_URL + "javaPatchNotes.json");
-    const versions = VERSIONS_MANIFEST_SCHEMA.safeParse(
-      await versionsRes.json(),
+  async (): Promise<FetchAndParseResult<typeof VERSIONS_MANIFEST_SCHEMA>> => {
+    const versions = await fetchAndParse(
+      BASE_URL + "javaPatchNotes.json",
+      VERSIONS_MANIFEST_SCHEMA,
     );
-
     if (versions.success) {
       versions.data.entries.sort((a, b) => (a.date < b.date ? 1 : -1));
     }
@@ -75,18 +70,11 @@ export type PatchNote = VersionManifestEntry &
   z.infer<typeof PATCH_NOTE_SCHEMA>;
 export type PatchNoteZodError = ZodError<z.input<typeof PATCH_NOTE_SCHEMA>>;
 
-export enum PatchNotesError {
-  VersionNotFound = "Version not found",
-}
-
 export type PatchNotesQuery = string | { latest: string[] | string | true };
 
 export async function getPartialVersion(
   version: PatchNotesQuery = { latest: true },
-): Promise<
-  | { success: true; data: VersionManifestEntry }
-  | { success: false; error: VersionManifestZodError | PatchNotesError }
-> {
+): Promise<FetchAndParseResult<typeof VERSION_MANIFEST_ENTRY_SCHEMA>> {
   const versions = await getVersionManifest();
   if (!versions.success) return versions;
 
@@ -104,21 +92,19 @@ export async function getPartialVersion(
     partialVersion = versions.data.entries.find((v) => includes(v.type));
   }
 
-  if (!partialVersion)
-    return { success: false, error: PatchNotesError.VersionNotFound };
+  if (!partialVersion) return err("Version not found");
 
-  return { success: true, data: partialVersion };
+  return ok(partialVersion);
 }
 
 export const getPatchNotes = cache(
   async (
     version: PatchNotesQuery = { latest: true },
   ): Promise<
-    | { success: true; data: PatchNote }
-    | {
-        success: false;
-        error: PatchNotesError | PatchNoteZodError | VersionManifestZodError;
-      }
+    Result<
+      PatchNote,
+      PatchNoteZodError | VersionManifestZodError | TypeError | string
+    >
   > => {
     const maybePartialVersion = await getPartialVersion(version);
     if (!maybePartialVersion.success) return maybePartialVersion;
@@ -128,10 +114,7 @@ export const getPatchNotes = cache(
     const patch = PATCH_NOTE_SCHEMA.safeParse(await patchRes.json());
     if (!patch.success) return patch;
 
-    return {
-      success: true,
-      data: { ...partialVersion, ...patch.data },
-    };
+    return ok({ ...partialVersion, ...patch.data });
   },
   ["java", "patch_note"],
   { revalidate: 2 /* m */ * 60 /* s/m */ },

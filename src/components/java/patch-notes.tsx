@@ -10,7 +10,7 @@ import parseHtml, {
 import Image from "next/image";
 import { createElement, Suspense, type JSX } from "react";
 import sanitizeHtml from "sanitize-html";
-import { fromError, isZodErrorLike } from "zod-validation-error";
+import { fromError } from "zod-validation-error";
 import { PublishDate } from "~/components/java/publish-date";
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { textContent } from "~/lib/element";
@@ -63,7 +63,7 @@ async function PatchNotesImpl({
   if (!maybePatchNotes.success) {
     let msg: string;
 
-    if (isZodErrorLike(maybePatchNotes.error)) {
+    if (maybePatchNotes.error instanceof Error) {
       msg = fromError(maybePatchNotes.error).toString();
     } else {
       msg = maybePatchNotes.error;

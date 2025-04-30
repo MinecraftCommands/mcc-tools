@@ -33,7 +33,9 @@ export default async function ChangelogLayout({
           <ExclamationTriangleIcon className="h-4 w-4" />
           <AlertTitle>Error loading version manifest</AlertTitle>
           <AlertDescription>
-            {fromError(maybeVersions.error).toString()}
+            {typeof maybeVersions.error === "string"
+              ? maybeVersions.error
+              : fromError(maybeVersions.error).toString()}
           </AlertDescription>
         </Alert>
       </div>
