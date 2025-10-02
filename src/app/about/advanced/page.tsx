@@ -38,10 +38,6 @@ export default function AdvancedSiteInfo() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <EnvVarRow envVar="VERCEL_GIT_COMMIT_REF">
-            This represents the name of the branch that this deployment is
-            produced from. Will be used for DB branching too
-          </EnvVarRow>
         </TableBody>
       </Table>
     </main>
