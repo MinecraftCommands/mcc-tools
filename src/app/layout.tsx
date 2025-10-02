@@ -2,7 +2,6 @@ import "~/styles/globals.css";
 
 import { Inter } from "next/font/google";
 
-import { TRPCReactProvider } from "~/trpc/react";
 import { cn } from "~/lib/utils";
 import { ThemeProvider } from "~/components/theme-provider";
 import { SiteHeader } from "~/components/site-header";
@@ -50,7 +49,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <SiteHeader />
-            <TRPCReactProvider>{children}</TRPCReactProvider>
+            {children}
           </ThemeProvider>
         </CssVars>
       </body>
