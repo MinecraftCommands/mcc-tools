@@ -3,7 +3,6 @@ import {
   getVersionManifest,
   type VersionManifest,
 } from "~/server/java/versions";
-import VersionLink from "~/components/java/version-link";
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import {
   ActivityLogIcon,
@@ -19,9 +18,11 @@ import {
   SheetTrigger,
 } from "~/components/ui/sheet";
 import { Button } from "~/components/ui/button";
+import ReleaseVersionLinkSet from "~/components/java/release-version-link-set";
+import "~/styles/game-versions.css";
 
 export default async function ChangelogLayout({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) {
@@ -64,12 +65,9 @@ export default async function ChangelogLayout({
             </SheetDescription>
           </SheetHeader>
           <ScrollArea className="h-full">
-            <ul>
-              <VersionLinks
-                versions={versions}
-                className="rounded-lg px-3 py-2"
-              />
-            </ul>
+            <div className="versions">
+              <VersionLinks versions={versions} type="vertical" className="rounded-lg px-3 py-2" />
+            </div>
           </ScrollArea>
         </SheetContent>
       </Sheet>
@@ -79,12 +77,10 @@ export default async function ChangelogLayout({
             className="h-page rounded-md border"
             viewportClassName="overscroll-contain"
           >
-            <ul>
-              <li key="header" className="p-2">
-                <h2 className="font-semibold">Versions:</h2>
-              </li>
-              <VersionLinks versions={versions} className="py-1 pl-3 pr-4" />
-            </ul>
+            <h2 key="header" className="p-2 font-semibold justify-self-center">Versions</h2>
+            <div className="versions">
+              <VersionLinks versions={versions} type="horizontal" className="py-1 pl-3 pr-4" />
+            </div>
           </ScrollArea>
         </div>
         <div>{children}</div>
@@ -93,34 +89,59 @@ export default async function ChangelogLayout({
   );
 }
 
+export interface VersionEntry {
+  name: string;
+  url: string;
+  title: string;
+  description: string;
+  image: { title: string; url: string; };
+}
+
+export interface ReleaseVersionEntry extends VersionEntry {
+  nonReleaseVersions: VersionEntry[];
+  isLatest: boolean;
+}
+
 function VersionLinks({
   versions,
-  className = "",
+  type,
+  className = ""
 }: {
   versions: VersionManifest["entries"];
+  type: string;
   className?: string;
 }) {
-  return (
-    <>
-      <li key="latest">
-        <VersionLink
-          versionName="Latest"
-          versionLink=""
-          data={versions[0]}
-          className={className}
-        />
-      </li>
-      {versions.map((v) => {
-        return (
-          <li key={v.version}>
-            <VersionLink
-              versionName={v.version}
-              data={v}
-              className={className}
-            />
-          </li>
-        );
-      })}
-    </>
-  );
+  let orderedVersions: ReleaseVersionEntry[] = [
+    {
+      name: "Latest",
+      url: "",
+      title: versions[0].title,
+      description: versions[0].shortText,
+      image: versions[0].image,
+      nonReleaseVersions: [],
+      isLatest: true
+    }
+  ];
+  for (let version of versions) {
+    if (version.type === "release") {
+      orderedVersions.push({
+        name: version.version,
+        url: version.version,
+        title: version.title,
+        description: version.shortText,
+        image: version.image,
+        nonReleaseVersions: [],
+        isLatest: false
+      });
+      continue;
+    }
+    orderedVersions.at(-1)!.nonReleaseVersions.push({
+      name: version.version,
+      url: version.version,
+      title: version.title,
+      description: version.shortText,
+      image: version.image
+    });
+  }  
+  return orderedVersions.map(version => <ReleaseVersionLinkSet key={version.name} type={type} release={version} className={className} />);
 }

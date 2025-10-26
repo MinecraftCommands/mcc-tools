@@ -8,41 +8,35 @@ import {
 } from "~/components/ui/hover-card";
 import Link from "next/link";
 import { cn } from "~/lib/utils";
-import { usePathname } from "next/navigation";
 import {
   BASE_ASSET_URL,
-  type VersionManifestEntry,
 } from "~/server/java/versions";
 import type { ClassValue } from "clsx";
+import { VersionEntry } from "~/app/java/changelog/layout";
 
 export default function VersionLink({
-  versionName,
-  versionLink = versionName,
-  data: { shortText, title, image },
+  version,
   className = "px-3 py-1",
+  selected
 }: {
-  versionName: string;
-  versionLink?: string;
-  data: VersionManifestEntry;
+  version: VersionEntry;
   className?: ClassValue;
+  selected: boolean;
 }) {
-  const url = `/java/changelog/${versionLink}`;
-  const pathname = usePathname();
-  const selected = url === pathname || url === pathname + "/";
-
+  const url = `/java/changelog/${version.url}`;
   return (
     <HoverCard closeDelay={0} openDelay={0}>
       <HoverCardTrigger asChild>
         <Link
           href={url}
           className={cn(
-            "inline-block w-full text-subtext1 hover:bg-surface1",
+            "inline-block w-full text-subtext1 hover:bg-surface1 version-label",
             { "bg-surface0 underline": selected },
             className,
           )}
           prefetch={false}
         >
-          {versionName}
+          {version.name}
         </Link>
       </HoverCardTrigger>
       <HoverCardPortal>
@@ -53,11 +47,11 @@ export default function VersionLink({
           <div
             className="absolute inset-0 -z-10 rounded-md bg-cover bg-center opacity-20"
             style={{
-              backgroundImage: `url(${BASE_ASSET_URL + image.url})`,
+              backgroundImage: `url(${BASE_ASSET_URL + version.image.url})`,
             }}
           />
-          <h2>{title}</h2>
-          <p>{shortText}…</p>
+          <h2>{version.title}</h2>
+          <p>{version.description}…</p>
         </HoverCardContent>
       </HoverCardPortal>
     </HoverCard>
