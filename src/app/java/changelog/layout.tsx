@@ -20,9 +20,10 @@ import {
 import { Button } from "~/components/ui/button";
 import ReleaseVersionLinkSet from "~/components/java/release-version-link-set";
 import "~/styles/game-versions.css";
+import { type ReleaseVersionEntry } from "~/components/java/version-link";
 
 export default async function ChangelogLayout({
-  children
+  children,
 }: {
   children: React.ReactNode;
 }) {
@@ -89,19 +90,6 @@ export default async function ChangelogLayout({
   );
 }
 
-export interface VersionEntry {
-  name: string;
-  url: string;
-  title: string;
-  description: string;
-  image: { title: string; url: string; };
-}
-
-export interface ReleaseVersionEntry extends VersionEntry {
-  nonReleaseVersions: VersionEntry[];
-  isLatest: boolean;
-}
-
 function VersionLinks({
   versions,
   type,
@@ -111,7 +99,7 @@ function VersionLinks({
   type: string;
   className?: string;
 }) {
-  let orderedVersions: ReleaseVersionEntry[] = [
+  const orderedVersions: ReleaseVersionEntry[] = [
     {
       name: "Latest",
       url: "",
@@ -122,7 +110,7 @@ function VersionLinks({
       isLatest: true
     }
   ];
-  for (let version of versions) {
+  for (const version of versions) {
     if (version.type === "release") {
       orderedVersions.push({
         name: version.version,

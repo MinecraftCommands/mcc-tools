@@ -1,15 +1,14 @@
 "use client";
 
-import { ReleaseVersionEntry } from "~/app/java/changelog/layout";
-import VersionLink from "./version-link";
 import { usePathname } from "next/navigation";
+import VersionLink, { type ReleaseVersionEntry } from "./version-link";
 
 export default function ReleaseVersionLinkSet({release, type, className}: {
   release: ReleaseVersionEntry;
   type: string;
   className: string;
 }) {
-  let selectedVersion: string = getVersion();
+  const selectedVersion = useVersion();
   return (
     <div className="major-version">
       <VersionLink version={release} selected={release.name === selectedVersion} className={className} />
@@ -26,13 +25,13 @@ export default function ReleaseVersionLinkSet({release, type, className}: {
   );
 }
 
-function getVersion(): string {
-  const prefix: string = "java/changelog/";
+function useVersion(): string {
+  const prefix = "java/changelog/";
   const pathname = usePathname();
   if (pathname === prefix) {
     return "";
   }
-  let probableVersion: string = pathname.substring(prefix.length);
+  const probableVersion = pathname.substring(prefix.length);
   if (probableVersion.startsWith("/")) {
     return probableVersion.substring(1);
   }
@@ -46,10 +45,5 @@ function containsVersion(release: ReleaseVersionEntry, version: string): boolean
   if (release.name === version) {
     return true;
   }
-  for (let nonRelease of release.nonReleaseVersions) {
-    if (nonRelease.name === version) {
-      return true;
-    }
-  }
-  return false;
+  return release.nonReleaseVersions.some(nonRelease => nonRelease.name === version);
 }

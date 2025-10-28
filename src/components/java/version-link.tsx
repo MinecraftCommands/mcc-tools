@@ -12,7 +12,6 @@ import {
   BASE_ASSET_URL,
 } from "~/server/java/versions";
 import type { ClassValue } from "clsx";
-import { VersionEntry } from "~/app/java/changelog/layout";
 
 export default function VersionLink({
   version,
@@ -56,4 +55,17 @@ export default function VersionLink({
       </HoverCardPortal>
     </HoverCard>
   );
+}
+
+export interface VersionEntry {
+  name: string;
+  url: string;
+  title: string;
+  description: string;
+  image: { title: string; url: string; };
+}
+
+export interface ReleaseVersionEntry extends VersionEntry {
+  nonReleaseVersions: VersionEntry[];
+  isLatest: boolean;
 }
