@@ -3,7 +3,11 @@
 import { usePathname } from "next/navigation";
 import VersionLink, { type ReleaseVersionEntry } from "./version-link";
 
-export default function ReleaseVersionLinkSet({release, type, className}: {
+export default function ReleaseVersionLinkSet({
+  release,
+  type,
+  className,
+}: {
   release: ReleaseVersionEntry;
   type: string;
   className: string;

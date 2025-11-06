@@ -16,7 +16,7 @@ import type { ClassValue } from "clsx";
 export default function VersionLink({
   version,
   className = "px-3 py-1",
-  selected
+  selected,
 }: {
   version: VersionEntry;
   className?: ClassValue;
