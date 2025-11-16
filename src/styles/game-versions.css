@@ -28,12 +28,12 @@
   aspect-ratio: 1 / 1;
   align-self: center;
   grid-area: button;
-  background-image: url("arrow_down.svg");
-  background-size: cover;
+  mask-image: url("arrow_down.svg");
+  background-color: rgb(var(--ctp-subtext1));
 }
 
 input:checked + .major-version-button {
-  background-image: url("arrow_up.svg");
+  mask-image: url("arrow_up.svg");
 }
 
 .major-version-body {
