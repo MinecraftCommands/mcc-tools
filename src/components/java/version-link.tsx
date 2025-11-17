@@ -1,17 +1,23 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+import type { ClassValue } from "clsx";
+
+import { cn } from "~/lib/utils";
+
+import {
+  BASE_ASSET_URL,
+  type VersionManifestEntry,
+} from "~/server/java/versions";
+
 import {
   HoverCard,
   HoverCardContent,
   HoverCardPortal,
   HoverCardTrigger,
 } from "~/components/ui/hover-card";
-import Link from "next/link";
-import { cn } from "~/lib/utils";
-import {
-  BASE_ASSET_URL,
-} from "~/server/java/versions";
-import type { ClassValue } from "clsx";
 
 export default function VersionLink({
   version,
@@ -62,7 +68,7 @@ export interface VersionEntry {
   url: string;
   title: string;
   description: string;
-  image: { title: string; url: string; };
+  image: { title: string; url: string };
 }
 
 export interface ReleaseVersionEntry extends VersionEntry {

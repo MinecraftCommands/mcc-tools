@@ -1,3 +1,6 @@
+import Image from "next/image";
+import { createElement, type JSX, Suspense } from "react";
+
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { ElementType } from "domelementtype";
 import { type Element } from "domhandler";
@@ -7,14 +10,12 @@ import parseHtml, {
   domToReact,
   type HTMLReactParserOptions,
 } from "html-react-parser";
-import Image from "next/image";
-import { createElement, Suspense, type JSX } from "react";
 import sanitizeHtml from "sanitize-html";
 import { fromError } from "zod-validation-error";
-import { PublishDate } from "~/components/java/publish-date";
-import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
+
 import { textContent } from "~/lib/element";
 import { toKebabCase } from "~/lib/utils";
+
 import {
   highlightToHtml,
   initHighlighter,
@@ -26,7 +27,10 @@ import {
   getPatchNotes,
   type PatchNotesQuery,
 } from "~/server/java/versions";
-import { Skeleton } from "../ui/skeleton";
+
+import { PublishDate } from "~/components/java/publish-date";
+import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
+import { Skeleton } from "~/components/ui/skeleton";
 
 export default function PatchNotes({
   version = { latest: true },

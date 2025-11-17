@@ -1,15 +1,16 @@
+import { flavorEntries } from "@catppuccin/palette";
 import {
-  createHighlighter,
   type BundledLanguage,
   type BundledTheme,
   type CodeToHastOptionsCommon,
+  createHighlighter,
   type HighlighterGeneric,
   type LanguageRegistration,
   type SpecialLanguage,
 } from "shiki";
-import { getMcfunctionTmLang, tagTmLang } from "./mcfunction";
+
 import { simpleIdentifierTmLang } from "./generic";
-import { flavorEntries } from "@catppuccin/palette";
+import { getMcfunctionTmLang, tagTmLang } from "./mcfunction";
 
 const themes = Object.fromEntries(
   flavorEntries.map(([theme, _]) => [theme, `catppuccin-${theme}`]),

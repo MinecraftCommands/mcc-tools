@@ -1,4 +1,4 @@
-import { useCallback, useRef, type Ref } from "react";
+import { type Ref, useCallback, useRef } from "react";
 
 export function setRef<T>(ref: Ref<T> | undefined, value: T) {
   if (typeof ref === "function") {

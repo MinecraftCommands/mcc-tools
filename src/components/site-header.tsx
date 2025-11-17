@@ -1,7 +1,14 @@
 "use client";
 
+import { Roboto_Mono } from "next/font/google";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import * as React from "react";
+
+import { cn } from "~/lib/utils";
+
+import { Logo } from "~/components/logo";
+import { ThemePicker } from "~/components/theme-picker";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -10,12 +17,6 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "~/components/ui/navigation-menu";
-import { Logo } from "~/components/logo";
-import { ThemePicker } from "~/components/theme-picker";
-import { cn } from "~/lib/utils";
-
-import { Roboto_Mono } from "next/font/google";
-import { usePathname } from "next/navigation";
 
 const robotoMono = Roboto_Mono({
   subsets: ["latin"],

@@ -1,10 +1,11 @@
 "use client";
 
 import * as React from "react";
+
 import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
+import type { ClassValue } from "clsx";
 
 import { cn, type WithCn } from "~/lib/utils";
-import type { ClassValue } from "clsx";
 
 function ScrollArea({
   className,

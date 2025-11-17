@@ -1,5 +1,3 @@
-import { env } from "~/env";
-
 import {
   Table,
   TableBody,
@@ -8,6 +6,8 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
+
+import { env } from "~/env";
 
 export const dynamic = "force-dynamic";
 

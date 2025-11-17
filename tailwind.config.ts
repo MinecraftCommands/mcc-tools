@@ -1,8 +1,10 @@
-import type { Config } from "tailwindcss";
-import plugin from "tailwindcss/plugin";
-import { fontFamily } from "tailwindcss/defaultTheme";
-import catppuccin from "@catppuccin/tailwindcss";
+/* eslint-disable @typescript-eslint/no-require-imports */
+/* eslint-disable @typescript-eslint/unbound-method */
 import { flavorEntries } from "@catppuccin/palette";
+import catppuccin from "@catppuccin/tailwindcss";
+import type { Config } from "tailwindcss";
+import { fontFamily } from "tailwindcss/defaultTheme";
+import plugin from "tailwindcss/plugin";
 
 export default {
   darkMode: [

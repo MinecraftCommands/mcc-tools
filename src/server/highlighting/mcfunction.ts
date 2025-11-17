@@ -1,4 +1,5 @@
 import { unstable_cache } from "next/cache";
+
 import { type LanguageRegistration } from "shiki";
 
 // We don't need the fancy SuperJSON stuff here, so use unstable_cache directly

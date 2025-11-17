@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import PatchNotes from "~/components/java/patch-notes";
+
 import { BASE_ASSET_URL, getPartialVersion } from "~/server/java/versions";
+
+import PatchNotes from "~/components/java/patch-notes";
 
 type Props = {
   params: Promise<{ version: string }>;

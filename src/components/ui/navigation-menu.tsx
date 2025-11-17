@@ -1,10 +1,11 @@
 import * as React from "react";
+
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cva } from "class-variance-authority";
-
-import { cn, type WithCn } from "~/lib/utils";
-import { useWrappedRef } from "~/lib/refs";
 import { ChevronDown } from "lucide-react";
+
+import { useWrappedRef } from "~/lib/refs";
+import { cn, type WithCn } from "~/lib/utils";
 
 function NavigationMenu({
   className,

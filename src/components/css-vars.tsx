@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
 import useResizeObserver from "@react-hook/resize-observer";
+import { useCallback, useEffect, useState } from "react";
 
 export default function CssVars({ children }: { children: React.ReactNode }) {
   const height = useViewportHeight();

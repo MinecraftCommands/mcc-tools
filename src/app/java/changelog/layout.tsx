@@ -1,14 +1,21 @@
-import { ScrollArea } from "~/components/ui/scroll-area";
-import {
-  getVersionManifest,
-  type VersionManifest,
-} from "~/server/java/versions";
-import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
+import "~/styles/game-versions.css";
+
 import {
   ActivityLogIcon,
   ExclamationTriangleIcon,
 } from "@radix-ui/react-icons";
 import { fromError } from "zod-validation-error";
+
+import {
+  getVersionManifest,
+  type VersionManifest,
+} from "~/server/java/versions";
+
+import ReleaseVersionLinkSet from "~/components/java/release-version-link-set";
+import { type ReleaseVersionEntry } from "~/components/java/version-link";
+import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
+import { Button } from "~/components/ui/button";
+import { ScrollArea } from "~/components/ui/scroll-area";
 import {
   Sheet,
   SheetContent,
@@ -17,10 +24,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "~/components/ui/sheet";
-import { Button } from "~/components/ui/button";
-import ReleaseVersionLinkSet from "~/components/java/release-version-link-set";
-import "~/styles/game-versions.css";
-import { type ReleaseVersionEntry } from "~/components/java/version-link";
 
 export default async function ChangelogLayout({
   children,
@@ -67,7 +70,11 @@ export default async function ChangelogLayout({
           </SheetHeader>
           <ScrollArea className="h-full">
             <div className="versions">
-              <VersionLinks versions={versions} type="vertical" className="rounded-lg px-3 py-2" />
+              <VersionLinks
+                versions={versions}
+                type="vertical"
+                className="rounded-lg px-3 py-2"
+              />
             </div>
           </ScrollArea>
         </SheetContent>
@@ -78,9 +85,15 @@ export default async function ChangelogLayout({
             className="h-page rounded-md border"
             viewportClassName="overscroll-contain"
           >
-            <h2 key="header" className="p-2 font-semibold justify-self-center">Versions</h2>
+            <h2 key="header" className="p-2 font-semibold justify-self-center">
+              Versions
+            </h2>
             <div className="versions">
-              <VersionLinks versions={versions} type="horizontal" className="py-1 pl-3 pr-4" />
+              <VersionLinks
+                versions={versions}
+                type="horizontal"
+                className="py-1 pl-3 pr-4"
+              />
             </div>
           </ScrollArea>
         </div>
@@ -93,7 +106,7 @@ export default async function ChangelogLayout({
 function VersionLinks({
   versions,
   type,
-  className = ""
+  className = "",
 }: {
   versions: VersionManifest["entries"];
   type: string;
@@ -107,8 +120,8 @@ function VersionLinks({
       description: versions[0].shortText,
       image: versions[0].image,
       nonReleaseVersions: [],
-      isLatest: true
-    }
+      isLatest: true,
+    },
   ];
   for (const version of versions) {
     if (version.type === "release") {
@@ -119,7 +132,7 @@ function VersionLinks({
         description: version.shortText,
         image: version.image,
         nonReleaseVersions: [],
-        isLatest: false
+        isLatest: false,
       });
       continue;
     }
@@ -128,8 +141,15 @@ function VersionLinks({
       url: version.version,
       title: version.title,
       description: version.shortText,
-      image: version.image
+      image: version.image,
     });
-  }  
-  return orderedVersions.map(version => <ReleaseVersionLinkSet key={version.name} type={type} release={version} className={className} />);
+  }
+  return orderedVersions.map((version) => (
+    <ReleaseVersionLinkSet
+      key={version.name}
+      type={type}
+      release={version}
+      className={className}
+    />
+  ));
 }
