@@ -38,6 +38,7 @@ export default function AdvancedSiteInfo() {
           </TableRow>
         </TableHeader>
         <TableBody>
+          <EnvVarRow envVar="NODE_ENV" />
         </TableBody>
       </Table>
     </main>

@@ -24,19 +24,17 @@ let highlightInfo:
   | undefined;
 
 export function initHighlighter() {
-  if (!_initPromise) {
-    _initPromise = (async () => {
-      const mcfunctionTmLang = await getMcfunctionTmLang();
-      const highlighter = await createHighlighter({
-        langs: [mcfunctionTmLang, tagTmLang, simpleIdentifierTmLang],
-        themes: Object.values(themes),
-      });
-      highlightInfo = {
-        mcfunctionTmLang,
-        highlighter: highlighter,
-      };
-    })();
-  }
+  _initPromise ??= (async () => {
+    const mcfunctionTmLang = await getMcfunctionTmLang();
+    const highlighter = await createHighlighter({
+      langs: [mcfunctionTmLang, tagTmLang, simpleIdentifierTmLang],
+      themes: Object.values(themes),
+    });
+    highlightInfo = {
+      mcfunctionTmLang,
+      highlighter: highlighter,
+    };
+  })();
 
   return _initPromise;
 }

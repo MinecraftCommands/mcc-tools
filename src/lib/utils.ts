@@ -21,5 +21,4 @@ export type Modify<T, R> = Omit<T, keyof R> & R;
 
 export type WithCn<T> = Modify<T, { className?: ClassValue }>;
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 export type FuzzyAutocomplete<T> = T | (string & {});
