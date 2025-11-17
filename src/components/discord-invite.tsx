@@ -1,13 +1,14 @@
 "use client";
 
+import Link from "next/link";
+
+import type { ClassValue } from "clsx";
 import DiscordBlack from "public/discord_full_logo_black_RGB.svg";
 import DiscordWhite from "public/discord_full_logo_white_RGB.svg";
 
 import { cn } from "~/lib/utils";
 
-import Link from "next/link";
 import { ThemedImg } from "~/components/themed-img";
-import type { ClassValue } from "clsx";
 
 export function DiscordInvite({ className }: { className?: ClassValue }) {
   return (

@@ -1,10 +1,10 @@
 "use client";
 
+import { useTheme } from "next-themes";
+import { type FC, type SVGProps, useEffect, useState } from "react";
+
 import { Skeleton } from "~/components/ui/skeleton";
 
-import { useTheme } from "next-themes";
-
-import { useEffect, useState, type FC, type SVGProps } from "react";
 type Img = FC<SVGProps<SVGElement>>;
 
 export function ThemedImg({

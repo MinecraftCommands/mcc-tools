@@ -1,5 +1,6 @@
+import { z, type ZodError } from "zod";
+
 import { cache, fetchAndParse, type FetchAndParseResult } from "~/lib/fetch";
-import { type ZodError, z } from "zod";
 import { err, ok, type Result } from "~/lib/result";
 
 const VERSION_MANIFEST_ENTRY_SCHEMA = z.object({

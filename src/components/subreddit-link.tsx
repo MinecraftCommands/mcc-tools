@@ -1,13 +1,14 @@
 "use client";
 
+import Link from "next/link";
+
+import type { ClassValue } from "clsx";
 import RedditLight from "public/Reddit_Lockup.svg";
 import RedditDark from "public/Reddit_Lockup_OnDark.svg";
 
 import { cn } from "~/lib/utils";
 
-import Link from "next/link";
 import { ThemedImg } from "~/components/themed-img";
-import type { ClassValue } from "clsx";
 
 export function SubredditLink({ className }: { className?: ClassValue }) {
   return (
