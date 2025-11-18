@@ -55,7 +55,7 @@ export default async function Home() {
           GitHub repository
         </Link>
         {/* TODO: Link to the channel and describe how to obtain the self-role */}
-        , or join the discussion in the mcc-tools channel in Discord.
+        , or join the discussion in the mcc-gadgets channel in Discord.
       </p>
     </main>
   );
