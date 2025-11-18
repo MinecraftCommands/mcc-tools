@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import PatchNotes from "~/components/java/patch-notes";
 
 // HACK: Temporary hackfix to ensure the latest patch notes page always shows the latest
@@ -6,7 +8,7 @@ import PatchNotes from "~/components/java/patch-notes";
 // This needs to be investigated further, but it is difficult to do
 export const dynamic = "force-dynamic";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: `Latest Java Changelog`,
   description: "See the latest changelog for Minecraft Java edition",
   openGraph: {
