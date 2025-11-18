@@ -1,44 +1,24 @@
-"use client";
-
-import { useTheme } from "next-themes";
-import { type FC, type SVGProps, useEffect, useState } from "react";
-
-import { Skeleton } from "~/components/ui/skeleton";
+import { type FC, type SVGProps } from "react";
 
 type Img = FC<SVGProps<SVGElement>>;
 
 export function ThemedImg({
   className,
-  light,
-  dark,
+  light: LightImg,
+  dark: DarkImg,
 }: {
   className?: string;
   light: Img;
   dark: Img;
 }) {
-  const [mounted, setMounted] = useState(false);
-  const { resolvedTheme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const LogoEl = (() => {
-    // TODO: Figure out how to avoid the skeleton showing at all
-    if (!mounted) {
-      return Skeleton;
-    }
-
-    switch (resolvedTheme) {
-      case "light":
-      case "latte":
-        return light;
-      case undefined:
-        return Skeleton;
-      default:
-        return dark;
-    }
-  })();
-
-  return <LogoEl className={className} />;
+  return (
+    <>
+      <div className="contents dark:hidden">
+        <LightImg className={className} />
+      </div>
+      <div className="hidden dark:contents">
+        <DarkImg className={className} />
+      </div>
+    </>
+  );
 }
