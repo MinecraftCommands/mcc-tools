@@ -112,6 +112,26 @@ async function PatchNotesImpl({
           return parseCodeBlock(domNode);
         case "code":
           return parseCodeInline(domNode);
+        case "li":
+          if (domNode.children.length === 1) {
+            const child = domNode.children[0];
+            if (
+              child?.type === ElementType.Tag &&
+              child.lastChild?.type === ElementType.Tag &&
+              child.lastChild.name === "li"
+            ) {
+              const badLi = child.children.pop() as DOMNode;
+              return (
+                <>
+                  <li {...domNode.attribs}>
+                    {domToReact(child.children as DOMNode[], options)}
+                  </li>
+                  {domToReact([badLi], options)}
+                </>
+              );
+            }
+          }
+          break;
       }
     },
   };
