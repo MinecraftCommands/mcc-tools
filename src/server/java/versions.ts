@@ -1,3 +1,4 @@
+import { match, P } from "ts-pattern";
 import { z, type ZodError } from "zod";
 
 import { cache, fetchAndParse, type FetchAndParseResult } from "~/lib/fetch";
@@ -75,26 +76,23 @@ export type PatchNotesQuery = string | { latest: string[] | string | true };
 export async function getPartialVersion(
   version: PatchNotesQuery = { latest: true },
 ): Promise<FetchAndParseResult<typeof VERSION_MANIFEST_ENTRY_SCHEMA>> {
-  const versions = await getVersionManifest();
-  if (!versions.success) return versions;
+  const manifest = await getVersionManifest();
+  if (!manifest.success) return manifest;
+  const versions = manifest.data.entries;
 
-  let partialVersion;
-  if (typeof version === "string") {
-    partialVersion = versions.data.entries.find((v) => v.version === version);
-  } else if (version.latest === true) {
-    partialVersion = versions.data.entries[0];
-  } else if (typeof version.latest === "string") {
-    partialVersion = versions.data.entries.find(
-      (v) => v.type === version.latest,
-    );
-  } else {
-    const includes = version.latest.includes.bind(version.latest);
-    partialVersion = versions.data.entries.find((v) => includes(v.type));
-  }
+  const partialVersion = match(version)
+    .with(P.string, (name) => versions.find((v) => v.version === name))
+    .with({ latest: true }, () => versions[0])
+    .with({ latest: P.select(P.string) }, (type) =>
+      versions.find((v) => v.type === type),
+    )
+    .narrow()
+    .with({ latest: P.select() }, (types) =>
+      versions.find((v) => types.includes(v.type)),
+    )
+    .exhaustive();
 
-  if (!partialVersion) return err("Version not found");
-
-  return ok(partialVersion);
+  return partialVersion ? ok(partialVersion) : err("Version not found");
 }
 
 export const getPatchNotes = cache(

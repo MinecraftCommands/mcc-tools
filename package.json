@@ -41,6 +41,7 @@
     "superjson": "^2.2.2",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
+    "ts-pattern": "^5.9.0",
     "zod": "^3.24.2",
     "zod-validation-error": "^3.4.0"
   },
