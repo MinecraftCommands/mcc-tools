@@ -11,6 +11,7 @@ import parseHtml, {
   type HTMLReactParserOptions,
 } from "html-react-parser";
 import sanitizeHtml from "sanitize-html";
+import { match, P } from "ts-pattern";
 import { fromError } from "zod-validation-error";
 
 import { textContent } from "~/lib/element";
@@ -103,36 +104,34 @@ async function PatchNotesImpl({
     ): JSX.Element | string | null | boolean | object | void {
       if (domNode.type !== ElementType.Tag) return;
 
-      if (domNode.name.startsWith("h")) {
-        return parseHeader(domNode, ids, articleSections, options);
-      }
-
-      switch (domNode.name) {
-        case "pre":
-          return parseCodeBlock(domNode);
-        case "code":
-          return parseCodeInline(domNode);
-        case "li":
-          if (domNode.children.length === 1) {
-            const child = domNode.children[0];
-            if (
-              child?.type === ElementType.Tag &&
-              child.lastChild?.type === ElementType.Tag &&
-              child.lastChild.name === "li"
-            ) {
-              const badLi = child.children.pop() as DOMNode;
-              return (
-                <>
-                  <li {...domNode.attribs}>
-                    {domToReact(child.children as DOMNode[], options)}
-                  </li>
-                  {domToReact([badLi], options)}
-                </>
-              );
-            }
-          }
-          break;
-      }
+      return match(domNode)
+        .with({ name: P.string.startsWith("h") }, (node) =>
+          parseHeader(node, ids, articleSections, options),
+        )
+        .with({ name: "pre" }, parseCodeBlock)
+        .with({ name: "code" }, parseCodeInline)
+        .with(
+          {
+            name: "li",
+            attribs: P.select("attribs"),
+            children: [
+              {
+                type: ElementType.Tag,
+                children: [
+                  ...P.array().select("children"),
+                  P.select("badLi", { type: ElementType.Tag, name: "li" }),
+                ],
+              },
+            ],
+          },
+          ({ attribs, children, badLi }) => (
+            <>
+              <li {...attribs}>{domToReact(children as DOMNode[], options)}</li>
+              {domToReact([badLi], options)}
+            </>
+          ),
+        )
+        .otherwise(() => undefined);
     },
   };
 
