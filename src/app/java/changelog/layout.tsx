@@ -80,9 +80,9 @@ export default async function ChangelogLayout({
         </SheetContent>
       </Sheet>
       <div className="grid grid-cols-1 items-start gap-3 md:grid-cols-[minmax(10vw,max-content)_minmax(0,1fr)]">
-        <div className="sticky top-[calc(theme(height.header)+theme(padding.2))] ml-2 hidden md:block">
+        <div className="sticky top-[theme(height.header)] ml-2 hidden md:block">
           <ScrollArea
-            className="h-page rounded-md border"
+            className="h-page my-2 rounded-md border"
             viewportClassName="overscroll-contain"
           >
             <h2 key="header" className="p-2 font-semibold justify-self-center">
