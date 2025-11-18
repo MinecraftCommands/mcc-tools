@@ -117,6 +117,7 @@ async function PatchNotesImpl({
             children: [
               {
                 type: ElementType.Tag,
+                name: P.not(P.union("ul", "ol")),
                 children: [
                   ...P.array().select("children"),
                   P.select("badLi", { type: ElementType.Tag, name: "li" }),
