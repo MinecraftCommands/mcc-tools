@@ -1,7 +1,6 @@
 "use client";
 
-import useResizeObserver from "@react-hook/resize-observer";
-import { useCallback, useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 export default function CssVars({ children }: { children: React.ReactNode }) {
   const height = useViewportHeight();
@@ -16,27 +15,27 @@ export default function CssVars({ children }: { children: React.ReactNode }) {
  *
  * @return {string} The height of the viewport in pixels or "100vh" on the server.
  */
-function useViewportHeight() {
-  const [height, setHeight] = useState("100vh");
-  const updateHeight = useCallback(
-    () => setHeight(`${document.documentElement.clientHeight}px`),
-    [],
+function useViewportHeight(): string {
+  return useSyncExternalStore(
+    subscribeToViewportSize,
+    getViewportHeight,
+    getServerViewportHeight,
   );
+}
 
-  // Track resizes including changes to whether the scroll bars exist or not
-  // Misses manual vertical window resizes
-  useResizeObserver(
-    typeof window !== "undefined" ? document.documentElement : null,
-    updateHeight,
-  );
+function subscribeToViewportSize(onResize: () => void) {
+  // Assuming the visual viewport API is supported, as it is baseline widely available
+  window.visualViewport?.addEventListener("resize", onResize);
 
-  // Track manual resizes of the window
-  // Misses changes to whether the scroll bars exist or not
-  useEffect(() => {
-    window.addEventListener("resize", updateHeight);
-    updateHeight();
-    return () => window.removeEventListener("resize", updateHeight);
-  }, [updateHeight]);
+  return () => {
+    window.visualViewport?.removeEventListener("resize", onResize);
+  };
+}
 
-  return height;
+function getViewportHeight() {
+  return `${document.documentElement.clientHeight}px`;
+}
+
+function getServerViewportHeight() {
+  return "100vh";
 }
