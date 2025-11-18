@@ -1,16 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 import type { ClassValue } from "clsx";
 
 import { cn } from "~/lib/utils";
 
-import {
-  BASE_ASSET_URL,
-  type VersionManifestEntry,
-} from "~/server/java/versions";
+import { BASE_ASSET_URL } from "~/server/java/versions";
 
 import {
   HoverCard,
