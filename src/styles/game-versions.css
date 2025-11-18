@@ -1,0 +1,47 @@
+.versions {
+  display: flex;
+  flex-direction: column;
+  margin-left: 0.5em;
+  user-select: none;
+}
+
+.versions input {
+  display: none;
+}
+
+.major-version {
+  display: grid;
+  gap: 0 0.5em;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 1em 1fr;
+  grid-template-areas:
+    "button title"
+    ". body";
+}
+
+.major-version > .version-label {
+  grid-area: title;
+  font-weight: bold;
+}
+
+.major-version-button {
+  aspect-ratio: 1 / 1;
+  align-self: center;
+  grid-area: button;
+  mask-image: url("arrow_down.svg");
+  background-color: rgb(var(--ctp-subtext1));
+}
+
+input:checked + .major-version-button {
+  mask-image: url("arrow_up.svg");
+}
+
+.major-version-body {
+  grid-area: body;
+  display: none;
+}
+
+input:checked ~ .major-version-body {
+  display: flex;
+  flex-direction: column;
+}
