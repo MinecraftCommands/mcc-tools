@@ -29,6 +29,7 @@
   align-self: center;
   grid-area: button;
   mask-image: url("arrow_down.svg");
+  mask-size: 100%;
   background-color: rgb(var(--ctp-subtext1));
 }
 
