@@ -110,3 +110,29 @@
     text-decoration: var(--shiki-mocha-text-decoration);
   }
 }
+
+.code-block-with-lines {
+  counter-reset: step;
+  counter-increment: step 0;
+}
+
+.code-block-with-lines code .line::before {
+  content: counter(step);
+  counter-increment: step;
+  width: 2rem;
+  margin-right: 1rem;
+  text-align: right;
+  color: inherit;
+  opacity: 0.5;
+  display: inline-block;
+}
+
+.code-block-with-lines .shiki {
+  padding-left: 0;
+}
+
+/* Base styles for all shiki-highlighted code blocks */
+.shiki {
+  padding: 0.5rem 1rem;
+  overflow-x: auto;
+}

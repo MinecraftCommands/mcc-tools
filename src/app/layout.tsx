@@ -6,6 +6,7 @@ import { Inter } from "next/font/google";
 import { cn } from "~/lib/utils";
 
 import CssVars from "~/components/css-vars";
+import { QueryProvider } from "~/components/query-provider";
 import { SiteHeader } from "~/components/site-header";
 import { ThemeProvider } from "~/components/theme-provider";
 
@@ -50,8 +51,10 @@ export default function RootLayout({
             }}
             disableTransitionOnChange
           >
-            <SiteHeader />
-            {children}
+            <QueryProvider>
+              <SiteHeader />
+              {children}
+            </QueryProvider>
           </ThemeProvider>
         </CssVars>
       </body>
