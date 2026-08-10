@@ -1,0 +1,658 @@
+$ next dev --webpack
+   ▲ Next.js 16.0.3 (webpack)
+   - Local:         http://localhost:3000
+   - Network:       http://192.168.79.57:3000
+
+ ✓ Starting...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+ ✓ Ready in 676ms
+ ○ Compiling /java/changelog/[version] ...
+ GET /java/changelog/26.1.1-rc-1 200 in 6.0s (compile: 3.9s, render: 2.1s)
+ GET /java/changelog/26.1.1-rc-1 200 in 207ms (compile: 78ms, render: 128ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 153ms (compile: 73ms, render: 80ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 153ms (compile: 55ms, render: 98ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 177ms (compile: 63ms, render: 115ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 193ms (compile: 65ms, render: 128ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 259ms (compile: 94ms, render: 165ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 240ms (compile: 89ms, render: 151ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 187ms (compile: 66ms, render: 121ms)
+[Shiki] 10 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+ GET /java/changelog/26.1.1-rc-1 200 in 187ms (compile: 71ms, render: 116ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 166ms (compile: 59ms, render: 107ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 177ms (compile: 64ms, render: 113ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 165ms (compile: 61ms, render: 104ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 179ms (compile: 65ms, render: 115ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 190ms (compile: 66ms, render: 123ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 201ms (compile: 88ms, render: 113ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 218ms (compile: 84ms, render: 134ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 189ms (compile: 67ms, render: 122ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 258ms (compile: 110ms, render: 148ms)
+[Shiki] 20 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+ GET /java/changelog/26.1.1-rc-1 200 in 215ms (compile: 81ms, render: 134ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 183ms (compile: 60ms, render: 123ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 230ms (compile: 82ms, render: 148ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 245ms (compile: 106ms, render: 139ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 215ms (compile: 93ms, render: 123ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 391ms (compile: 26ms, render: 365ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 269ms (compile: 123ms, render: 146ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 174ms (compile: 67ms, render: 107ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 194ms (compile: 73ms, render: 121ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 169ms (compile: 61ms, render: 109ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 172ms (compile: 65ms, render: 106ms)
+[Shiki] 30 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+ GET /java/changelog/26.1.1-rc-1 200 in 194ms (compile: 89ms, render: 105ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 173ms (compile: 69ms, render: 104ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 169ms (compile: 62ms, render: 108ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 179ms (compile: 65ms, render: 114ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 188ms (compile: 70ms, render: 118ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 183ms (compile: 65ms, render: 118ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 159ms (compile: 61ms, render: 98ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 180ms (compile: 64ms, render: 116ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 168ms (compile: 65ms, render: 103ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 191ms (compile: 87ms, render: 104ms)
+[Shiki] 40 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+ GET /java/changelog/26.1.1-rc-1 200 in 226ms (compile: 95ms, render: 131ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 189ms (compile: 84ms, render: 105ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 201ms (compile: 73ms, render: 128ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 195ms (compile: 71ms, render: 124ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 213ms (compile: 68ms, render: 144ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 189ms (compile: 62ms, render: 127ms)
+ GET /java/changelog/26.1.1-rc-1 200 in 186ms (compile: 64ms, render: 122ms)
+ GET /java/changelog/26.1 200 in 1967ms (compile: 24ms, render: 1943ms)
+ GET /java/changelog/26.1 200 in 1039ms (compile: 130ms, render: 909ms)
+ GET /java/changelog/26.1 200 in 960ms (compile: 123ms, render: 836ms)
+ GET /java/changelog/26.1 200 in 962ms (compile: 120ms, render: 842ms)
+[Shiki] 50 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+ GET /java/changelog/26.1 200 in 952ms (compile: 132ms, render: 820ms)
+ GET /java/changelog/26.1 200 in 854ms (compile: 70ms, render: 784ms)
+ GET /java/changelog/26.1 200 in 1671ms (compile: 89ms, render: 1582ms)
+ GET /java/changelog/26.1 200 in 829ms (compile: 57ms, render: 772ms)
+ GET /java/changelog/26.1 200 in 894ms (compile: 53ms, render: 840ms)
+ GET /java/changelog/26.1 200 in 848ms (compile: 49ms, render: 799ms)
+ GET /java/changelog/26.1 200 in 924ms (compile: 55ms, render: 869ms)
+ GET /java/changelog/26.1 200 in 1606ms (compile: 50ms, render: 1555ms)
+ GET /java/changelog/26.1 200 in 941ms (compile: 61ms, render: 880ms)
+ GET /java/changelog/26.1 200 in 854ms (compile: 71ms, render: 783ms)
+[Shiki] 60 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+ GET /java/changelog/26.1 200 in 872ms (compile: 75ms, render: 797ms)
+ GET /java/changelog/26.1 200 in 1684ms (compile: 56ms, render: 1629ms)
+ GET /java/changelog/26.1 200 in 776ms (compile: 47ms, render: 729ms)
+ GET /java/changelog/26.1 200 in 922ms (compile: 55ms, render: 867ms)
+ GET /java/changelog/26.1 200 in 985ms (compile: 52ms, render: 933ms)
+ GET /java/changelog/26.1 200 in 918ms (compile: 51ms, render: 866ms)
+ GET /java/changelog/26.1 200 in 1756ms (compile: 53ms, render: 1703ms)
+ GET /java/changelog/26.1 200 in 989ms (compile: 51ms, render: 938ms)
+ GET /java/changelog/26.1 200 in 917ms (compile: 70ms, render: 847ms)
+ GET /java/changelog/26.1 200 in 1697ms (compile: 30ms, render: 1667ms)
+ GET /java/changelog/26.1 200 in 2.8s (compile: 76ms, render: 2.7s)
+[Shiki] 70 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+ GET /java/changelog/26.1 200 in 919ms (compile: 75ms, render: 845ms)
+ GET /java/changelog/26.1 200 in 839ms (compile: 52ms, render: 787ms)
+ GET /java/changelog/26.1 200 in 852ms (compile: 57ms, render: 795ms)
+ GET /java/changelog/26.1 200 in 868ms (compile: 54ms, render: 815ms)
+ GET /java/changelog/26.1 200 in 1506ms (compile: 53ms, render: 1454ms)
+ GET /java/changelog/26.1 200 in 780ms (compile: 49ms, render: 731ms)
+ GET /java/changelog/26.1 200 in 989ms (compile: 53ms, render: 936ms)
+ GET /java/changelog/26.1 200 in 845ms (compile: 49ms, render: 796ms)
+ GET /java/changelog/26.1 200 in 885ms (compile: 67ms, render: 818ms)
+ GET /java/changelog/function%20SvgArrowDown(props)%20%7B%20%20return%20/* 404 in 315ms (compile: 189ms, render: 126ms)
+ GET /java/changelog/function%20SvgArrowUp(props)%20%7B%20%20return%20/* 404 in 304ms (compile: 178ms, render: 126ms)
+ GET /java/changelog/26.1 200 in 899ms (compile: 53ms, render: 846ms)
+[Shiki] 80 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+ GET /java/changelog/26.1 200 in 926ms (compile: 57ms, render: 870ms)
+ GET /java/changelog/26.1 200 in 864ms (compile: 128ms, render: 736ms)
+ GET /java/changelog/26.1 200 in 811ms (compile: 50ms, render: 761ms)
+ GET /java/changelog/26.1 200 in 937ms (compile: 54ms, render: 883ms)
+ GET /java/changelog/26.1 200 in 915ms (compile: 133ms, render: 782ms)
+ GET /java/changelog/26.1 200 in 938ms (compile: 55ms, render: 883ms)
+ GET /java/changelog/26.1 200 in 901ms (compile: 56ms, render: 846ms)
+ GET /java/changelog/26.1 200 in 980ms (compile: 52ms, render: 928ms)
+ GET /java/changelog/26.1 200 in 920ms (compile: 56ms, render: 865ms)
+ GET /java/changelog/26.1 200 in 1653ms (compile: 35ms, render: 1618ms)
+ GET /java/changelog/26.1 200 in 873ms (compile: 33ms, render: 840ms)
+ GET /java/changelog/26.1 200 in 827ms (compile: 29ms, render: 798ms)
+ GET /java/changelog/26.1 200 in 937ms (compile: 62ms, render: 875ms)
+[Shiki] 90 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+ GET /java/changelog/26.1 200 in 1765ms (compile: 63ms, render: 1703ms)
+ GET /java/changelog/26.1 200 in 1014ms (compile: 50ms, render: 964ms)
+ GET /java/changelog/26.1 200 in 795ms (compile: 52ms, render: 744ms)
+ GET /java/changelog/26.1 200 in 1030ms (compile: 30ms, render: 1000ms)
+ GET /java/changelog/26.1 200 in 892ms (compile: 108ms, render: 784ms)
+ GET /java/changelog/26.1 200 in 982ms (compile: 51ms, render: 931ms)
+ GET /java/changelog/26.1 200 in 837ms (compile: 51ms, render: 786ms)
+ GET /java/changelog/26.1 200 in 895ms (compile: 66ms, render: 828ms)
+ GET /java/changelog/26.1 200 in 899ms (compile: 79ms, render: 820ms)
+ GET /java/changelog/26.1 200 in 765ms (compile: 58ms, render: 707ms)
+ GET /java/changelog/26.1 200 in 1753ms (compile: 59ms, render: 1693ms)
+[Shiki] 100 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+ GET /java/changelog/26.1 200 in 1038ms (compile: 59ms, render: 979ms)
+ GET /java/changelog/26.1 200 in 799ms (compile: 59ms, render: 740ms)
+ GET /java/changelog/26.1 200 in 918ms (compile: 65ms, render: 852ms)
+ GET /java/changelog/26.1 200 in 1030ms (compile: 61ms, render: 969ms)
+ GET /java/changelog/26.1 200 in 1109ms (compile: 65ms, render: 1044ms)
+ GET /java/changelog/26.1 200 in 959ms (compile: 119ms, render: 840ms)
+ GET /java/changelog/26.1 200 in 825ms (compile: 84ms, render: 741ms)
+ GET /java/changelog/26.1 200 in 928ms (compile: 178ms, render: 749ms)
+ GET /java/changelog/26.1 200 in 770ms (compile: 72ms, render: 698ms)
+ GET /java/changelog/26.1 200 in 1827ms (compile: 76ms, render: 1751ms)
+ ⨯ ./src/components/java/fixed-bugs.tsx
+Error:   [31mx[0m Expected ';', '}' or <eof>
+    ,-[[36;1;4m/var/home/mulverine/Workspaces/MinecraftCommands/mcc-gadgets/src/components/java/fixed-bugs.tsx[0m:10:1]
+ [2m 7[0m |       type CatppuccinFlavor,
+ [2m 8[0m |       type ShikiHighlighter,
+ [2m 9[0m |     } from "~/components/shiki-client";
+ [2m10[0m | [35;1m,[0m[35;1m-[0m[35;1m>[0m   highlightCode,
+ [2m11[0m | [35;1m|[0m     useCatppuccinTheme,
+ [2m12[0m | [35;1m|[0m     useShiki,
+ [2m13[0m | [35;1m|[0m[35;1m-[0m[35;1m>[0m   type ShikiHighlighter,
+    : [35;1m`[0m[35;1m---[0m[33;1m       ^^^^^^^^^^^^^^^^[0m
+    : [35;1m`[0m[35;1m---[0m[35;1m-[0m [35;1mThis is the expression part of an expression statement[0m
+ [2m14[0m |     } from "~/components/shiki-client";
+ [2m15[0m |     import { useQuery } from "@tanstack/react-query";
+ [2m16[0m |     import React, { useState } from "react";
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/components/java/fixed-bugs.tsx
+./src/components/java/patch-notes.tsx
+./src/app/java/changelog/[version]/page.tsx
+ ⨯ ./src/components/java/fixed-bugs.tsx
+Error:   [31mx[0m Expected ';', '}' or <eof>
+    ,-[[36;1;4m/var/home/mulverine/Workspaces/MinecraftCommands/mcc-gadgets/src/components/java/fixed-bugs.tsx[0m:10:1]
+ [2m 7[0m |       type CatppuccinFlavor,
+ [2m 8[0m |       type ShikiHighlighter,
+ [2m 9[0m |     } from "~/components/shiki-client";
+ [2m10[0m | [35;1m,[0m[35;1m-[0m[35;1m>[0m   highlightCode,
+ [2m11[0m | [35;1m|[0m     useCatppuccinTheme,
+ [2m12[0m | [35;1m|[0m     useShiki,
+ [2m13[0m | [35;1m|[0m[35;1m-[0m[35;1m>[0m   type ShikiHighlighter,
+    : [35;1m`[0m[35;1m---[0m[33;1m       ^^^^^^^^^^^^^^^^[0m
+    : [35;1m`[0m[35;1m---[0m[35;1m-[0m [35;1mThis is the expression part of an expression statement[0m
+ [2m14[0m |     } from "~/components/shiki-client";
+ [2m15[0m |     import { useQuery } from "@tanstack/react-query";
+ [2m16[0m |     import React, { useState } from "react";
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/components/java/fixed-bugs.tsx
+./src/components/java/patch-notes.tsx
+./src/app/java/changelog/[version]/page.tsx
+ GET /java/changelog/26.1 500 in 2.6s (compile: 2.5s, render: 57ms)
+ GET /java/changelog/26.1 500 in 6ms (compile: 2ms, render: 4ms)
+ GET /java/changelog/26.1 500 in 7ms (compile: 2ms, render: 5ms)
+ GET /java/changelog/26.1 500 in 6ms (compile: 1869µs, render: 4ms)
+ ○ Compiling /_error ...
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[Shiki] 110 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET /java/changelog/26.1 200 in 3.0s (compile: 255ms, render: 2.8s)
+ GET /java/changelog/26.1 200 in 1392ms (compile: 118ms, render: 1274ms)
+ GET /java/changelog/26.1 200 in 993ms (compile: 190ms, render: 802ms)
+ GET /java/changelog/26.1 200 in 1102ms (compile: 116ms, render: 986ms)
+ GET /java/changelog/26.1 200 in 846ms (compile: 83ms, render: 763ms)
+ GET /java/changelog/26.1 200 in 849ms (compile: 83ms, render: 765ms)
+ GET /java/changelog/26.1 200 in 1007ms (compile: 101ms, render: 906ms)
+ GET /java/changelog/26.1 200 in 897ms (compile: 95ms, render: 801ms)
+ GET /java/changelog/26.1 200 in 1640ms (compile: 89ms, render: 1550ms)
+ GET /java/changelog/26.1 200 in 1866ms (compile: 60ms, render: 1806ms)
+ GET /java/changelog/26.1 200 in 945ms (compile: 104ms, render: 841ms)
+ GET /java/changelog/26.1 200 in 1827ms (compile: 62ms, render: 1766ms)
+[Shiki] 120 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+ GET /java/changelog/26.1 200 in 989ms (compile: 161ms, render: 828ms)
+ GET /java/changelog/26.1 200 in 1085ms (compile: 86ms, render: 999ms)
+ GET /java/changelog/26.1 200 in 2.2s (compile: 64ms, render: 2.1s)
+ GET /java/changelog/26.1 200 in 1004ms (compile: 118ms, render: 886ms)
+ GET /java/changelog/26.1 200 in 1313ms (compile: 89ms, render: 1224ms)
+ GET /java/changelog/26.1 200 in 1092ms (compile: 90ms, render: 1002ms)
+ GET /java/changelog/26.1 200 in 1731ms (compile: 63ms, render: 1668ms)
+ GET /java/changelog/26.1 200 in 1755ms (compile: 91ms, render: 1664ms)
+ GET /java/changelog/26.1 200 in 1067ms (compile: 102ms, render: 966ms)
+ GET /java/changelog/26.1 200 in 1093ms (compile: 82ms, render: 1011ms)
+ GET /java/changelog/26.1 200 in 915ms (compile: 90ms, render: 825ms)
+ GET /java/changelog/26.1 200 in 1036ms (compile: 113ms, render: 923ms)
+[Shiki] 130 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+ GET /java/changelog/26.1 200 in 1841ms (compile: 92ms, render: 1749ms)
+ GET /java/changelog/26.1 200 in 1015ms (compile: 88ms, render: 927ms)
+ GET /java/changelog/26.1 200 in 931ms (compile: 104ms, render: 828ms)
+ GET /java/changelog/26.1 200 in 1126ms (compile: 99ms, render: 1027ms)
+ GET /java/changelog/26.1 200 in 1082ms (compile: 103ms, render: 980ms)
+ GET /java/changelog/26.1 200 in 869ms (compile: 87ms, render: 782ms)
+ GET /java/changelog/26.1 200 in 1081ms (compile: 90ms, render: 991ms)
+ GET /java/changelog/26.1 200 in 1169ms (compile: 90ms, render: 1080ms)
+ GET /java/changelog/26.1 200 in 907ms (compile: 87ms, render: 820ms)
+ GET /java/changelog/26.1 200 in 1242ms (compile: 111ms, render: 1131ms)
+ GET /java/changelog/26.1 200 in 2.6s (compile: 70ms, render: 2.5s)
+ GET /java/changelog/26.1 200 in 2.1s (compile: 69ms, render: 2.1s)
+[Shiki] 140 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+ GET /java/changelog/26.1 200 in 651ms (compile: 73ms, render: 577ms)
+ GET /java/changelog/26.1 200 in 1859ms (compile: 123ms, render: 1735ms)
+ GET /java/changelog/26.1 200 in 2.6s (compile: 78ms, render: 2.5s)
+ GET /java/changelog/26.1 200 in 3.5s (compile: 94ms, render: 3.4s)
+ GET /java/changelog/26.1 200 in 635ms (compile: 79ms, render: 556ms)
+ GET /java/changelog/26.1 200 in 1876ms (compile: 95ms, render: 1781ms)
+ GET /java/changelog/26.1 200 in 993ms (compile: 81ms, render: 913ms)
+ GET /java/changelog/26.1 200 in 1771ms (compile: 99ms, render: 1672ms)
+ GET /java/changelog/26.1 200 in 1089ms (compile: 74ms, render: 1014ms)
+ GET /java/changelog/26.1 200 in 1984ms (compile: 92ms, render: 1892ms)
+ GET /java/changelog/26.1 200 in 2.4s (compile: 79ms, render: 2.3s)
+ GET /java/changelog/26.1 200 in 3.2s (compile: 94ms, render: 3.1s)
+ GET /java/changelog/26.1 200 in 620ms (compile: 73ms, render: 547ms)
+ GET /java/changelog/26.1 200 in 1714ms (compile: 271ms, render: 1443ms)
+ GET /java/changelog/26.1 200 in 1065ms (compile: 83ms, render: 982ms)
+ GET /java/changelog/26.1 200 in 1907ms (compile: 108ms, render: 1799ms)
+ GET /java/changelog/26.1 200 in 705ms (compile: 69ms, render: 636ms)
+ GET /java/changelog/26.1 200 in 1552ms (compile: 88ms, render: 1465ms)
+ GET /java/changelog/26.1 200 in 2.5s (compile: 73ms, render: 2.4s)
+ GET /java/changelog/26.1 200 in 3.6s (compile: 114ms, render: 3.5s)
+[Shiki] 150 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+ GET /java/changelog/26.1 200 in 619ms (compile: 74ms, render: 545ms)
+ GET /java/changelog/26.1 200 in 1739ms (compile: 126ms, render: 1613ms)
+ GET /java/changelog/1-17-pre-release-4 200 in 941ms (compile: 66ms, render: 875ms)
+ GET /java/changelog/26.1 200 in 2.2s (compile: 76ms, render: 2.1s)
+ GET /java/changelog/26.1 200 in 3.7s (compile: 66ms, render: 3.6s)
+ GET /java/changelog/26.1 200 in 679ms (compile: 72ms, render: 607ms)
+ GET /java/changelog/26.1 200 in 1563ms (compile: 129ms, render: 1434ms)
+ GET /java/changelog/26.1 200 in 1059ms (compile: 84ms, render: 976ms)
+ GET /java/changelog/26.1 200 in 1957ms (compile: 110ms, render: 1847ms)
+ GET /java/changelog/26.1 200 in 2.8s (compile: 77ms, render: 2.7s)
+ GET /java/changelog/26.1 200 in 1818ms (compile: 75ms, render: 1743ms)
+ GET /java/changelog/26.1 200 in 2.7s (compile: 70ms, render: 2.6s)
+ GET /java/changelog/26.1 200 in 3.5s (compile: 89ms, render: 3.4s)
+ GET /java/changelog/1.17-rc-1 200 in 917ms (compile: 66ms, render: 851ms)
+ GET /java/changelog/26.1 200 in 3.6s (compile: 66ms, render: 3.6s)
+ GET /java/changelog/26.1 200 in 2.3s (compile: 76ms, render: 2.2s)
+ GET /java/changelog/1.17-rc-1 200 in 1684ms (compile: 124ms, render: 1560ms)
+ GET /java/changelog/26.1 200 in 589ms (compile: 70ms, render: 519ms)
+ GET /java/changelog/26.1 200 in 1820ms (compile: 126ms, render: 1694ms)
+ GET /java/changelog/1.17-rc-1 200 in 1767ms (compile: 98ms, render: 1669ms)
+ GET /java/changelog/26.1 200 in 1067ms (compile: 81ms, render: 986ms)
+ GET /java/changelog/26.1 200 in 1889ms (compile: 97ms, render: 1792ms)
+ GET /java/changelog/1.17-rc-1 200 in 1511ms (compile: 121ms, render: 1390ms)
+ GET /java/changelog/26.1 200 in 3.4s (compile: 76ms, render: 3.3s)
+ GET /java/changelog/26.1 200 in 4.4s (compile: 122ms, render: 4.2s)
+ GET /java/changelog/26.1-snapshot-10 200 in 4.5s (compile: 68ms, render: 4.5s)
+ GET /java/changelog/1.17-rc-1 200 in 3.5s (compile: 69ms, render: 3.5s)
+ GET /java/changelog/26.1 200 in 4.6s (compile: 70ms, render: 4.5s)
+ GET /java/changelog/26.1 200 in 2.4s (compile: 71ms, render: 2.3s)
+ GET /java/changelog/26.1-snapshot-10 200 in 852ms (compile: 92ms, render: 760ms)
+ GET /java/changelog/1.17-rc-1 200 in 1357ms (compile: 91ms, render: 1266ms)
+ GET /java/changelog/26.1 200 in 684ms (compile: 70ms, render: 614ms)
+ GET /java/changelog/26.1 200 in 2.1s (compile: 91ms, render: 2.0s)
+ GET /java/changelog/1.17-rc-1 200 in 1354ms (compile: 100ms, render: 1253ms)
+ GET /java/changelog/26.1 200 in 615ms (compile: 76ms, render: 538ms)
+ GET /java/changelog/26.1 200 in 1485ms (compile: 101ms, render: 1384ms)
+ GET /java/changelog/1.17-rc-1 200 in 1856ms (compile: 110ms, render: 1746ms)
+ GET /java/changelog/26.1 200 in 2.3s (compile: 93ms, render: 2.2s)
+ GET /java/changelog/26.1 200 in 3.3s (compile: 111ms, render: 3.1s)
+[Shiki] 160 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+ GET /java/changelog/1.17-rc-1 200 in 1934ms (compile: 96ms, render: 1838ms)
+ GET /java/changelog/26.1 200 in 1149ms (compile: 75ms, render: 1075ms)
+ GET /java/changelog/26.1 200 in 2.1s (compile: 97ms, render: 1958ms)
+ GET /java/changelog/1.17-rc-1 200 in 1421ms (compile: 100ms, render: 1321ms)
+ GET /java/changelog/26.1 200 in 653ms (compile: 76ms, render: 577ms)
+ GET /java/changelog/26.1 200 in 1535ms (compile: 100ms, render: 1435ms)
+ GET /java/changelog/1.17-rc-1 200 in 1338ms (compile: 93ms, render: 1245ms)
+ GET /java/changelog/26.1 200 in 601ms (compile: 70ms, render: 531ms)
+ GET /java/changelog/26.1 200 in 1468ms (compile: 93ms, render: 1375ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1080ms (compile: 70ms, render: 1010ms)
+ GET /java/changelog/1.17-rc-1 200 in 3.6s (compile: 67ms, render: 3.5s)
+ GET /java/changelog/26.1 200 in 4.6s (compile: 67ms, render: 4.6s)
+ GET /java/changelog/26.1 200 in 3.1s (compile: 76ms, render: 3.0s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1540ms (compile: 119ms, render: 1420ms)
+ GET /java/changelog/1.17-rc-1 200 in 1541ms (compile: 118ms, render: 1423ms)
+ GET /java/changelog/26.1 200 in 2.4s (compile: 79ms, render: 2.3s)
+ GET /java/changelog/26.1 200 in 3.4s (compile: 118ms, render: 3.2s)
+ GET /java/changelog/1.17-rc-1 200 in 1414ms (compile: 123ms, render: 1291ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1415ms (compile: 124ms, render: 1291ms)
+ GET /java/changelog/26.1 200 in 623ms (compile: 70ms, render: 553ms)
+ GET /java/changelog/26.1 200 in 1536ms (compile: 122ms, render: 1413ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 399ms (compile: 69ms, render: 330ms)
+ GET /java/changelog/1.17-rc-1 200 in 3.6s (compile: 78ms, render: 3.6s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 3.7s (compile: 77ms, render: 3.7s)
+ GET /java/changelog/26.1 200 in 5.2s (compile: 77ms, render: 5.1s)
+ GET /java/changelog/26.1 200 in 3.1s (compile: 68ms, render: 3.0s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1317ms (compile: 100ms, render: 1216ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1320ms (compile: 101ms, render: 1219ms)
+ GET /java/changelog/26.1 200 in 593ms (compile: 74ms, render: 519ms)
+ GET /java/changelog/26.1 200 in 1454ms (compile: 101ms, render: 1352ms)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /java/changelog/26.1 200 in 3.4s (compile: 257ms, render: 3.1s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 4.5s (compile: 93ms, render: 4.4s)
+ GET /java/changelog/26.1-snapshot-10 200 in 4.5s (compile: 93ms, render: 4.4s)
+ GET /java/changelog/26.1 200 in 5.2s (compile: 93ms, render: 5.1s)
+ GET /java/changelog/26.1 200 in 2.6s (compile: 473ms, render: 2.1s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1729ms (compile: 74ms, render: 1656ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1736ms (compile: 73ms, render: 1663ms)
+ GET /java/changelog/26.1 200 in 2.3s (compile: 3ms, render: 2.3s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 2.4s (compile: 136ms, render: 2.2s)
+ GET /java/changelog/26.1-snapshot-10 200 in 2.4s (compile: 137ms, render: 2.2s)
+ GET /java/changelog/26.1 200 in 2.6s (compile: 148ms, render: 2.4s)
+ GET /java/changelog/26.1 200 in 2.6s (compile: 135ms, render: 2.5s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1853ms (compile: 96ms, render: 1756ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1503ms (compile: 2ms, render: 1501ms)
+ GET /java/changelog/26.1 200 in 2.5s (compile: 3ms, render: 2.5s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1776ms (compile: 131ms, render: 1644ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1778ms (compile: 131ms, render: 1648ms)
+ GET /java/changelog/26.1 200 in 1412ms (compile: 69ms, render: 1343ms)
+ GET /java/changelog/26.1 200 in 2.7s (compile: 133ms, render: 2.6s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1900ms (compile: 95ms, render: 1804ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1901ms (compile: 95ms, render: 1807ms)
+ GET /java/changelog/26.1 200 in 2.0s (compile: 76ms, render: 1941ms)
+ GET /java/changelog/26.1 200 in 2.9s (compile: 95ms, render: 2.8s)
+[Shiki] 170 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1325ms (compile: 94ms, render: 1231ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1326ms (compile: 93ms, render: 1233ms)
+ GET /java/changelog/26.1 200 in 1219ms (compile: 66ms, render: 1154ms)
+ GET /java/changelog/26.1 200 in 2.1s (compile: 94ms, render: 1968ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1319ms (compile: 92ms, render: 1228ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1324ms (compile: 92ms, render: 1232ms)
+ GET /java/changelog/26.1 200 in 1024ms (compile: 73ms, render: 951ms)
+ GET /java/changelog/26.1 200 in 1887ms (compile: 93ms, render: 1794ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1859ms (compile: 91ms, render: 1768ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1865ms (compile: 91ms, render: 1773ms)
+ GET /java/changelog/26.1 200 in 1568ms (compile: 77ms, render: 1491ms)
+ GET /java/changelog/26.1 200 in 2.4s (compile: 92ms, render: 2.3s)
+ GET /java/changelog/26.1 200 in 4.4s (compile: 70ms, render: 4.3s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 3.6s (compile: 70ms, render: 3.5s)
+ GET /java/changelog/26.1-snapshot-10 200 in 3.6s (compile: 70ms, render: 3.5s)
+ GET /java/changelog/26.1 200 in 3.9s (compile: 81ms, render: 3.8s)
+ GET /java/changelog/26.1 200 in 5.6s (compile: 70ms, render: 5.5s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1901ms (compile: 324ms, render: 1577ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1909ms (compile: 329ms, render: 1579ms)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /java/changelog/26.1 200 in 3.9s (compile: 326ms, render: 3.5s)
+ GET /java/changelog/26.1 200 in 2.6s (compile: 70ms, render: 2.6s)
+ GET /java/changelog/26.1 200 in 1755ms (compile: 69ms, render: 1686ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1733ms (compile: 71ms, render: 1661ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1739ms (compile: 72ms, render: 1668ms)
+ GET /java/changelog/26.1 200 in 2.7s (compile: 71ms, render: 2.7s)
+ ⨯ ./src/components/java/fixed-bugs.tsx
+Module parse failed: Identifier 'VersionLinks' has already been declared (74:9)
+|     return result.join("-").toLowerCase();
+| }
+> function VersionLinks({ versions }) {
+|     return /*#__PURE__*/ _jsxDEV("span", {
+|         children: versions.map((v, i)=>{
+
+Import trace for requested module:
+./src/components/java/fixed-bugs.tsx
+ ⨯ ./src/components/java/fixed-bugs.tsx
+Module parse failed: Identifier 'VersionLinks' has already been declared (75:9)
+|     return result.join("-").toLowerCase();
+| }
+> function VersionLinks({ versions }) {
+|     _s();
+|     const { data: manifest } = useQuery({
+
+Import trace for requested module:
+./src/components/java/fixed-bugs.tsx
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1798ms (compile: 542ms, render: 1256ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 2.6s (compile: 504ms, render: 2.1s)
+ GET /java/changelog/26.1 200 in 1834ms (compile: 70ms, render: 1765ms)
+ GET /java/changelog/26.1 200 in 3.2s (compile: 544ms, render: 2.6s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 4.1s (compile: 115ms, render: 4.0s)
+ GET /java/changelog/26.1-snapshot-10 200 in 4.9s (compile: 115ms, render: 4.7s)
+ GET /java/changelog/26.1 200 in 3.6s (compile: 68ms, render: 3.5s)
+ GET /java/changelog/26.1 200 in 5.0s (compile: 116ms, render: 4.9s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 2.2s (compile: 97ms, render: 2.1s)
+ GET /java/changelog/26.1-snapshot-10 200 in 2.2s (compile: 98ms, render: 2.1s)
+ GET /java/changelog/26.1 200 in 1907ms (compile: 76ms, render: 1831ms)
+ GET /java/changelog/26.1 200 in 2.8s (compile: 99ms, render: 2.7s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1388ms (compile: 104ms, render: 1284ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1392ms (compile: 104ms, render: 1288ms)
+ GET /java/changelog/26.1 200 in 597ms (compile: 72ms, render: 525ms)
+ GET /java/changelog/26.1 200 in 1495ms (compile: 106ms, render: 1389ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1651ms (compile: 97ms, render: 1554ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1690ms (compile: 96ms, render: 1594ms)
+ GET /java/changelog/26.1 200 in 1278ms (compile: 79ms, render: 1199ms)
+ GET /java/changelog/26.1 200 in 2.2s (compile: 95ms, render: 2.1s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1330ms (compile: 99ms, render: 1231ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1331ms (compile: 98ms, render: 1233ms)
+ GET /java/changelog/26.1 200 in 588ms (compile: 72ms, render: 516ms)
+ GET /java/changelog/26.1 200 in 1449ms (compile: 97ms, render: 1352ms)
+[Shiki] 180 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /java/changelog/26.1 200 in 4.8s (compile: 2.4s, render: 2.4s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 6.2s (compile: 97ms, render: 6.1s)
+ GET /java/changelog/26.1-snapshot-10 200 in 6.2s (compile: 97ms, render: 6.1s)
+ GET /java/changelog/26.1 200 in 6.5s (compile: 97ms, render: 6.4s)
+ GET /java/changelog/26.1 200 in 2.1s (compile: 457ms, render: 1685ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1666ms (compile: 74ms, render: 1592ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1670ms (compile: 74ms, render: 1596ms)
+ GET /java/changelog/26.1 200 in 2.4s (compile: 1981µs, render: 2.4s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1421ms (compile: 104ms, render: 1317ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1424ms (compile: 104ms, render: 1320ms)
+ GET /java/changelog/26.1 200 in 586ms (compile: 70ms, render: 515ms)
+ GET /java/changelog/26.1 200 in 1541ms (compile: 105ms, render: 1436ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1953ms (compile: 93ms, render: 1859ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1956ms (compile: 94ms, render: 1862ms)
+ GET /java/changelog/26.1 200 in 1124ms (compile: 81ms, render: 1042ms)
+ GET /java/changelog/26.1 200 in 2.1s (compile: 95ms, render: 1962ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1353ms (compile: 97ms, render: 1256ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1355ms (compile: 96ms, render: 1259ms)
+ GET /java/changelog/26.1 200 in 605ms (compile: 75ms, render: 530ms)
+ GET /java/changelog/26.1 200 in 1486ms (compile: 98ms, render: 1388ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1434ms (compile: 94ms, render: 1340ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1439ms (compile: 96ms, render: 1344ms)
+ GET /java/changelog/26.1 200 in 668ms (compile: 83ms, render: 585ms)
+ GET /java/changelog/26.1 200 in 1577ms (compile: 95ms, render: 1482ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1991ms (compile: 96ms, render: 1895ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1997ms (compile: 95ms, render: 1902ms)
+ GET /java/changelog/26.1 200 in 1160ms (compile: 95ms, render: 1065ms)
+ GET /java/changelog/26.1 200 in 2.1s (compile: 95ms, render: 2.0s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1343ms (compile: 97ms, render: 1246ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1349ms (compile: 97ms, render: 1252ms)
+ GET /java/changelog/26.1 200 in 591ms (compile: 71ms, render: 520ms)
+ GET /java/changelog/26.1 200 in 1482ms (compile: 98ms, render: 1384ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1914ms (compile: 585ms, render: 1329ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 4.8s (compile: 580ms, render: 4.3s)
+ GET /java/changelog/26.1 200 in 3.6s (compile: 78ms, render: 3.5s)
+ GET /java/changelog/26.1 200 in 5.0s (compile: 602ms, render: 4.4s)
+ GET /java/changelog/26.1 200 in 2.5s (compile: 67ms, render: 2.5s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1645ms (compile: 79ms, render: 1566ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1653ms (compile: 79ms, render: 1574ms)
+ GET /java/changelog/26.1 200 in 2.7s (compile: 80ms, render: 2.6s)
+ GET /java/changelog/1.17-rc1 200 in 1289ms (compile: 70ms, render: 1218ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 3.1s (compile: 127ms, render: 3.0s)
+ GET /java/changelog/1.17-rc1 200 in 3.1s (compile: 125ms, render: 3.0s)
+ GET /java/changelog/26.1-snapshot-10 200 in 5.2s (compile: 126ms, render: 5.1s)
+ GET /java/changelog/26.1 200 in 4.4s (compile: 69ms, render: 4.3s)
+ GET /java/changelog/26.1 200 in 5.4s (compile: 128ms, render: 5.2s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1375ms (compile: 95ms, render: 1279ms)
+ GET /java/changelog/1.17-rc1 200 in 1384ms (compile: 95ms, render: 1289ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1387ms (compile: 96ms, render: 1292ms)
+ GET /java/changelog/26.1 200 in 573ms (compile: 70ms, render: 503ms)
+ GET /java/changelog/26.1 200 in 1514ms (compile: 97ms, render: 1417ms)
+ GET /java/changelog/26.1 200 in 2.4s (compile: 67ms, render: 2.3s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 3.0s (compile: 104ms, render: 2.9s)
+ GET /java/changelog/1.17-rc1 200 in 3.0s (compile: 104ms, render: 2.9s)
+ GET /java/changelog/26.1-snapshot-10 200 in 3.0s (compile: 105ms, render: 2.9s)
+ GET /java/changelog/26.1 200 in 5.4s (compile: 104ms, render: 5.3s)
+[Shiki] 190 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+ GET /java/changelog/1.17.1-pre-release-2 200 in 4.9s (compile: 653ms, render: 4.2s)
+ GET /java/changelog/1.17-rc1 200 in 4.9s (compile: 652ms, render: 4.3s)
+ GET /java/changelog/26.1-snapshot-10 200 in 4.9s (compile: 655ms, render: 4.3s)
+ GET /java/changelog/26.1 200 in 4.3s (compile: 70ms, render: 4.2s)
+ GET /java/changelog/26.1 200 in 5.8s (compile: 652ms, render: 5.2s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1362ms (compile: 98ms, render: 1264ms)
+ GET /java/changelog/1.17-rc1 200 in 1366ms (compile: 98ms, render: 1268ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1370ms (compile: 99ms, render: 1271ms)
+ GET /java/changelog/26.1 200 in 593ms (compile: 70ms, render: 523ms)
+ GET /java/changelog/26.1 200 in 1515ms (compile: 98ms, render: 1417ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 2.1s (compile: 98ms, render: 2.0s)
+ GET /java/changelog/1.17-rc1 200 in 2.1s (compile: 98ms, render: 2.0s)
+ GET /java/changelog/26.1-snapshot-10 200 in 2.1s (compile: 97ms, render: 2.0s)
+ GET /java/changelog/26.1 200 in 1286ms (compile: 126ms, render: 1160ms)
+ GET /java/changelog/26.1 200 in 2.2s (compile: 99ms, render: 2.1s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1352ms (compile: 98ms, render: 1254ms)
+ GET /java/changelog/1.17-rc1 200 in 1359ms (compile: 99ms, render: 1261ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1361ms (compile: 98ms, render: 1262ms)
+ GET /java/changelog/26.1 200 in 590ms (compile: 72ms, render: 518ms)
+ GET /java/changelog/26.1 200 in 1503ms (compile: 98ms, render: 1405ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 2.1s (compile: 785ms, render: 1285ms)
+ GET /java/changelog/1.17-rc1 200 in 2.1s (compile: 782ms, render: 1289ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 2.1s (compile: 783ms, render: 1291ms)
+ GET /java/changelog/26.1 200 in 587ms (compile: 69ms, render: 518ms)
+ GET /java/changelog/26.1 200 in 2.2s (compile: 782ms, render: 1409ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 5.2s (compile: 205ms, render: 5.0s)
+ GET /java/changelog/1.17-rc1 200 in 5.1s (compile: 105ms, render: 5.0s)
+ GET /java/changelog/26.1-snapshot-10 200 in 5.1s (compile: 106ms, render: 5.0s)
+ GET /java/changelog/26.1 200 in 4.3s (compile: 70ms, render: 4.2s)
+ GET /java/changelog/26.1 200 in 5.3s (compile: 107ms, render: 5.2s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 5.2s (compile: 115ms, render: 5.1s)
+ GET /java/changelog/1.17-rc1 200 in 5.2s (compile: 114ms, render: 5.1s)
+ GET /java/changelog/26.1-snapshot-10 200 in 5.2s (compile: 114ms, render: 5.1s)
+ GET /java/changelog/26.1 200 in 4.3s (compile: 76ms, render: 4.2s)
+ GET /java/changelog/26.1 200 in 5.3s (compile: 114ms, render: 5.2s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1437ms (compile: 95ms, render: 1342ms)
+ GET /java/changelog/1.17-rc1 200 in 1438ms (compile: 95ms, render: 1343ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1442ms (compile: 96ms, render: 1346ms)
+ GET /java/changelog/26.1 200 in 4.3s (compile: 71ms, render: 4.2s)
+ GET /java/changelog/26.1 200 in 5.3s (compile: 96ms, render: 5.2s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1415ms (compile: 102ms, render: 1313ms)
+ GET /java/changelog/1.17-rc1 200 in 1417ms (compile: 100ms, render: 1317ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1420ms (compile: 100ms, render: 1321ms)
+ GET /java/changelog/26.1 200 in 593ms (compile: 72ms, render: 521ms)
+ GET /java/changelog/26.1 200 in 1547ms (compile: 101ms, render: 1446ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 2.3s (compile: 100ms, render: 2.2s)
+ GET /java/changelog/1.17-rc1 200 in 2.3s (compile: 99ms, render: 2.2s)
+ GET /java/changelog/26.1-snapshot-10 200 in 2.3s (compile: 98ms, render: 2.2s)
+ GET /java/changelog/26.1 200 in 1407ms (compile: 73ms, render: 1334ms)
+ GET /java/changelog/26.1 200 in 2.4s (compile: 98ms, render: 2.3s)
+[Shiki] 200 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1354ms (compile: 98ms, render: 1255ms)
+ GET /java/changelog/1.17-rc1 200 in 1358ms (compile: 97ms, render: 1261ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1374ms (compile: 97ms, render: 1276ms)
+ GET /java/changelog/26.1 200 in 611ms (compile: 69ms, render: 542ms)
+ GET /java/changelog/26.1 200 in 1501ms (compile: 97ms, render: 1404ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1985ms (compile: 474ms, render: 1511ms)
+ GET /java/changelog/1.17-rc1 200 in 1990ms (compile: 472ms, render: 1518ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 2.0s (compile: 482ms, render: 1524ms)
+ GET /java/changelog/26.1 200 in 4.3s (compile: 71ms, render: 4.3s)
+ GET /java/changelog/26.1 200 in 5.9s (compile: 473ms, render: 5.4s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1552ms (compile: 128ms, render: 1425ms)
+ GET /java/changelog/1.17-rc1 200 in 1554ms (compile: 125ms, render: 1429ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1559ms (compile: 126ms, render: 1433ms)
+ GET /java/changelog/26.1 200 in 638ms (compile: 71ms, render: 567ms)
+ GET /java/changelog/26.1 200 in 1693ms (compile: 126ms, render: 1567ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1898ms (compile: 530ms, render: 1369ms)
+ GET /java/changelog/1.17-rc1 200 in 4.8s (compile: 547ms, render: 4.3s)
+ GET /java/changelog/26.1-snapshot-10 200 in 5.7s (compile: 679ms, render: 5.0s)
+ GET /java/changelog/26.1 200 in 4.3s (compile: 71ms, render: 4.2s)
+ GET /java/changelog/26.1 200 in 5.8s (compile: 605ms, render: 5.2s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 2.1s (compile: 98ms, render: 2.0s)
+ GET /java/changelog/1.17-rc1 200 in 2.1s (compile: 96ms, render: 2.0s)
+ GET /java/changelog/26.1-snapshot-10 200 in 2.1s (compile: 96ms, render: 2.0s)
+ GET /java/changelog/26.1 200 in 1254ms (compile: 104ms, render: 1149ms)
+ GET /java/changelog/26.1 200 in 2.2s (compile: 97ms, render: 2.1s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1417ms (compile: 101ms, render: 1316ms)
+ GET /java/changelog/1.17-rc1 200 in 1419ms (compile: 99ms, render: 1320ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1425ms (compile: 101ms, render: 1324ms)
+ GET /java/changelog/26.1 200 in 612ms (compile: 73ms, render: 540ms)
+ GET /java/changelog/26.1 200 in 1566ms (compile: 100ms, render: 1466ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 2.1s (compile: 735ms, render: 1321ms)
+ GET /java/changelog/1.17-rc1 200 in 2.1s (compile: 734ms, render: 1357ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 2.1s (compile: 732ms, render: 1366ms)
+ GET /java/changelog/26.1 200 in 4.2s (compile: 72ms, render: 4.1s)
+ GET /java/changelog/26.1 200 in 5.8s (compile: 733ms, render: 5.1s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1381ms (compile: 98ms, render: 1283ms)
+ GET /java/changelog/1.17-rc1 200 in 1384ms (compile: 98ms, render: 1286ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1387ms (compile: 98ms, render: 1288ms)
+ GET /java/changelog/26.1 200 in 577ms (compile: 71ms, render: 505ms)
+ GET /java/changelog/26.1 200 in 1507ms (compile: 97ms, render: 1409ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1502ms (compile: 95ms, render: 1407ms)
+ GET /java/changelog/1.17-rc1 200 in 1507ms (compile: 94ms, render: 1413ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1512ms (compile: 96ms, render: 1416ms)
+ GET /java/changelog/26.1 200 in 640ms (compile: 68ms, render: 573ms)
+ GET /java/changelog/26.1 200 in 1657ms (compile: 95ms, render: 1562ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 2.3s (compile: 88ms, render: 2.2s)
+ GET /java/changelog/1.17-rc1 200 in 2.3s (compile: 87ms, render: 2.2s)
+ GET /java/changelog/26.1-snapshot-10 200 in 2.3s (compile: 88ms, render: 2.2s)
+ GET /java/changelog/26.1 200 in 2.4s (compile: 87ms, render: 2.3s)
+ GET /java/changelog/26.1 200 in 1395ms (compile: 190ms, render: 1205ms)
+[Shiki] 210 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+ GET /java/changelog/1.17.1-pre-release-2 200 in 5.8s (compile: 741ms, render: 5.1s)
+ GET /java/changelog/1.17-rc1 200 in 5.8s (compile: 723ms, render: 5.1s)
+ GET /java/changelog/26.1-snapshot-10 200 in 5.8s (compile: 742ms, render: 5.1s)
+ GET /java/changelog/26.1 200 in 4.3s (compile: 70ms, render: 4.2s)
+ GET /java/changelog/26.1 200 in 5.9s (compile: 740ms, render: 5.2s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 2.9s (compile: 745ms, render: 2.2s)
+ GET /java/changelog/1.17-rc1 200 in 5.1s (compile: 743ms, render: 4.4s)
+ GET /java/changelog/26.1-snapshot-10 200 in 5.9s (compile: 743ms, render: 5.1s)
+ GET /java/changelog/26.1 200 in 4.4s (compile: 72ms, render: 4.3s)
+ GET /java/changelog/26.1 200 in 6.0s (compile: 744ms, render: 5.2s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 1465ms (compile: 99ms, render: 1366ms)
+ GET /java/changelog/1.17-rc1 200 in 1468ms (compile: 97ms, render: 1371ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 1474ms (compile: 97ms, render: 1377ms)
+ GET /java/changelog/26.1 200 in 624ms (compile: 73ms, render: 551ms)
+ GET /java/changelog/26.1 200 in 1599ms (compile: 97ms, render: 1502ms)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ ReferenceError: expandedIds is not defined
+    at BugCard (src/components/java/fixed-bugs.tsx:408:22)
+  406 |   manifestEntries?: VersionManifestEntry[];
+  407 | }) {
+> 408 |   const isExpanded = expandedIds.has(id);
+      |                      ^
+  409 |
+  410 |   return (
+  411 |     <div className="min-w-0 rounded-md border border-surface0 bg-surface0/30 px-4 py-2"> {
+  digest: '1252167872'
+}
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ ReferenceError: expandedIds is not defined
+    at BugCard (src/components/java/fixed-bugs.tsx:408:22)
+  406 |   manifestEntries?: VersionManifestEntry[];
+  407 | }) {
+> 408 |   const isExpanded = expandedIds.has(id);
+      |                      ^
+  409 |
+  410 |   return (
+  411 |     <div className="min-w-0 rounded-md border border-surface0 bg-surface0/30 px-4 py-2"> {
+  digest: '1252167872'
+}
+ ⨯ ReferenceError: expandedIds is not defined
+    at BugCard (src/components/java/fixed-bugs.tsx:408:22)
+  406 |   manifestEntries?: VersionManifestEntry[];
+  407 | }) {
+> 408 |   const isExpanded = expandedIds.has(id);
+      |                      ^
+  409 |
+  410 |   return (
+  411 |     <div className="min-w-0 rounded-md border border-surface0 bg-surface0/30 px-4 py-2"> {
+  digest: '1252167872'
+}
+ ⨯ ReferenceError: expandedIds is not defined
+    at BugCard (src/components/java/fixed-bugs.tsx:408:22)
+  406 |   manifestEntries?: VersionManifestEntry[];
+  407 | }) {
+> 408 |   const isExpanded = expandedIds.has(id);
+      |                      ^
+  409 |
+  410 |   return (
+  411 |     <div className="min-w-0 rounded-md border border-surface0 bg-surface0/30 px-4 py-2"> {
+  digest: '1252167872'
+}
+ GET /java/changelog/26.1-snapshot-10 200 in 4.9s (compile: 78ms, render: 4.9s)
+ GET /java/changelog/1.17-rc1 200 in 4.4s (compile: 77ms, render: 4.4s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 160ms (compile: 71ms, render: 89ms)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 450ms (compile: 105ms, render: 345ms)
+ GET /java/changelog/26.1 200 in 6.4s (compile: 76ms, render: 6.4s)
+ GET /java/changelog/26.1 200 in 4.9s (compile: 1314ms, render: 3.6s)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /java/changelog/1.17.1-pre-release-2 200 in 4.5s (compile: 103ms, render: 4.4s)
+ GET /java/changelog/1.17-rc1 200 in 4.5s (compile: 104ms, render: 4.4s)
+ GET /java/changelog/26.1-snapshot-10 200 in 2.4s (compile: 73ms, render: 2.3s)
+ GET /java/changelog/1.17.1-pre-release-2 200 in 528ms (compile: 84ms, render: 444ms)
+ GET /java/changelog/26.1-snapshot-10 200 in 540ms (compile: 86ms, render: 454ms)
+ GET /java/changelog/26.1 200 in 5.5s (compile: 108ms, render: 5.4s)
+ GET /java/changelog/26.1 200 in 3.4s (compile: 72ms, render: 3.4s)
+[?25h

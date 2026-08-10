@@ -26,10 +26,12 @@ import {
 import {
   BASE_ASSET_URL,
   getPatchNotes,
+  getVersionManifest,
   type PatchNotesQuery,
 } from "~/server/java/versions";
 
 import { PublishDate } from "~/components/java/publish-date";
+import { FixedBugs } from "~/components/java/fixed-bugs";
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { Skeleton } from "~/components/ui/skeleton";
 
@@ -57,6 +59,11 @@ type ArticleSubSection = {
   level: number;
 };
 
+type BugPreview = {
+  id: string;
+  summary: string;
+};
+
 async function PatchNotesImpl({
   version = { latest: true },
 }: {
@@ -65,6 +72,7 @@ async function PatchNotesImpl({
   // Start getting the highlighter initialising ASAP
   const highlighterReady = initHighlighter();
   const maybePatchNotes = await getPatchNotes(version);
+  const maybeManifest = await getVersionManifest();
   if (!maybePatchNotes.success) {
     let msg: string;
 
@@ -98,6 +106,17 @@ async function PatchNotesImpl({
   const articleSections: ArticleSection[] = [];
   const ids = new Map<string, number>();
 
+  // Mutable state passed via options to communicate across sequential replace calls.
+  // html-react-parser does NOT set domNode.parent, so sibling traversal requires
+  // a two-pass approach: h1 sets a flag, the following ul consumes it.
+  const state: {
+    lastH1WasFixedBugs: boolean;
+    lastH1Text: string;
+  } = {
+    lastH1WasFixedBugs: false,
+    lastH1Text: "",
+  };
+
   const options: HTMLReactParserOptions = {
     replace(
       domNode: DOMNode,
@@ -105,9 +124,41 @@ async function PatchNotesImpl({
       if (domNode.type !== ElementType.Tag) return;
 
       return match(domNode)
-        .with({ name: P.string.startsWith("h") }, (node) =>
-          parseHeader(node, ids, articleSections, options),
-        )
+        .with({ name: P.string.startsWith("h") }, (node) => {
+          const isFixed = isFixedBugsSection(node);
+          if (isFixed) {
+            state.lastH1WasFixedBugs = true;
+            state.lastH1Text = textContent(node);
+            return parseHeader(node, ids, articleSections, options, "Fixed Bugs");
+          }
+          return parseHeader(node, ids, articleSections, options);
+        })
+        .with({ name: "ul" }, () => {
+          if (state.lastH1WasFixedBugs) {
+            state.lastH1WasFixedBugs = false;
+
+            const bugPreviews: BugPreview[] = [];
+            const ulNode = domNode;
+            for (const li of ulNode.children) {
+              if (li.type !== ElementType.Tag || li.name !== "li") continue;
+              const bug = extractBugFromLi(li);
+              if (bug) bugPreviews.push(bug);
+            }
+
+            if (bugPreviews.length > 0) {
+              return (
+                <FixedBugs
+                  bugs={bugPreviews}
+                  version={patchNotes.title}
+                  manifestEntries={maybeManifest.success ? maybeManifest.data.entries : undefined}
+                />
+              );
+            }
+
+            return null;
+          }
+          return undefined;
+        })
         .with({ name: "pre" }, parseCodeBlock)
         .with({ name: "code" }, parseCodeInline)
         .with(
@@ -231,9 +282,20 @@ function parseHeader(
   ids: Map<string, number>,
   articleSections: ArticleSection[],
   options: HTMLReactParserOptions,
+  overrideText?: string,
 ) {
   const attribs = { ...domNode.attribs };
-  const children = domNode.children as DOMNode[];
+  let children = domNode.children as DOMNode[];
+
+  // When overrideText is set (for Fixed Bugs sections), replace the first text node
+  if (overrideText) {
+    children = children.map((child) => {
+      if (child.type === ElementType.Text) {
+        child.data = overrideText;
+      }
+      return child;
+    });
+  }
 
   const initialHeadingLevel = Number(domNode.name.at(-1));
   if (Number.isNaN(initialHeadingLevel)) return;
@@ -241,7 +303,7 @@ function parseHeader(
   let HElem = "p";
 
   if (!attribs.id && initialHeadingLevel < 6) {
-    const headingText = textContent(domNode);
+    const headingText = overrideText ?? textContent(domNode);
     if (headingText) {
       let id = toKebabCase(headingText);
       const dups = ids.get(id) ?? 0;
@@ -354,4 +416,32 @@ function parseCodeInline(domNode: Element) {
     elem: "span",
     scheme: "crust",
   });
+}
+
+function isFixedBugsSection(domNode: Element) {
+  if (domNode.name !== "h1") return false;
+  const text = textContent(domNode);
+  return text.startsWith("Fixed bugs in ");
+}
+
+function extractBugFromLi(domNode: Element): BugPreview | null {
+  const children = domNode.children as DOMNode[];
+  const linkChild = children.find(
+    (c): c is Element =>
+      c.type === ElementType.Tag &&
+      c.name === "a" &&
+      /^https:\/\/bugs\.mojang\.com\/browse\/MC-\d+$/.test(
+        c.attribs?.href ?? "",
+      ),
+  );
+  if (!linkChild) return null;
+
+  const linkText = textContent(linkChild);
+  if (!/^MC-\d+$/.test(linkText)) return null;
+
+  const linkIdx = children.indexOf(linkChild as DOMNode);
+  const afterLink = children.slice(linkIdx + 1);
+  const summary = textContent({ type: ElementType.Tag, children: afterLink } as DOMNode).trim();
+
+  return { id: linkText, summary };
 }
