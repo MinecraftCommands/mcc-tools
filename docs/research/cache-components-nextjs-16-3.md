@@ -190,6 +190,10 @@ revalidateTag(tag: string, profile: string | { expire?: number }): void
 - `{ expire: 0 }` — immediate expiry, next request blocks. The docs call this out as the pattern for
   webhooks and external systems that need immediate expiration.
 
+The `profile` argument controls **how long stale content may be served before requests block** — it does not
+override the entry's own `cacheLife`. (The deprecated one-arg form still works, emitting a `console.warn` and
+then expiring immediately, i.e. semantically what `updateTag` does.)
+
 The docs recommend exactly this shape for our use case:
 
 > When content doesn't need time-based revalidation, for example data from a CMS, use `cacheTag` and a long
@@ -197,10 +201,23 @@ The docs recommend exactly this shape for our use case:
 > or other notification, that calls `revalidateTag` when the content changes.
 > — [Revalidating: what should I cache?](https://nextjs.org/docs/app/getting-started/revalidating#what-should-i-cache)
 
-### Option C — `updateTag`: NOT available to us
+**Gotcha for the Route Handler under `cacheComponents`.** `GET` handlers now follow the same prerendering
+model as pages, so a prerenderable `GET` that calls `revalidateTag` throws
+`Route X used revalidateTag without first calling 'await connection()'`. Either call `await connection()`
+first or make the endpoint a `POST` (which we want anyway, for the shared secret).
+
+There is also **no out-of-process form of `revalidateTag`**. It reads Next.js's `workAsyncStorage`; imported
+and called outside a request it throws `Invariant: static generation store missing`. The only Next-native
+path is genuinely cron → HTTPS → Route Handler.
+
+### Option C — `updateTag` and `refresh`: NOT available to us
 
 `updateTag` is the read-your-own-writes API. It **can only be called from a Server Action** — calling it
 elsewhere throws. So a Convex cron cannot use it.
+
+`refresh()` (also new in 16.0.0, also Server-Action-only) is not an alternative either: it refreshes
+**uncached** data and the client router, and doesn't touch the cache at all
+([refresh](https://nextjs.org/docs/app/api-reference/functions/refresh)).
 
 | | `updateTag` | `revalidateTag` |
 |---|---|---|
@@ -245,6 +262,14 @@ Other characteristics worth recording:
   `refresh` from a Server Action clears the entire client cache immediately, bypassing `stale`.
 - **Subdomains are separate.** "if you trigger on-demand revalidation for `example-domain.com/example-page`,
   Vercel won't revalidate `sub.example-domain.com/example-page`."
+
+### A naming footnote: `expireTag`
+
+If you find `expireTag` in older material, it is **not in `next/cache` in 16.3**. It was added in
+[PR #72485](https://github.com/vercel/next.js/pull/72485) to replace the confusingly-named `revalidateTag`,
+then reverted by [PR #73193](https://github.com/vercel/next.js/pull/73193) ("Undeprecate revalidate APIs and
+rename expire APIs"). The role it was meant to fill is now `updateTag`. The name survives only as Vercel's
+`getCache().expireTag(tag)` on the `RuntimeCache` object — a different thing entirely.
 
 **One caveat to verify before relying on it.** Vercel's `@vercel/functions` page says the raw *Runtime Cache
 API* "does not have first class integration with ISR", and that "Next.js's `revalidatePath` and
@@ -334,8 +359,23 @@ The ISR guide adds a sharp note: keep the read inside the boundary **even for pa
 covers**, because "a statically known param still belongs to one URL, so awaiting it above the Suspense
 boundary would tie this layout's App Shell to that URL."
 
-Inside `use cache`, params passed as arguments become part of the cache key. Root params are special-cased:
-"only the ones it actually reads become part of its cache key."
+Awaiting `params`/`searchParams` counts as dynamic access **unless** it's inside `<Suspense>`, there's a
+`loading.js`, or `generateStaticParams` supplies the value.
+
+Inside `use cache`, params passed as arguments become part of the cache key. **The `params` promise itself is
+special-cased and may be passed in and awaited inside** (`getPost(params.then((p) => p.id))` with
+`'use cache'` on `getPost`) — the implementation detects this and aborts early rather than hitting the
+50-second timeout that any *other* runtime promise would cause. Root params are also special: "only the ones
+it actually reads become part of its cache key." `next/root-params` is new in 16.3 and works inside
+`use cache` scopes.
+
+The exact errors, if you want to grep for them: `blocking-prerender-runtime` for
+`cookies()`/`headers()`/`params`/`searchParams` outside a boundary, `blocking-prerender-dynamic` for uncached
+`fetch()`/`connection()`, both documented under
+[blocking-route](https://nextjs.org/docs/messages/blocking-route) ("Uncached data was accessed outside of
+`<Suspense>`"). Each message lists the same three fixes: **stream** with `<Suspense>`, **cache** with
+`use cache`, or **block** with `export const instant = false`. If an insight only appears in CI, run
+`next build --debug-prerender` for prerender stack traces.
 
 ### `generateStaticParams` and ISR
 
@@ -349,6 +389,10 @@ Inside `use cache`, params passed as arguments become part of the cache key. Roo
 - ISR-with-Cache-Components requires **both** `cacheComponents: true` and `partialPrefetching: true`
   ([ISR with Cache Components](https://nextjs.org/docs/app/guides/incremental-static-regeneration-cache-components)).
 - Params resolve in route order; an unresolved parent param blocks deeper params from upgrading.
+- `generateStaticParams` now **doubles as build-time validation** — the sample params you return are what the
+  build uses to check that dynamic access is correctly handled. This validation is **path-dependent**: a
+  branch your samples never exercise (say, `if (version.startsWith('snapshot-')) { ...reads cookies... }`)
+  passes `next build` and fails on the first real request. Choose samples that cover the branches.
 
 `partialPrefetching` also changes prefetching from per-link to **one reusable shell per route**, cached on
 the client for the session. `<Link prefetch={true}>` opts back into per-link prefetching, which costs one
@@ -406,8 +450,19 @@ Two rules constrain it:
 
 1. **Exactly one `cacheLife` call must execute per invocation.** "You can call it in different control flow
    branches, but only one should run per request."
+
+   This is a **correctness requirement, not a style note**. Multiple calls are **MIN-wins, not last-wins**:
+   the implementation only lowers each field (`if (explicitRevalidate === undefined || explicitRevalidate >
+   profile.revalidate) { explicitRevalidate = profile.revalidate }`, likewise for `stale` and `expire`). So
+   `cacheLife('minutes'); cacheLife({ revalidate: 31536000 })` yields **60 seconds**, not a year — silently.
+   Use `if`/`else`, never sequential calls.
+
 2. Omitted properties in an inline object **inherit from the `default` profile** — so
    `cacheLife({ revalidate: N })` silently keeps `stale: 5min` and `expire: never`. Be explicit.
+
+Note also that a data-driven lifetime silently changes *where* content is served from: computing a 5-minute
+`expire` for some article moves it out of the prerender into a dynamic hole (see §3). And the client `stale`
+floor of 30 s applies regardless of what you compute.
 
 ### Nesting rules (a trap)
 
@@ -484,6 +539,34 @@ critically, **arguments and return values use different, asymmetric serializers*
 > **Answering the ticket's question directly: no, `use cache` does not preserve class instances. It is
 > RSC-serialization only.** Anything with methods must cross the boundary as a plain object and be rehydrated
 > on the far side.
+
+Next's list omits two things React's referenced list includes: **`BigInt` and `Promise`** are serializable
+(as are `FormData` and globally-registered `Symbol.for(...)` symbols) —
+[react.dev `use server`](https://react.dev/reference/rsc/use-server#serializable-parameters-and-return-values).
+BigInt support is visible in the bundled encoder. But "serializable" ≠ "safe": a Promise that only resolves at
+request time is exactly what triggers the 50-second build hang described below.
+
+### The dangerous part: non-serializable arguments fail *silently*
+
+This is the finding that matters most, and it is under-documented. A non-serializable argument is **not** a
+build error and **not** a runtime error by default. Next.js always passes a `temporaryReferences` set to
+React's `encodeReply`, and every throw path in React's encoder for class instances, functions, symbols and
+React elements is guarded by `if (void 0 === temporaryReferences) throw ...`. With the set present, the value
+is instead written as the opaque marker `"$T"` and stashed in a temporary-reference map.
+
+**Consequence: the value does not contribute to the cache key.** Two calls passing *different* class
+instances in the same argument slot hash to the **same cache entry**, and the second caller silently gets the
+first one's result.
+
+That is precisely the documented pass-through contract — "You can accept non-serializable values as long as
+you don't introspect them" — but the failure mode when you violate it is a wrong-cache-hit, not an exception.
+You only get the loud error (`"Only plain objects, and a few built-ins, can be passed to Server Functions.
+Classes or null prototypes are not supported."`) if you actually *read* the value inside the cached function,
+and that's a render-time error, so it surfaces during `next build` only if that route or branch is
+prerendered.
+
+**Rule for us: never pass a class instance into a `use cache` function, even "harmlessly".** Convert to plain
+objects at the boundary.
 
 ### Pass-through
 
@@ -575,6 +658,12 @@ constraints appear that weren't visible at charting time.
    For a public reference site aiming at search, every input the shell depends on must be reachable at request
    time.
 
+4. **Two silent-wrong-answer hazards to write into whatever coding standard covers this.** Both fail without
+   an error:
+   - A non-serializable argument (class instance, `URL`, function) is excluded from the cache key rather than
+     rejected, so distinct inputs collide on one entry.
+   - Two `cacheLife` calls in the same invocation take the **minimum** of each field, not the last value.
+
 Two smaller notes: `cacheLife('max')` expires at **1 year**, not never — a "cache a two-year-old article
 near-permanently" entry needs an explicit inline `expire`. And the repo's superjson wrapper in
 `src/lib/fetch.ts` is partly redundant under `use cache` (Dates/Maps/Sets are native) but is *not* a drop-in
@@ -601,7 +690,15 @@ replacement in the other direction: `use cache` cannot carry class instances at 
 
 **Next.js blog**
 
-- [Next.js 16.3: Instant Navigations](https://nextjs.org/blog/next-16-3-instant-navigations) — 2026-06-25
+- [Next.js 16.3](https://nextjs.org/blog/next-16-3)
+- [Next.js 16.3: Instant Navigations](https://nextjs.org/blog/next-16-3-instant-navigations) — 2026-06-25 (preview announcement)
+- [Next.js 16](https://nextjs.org/blog/next-16)
+- [Version 16 upgrade guide](https://nextjs.org/docs/app/guides/upgrading/version-16)
+
+**React (the serialization rules `use cache` inherits)**
+
+- [`use server`: serializable parameters and return values](https://react.dev/reference/rsc/use-server#serializable-parameters-and-return-values) — governs *arguments*
+- [`use client`: serializable types](https://react.dev/reference/rsc/use-client#serializable-types) — governs *return values*
 
 **Vercel docs**
 
